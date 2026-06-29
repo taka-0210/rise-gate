@@ -37,6 +37,10 @@ include __DIR__ . '/include/header.php';
   <section class="home-system-section" aria-label="改善が続く仕組みのイメージ">
     <div class="section-inner">
       <figure class="home-system-visual">
+        <figcaption class="home-system-visual__caption">
+          <span>Designing Systems</span>
+          <span>Where Improvement Continues</span>
+        </figcaption>
         <img src="image/scene/home-system-flow.png" alt="">
       </figure>
     </div>

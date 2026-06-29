@@ -35,22 +35,35 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label">Fields</p>
-        <h2>改善文化を支える、4つの手段。</h2>
+        <h2>改善文化を支える、
+4つの手段。</h2>
         <p>それぞれは独立した商品ではありません。会社の状態に合わせて組み合わせる、改善の選択肢です。</p>
       </div>
 
       <div class="service-field-list">
         <?php foreach ($service['fields'] as $field) : ?>
-          <article class="service-field">
-            <p class="section-label"><?php echo e($field['label']); ?></p>
-            <h3><?php echo e($field['title']); ?></h3>
-            <p><?php echo e($field['summary']); ?></p>
-            <ul class="simple-list">
-              <?php foreach ($field['items'] as $item) : ?>
-                <li><?php echo e($item); ?></li>
-              <?php endforeach; ?>
-            </ul>
-            <p class="field-note"><?php echo e($field['note']); ?></p>
+          <article class="service-field<?php echo !empty($field['image']) ? ' service-field--visual' : ''; ?>">
+            <div class="service-field__head">
+              <span class="service-field__number" aria-hidden="true"><?php echo e($field['number']); ?></span>
+              <div>
+                <p class="section-label"><?php echo e($field['label']); ?></p>
+                <h3><?php echo e($field['title']); ?></h3>
+              </div>
+            </div>
+            <?php if (!empty($field['image'])) : ?>
+              <figure class="service-field__visual">
+                <img src="<?php echo e($field['image']['src']); ?>" alt="<?php echo e($field['image']['alt']); ?>" loading="lazy">
+              </figure>
+            <?php endif; ?>
+            <div class="service-field__body">
+              <p><?php echo e($field['summary']); ?></p>
+              <ul class="simple-list">
+                <?php foreach ($field['items'] as $item) : ?>
+                  <li><?php echo e($item); ?></li>
+                <?php endforeach; ?>
+              </ul>
+              <p class="field-note"><?php echo e($field['note']); ?></p>
+            </div>
           </article>
         <?php endforeach; ?>
       </div>

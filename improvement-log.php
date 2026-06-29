@@ -67,6 +67,22 @@ function log_archive_url(array $params = []): string
     return 'improvement-log.php' . (empty($query) ? '' : '?' . http_build_query($query));
 }
 
+function render_log_pagination(int $current_log_page, int $total_pages): void
+{
+    if ($total_pages <= 1) {
+        return;
+    }
+    ?>
+    <nav class="pagination" aria-label="改善ログのページ送り">
+      <?php for ($page = 1; $page <= $total_pages; $page++) : ?>
+        <a href="<?php echo e(log_archive_url(['page' => $page])); ?>"<?php echo $page === $current_log_page ? ' aria-current="page"' : ''; ?>>
+          <?php echo e((string) $page); ?>
+        </a>
+      <?php endfor; ?>
+    </nav>
+    <?php
+}
+
 $current_page = 'improvement-log';
 $page_title = $logPage['meta']['title'];
 $page_description = $logPage['meta']['description'];
@@ -112,7 +128,8 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label">Logs</p>
-        <h2>何を変え、なぜ変えたのか。</h2>
+        <h2>何を変え、
+なぜ変えたのか。</h2>
       </div>
 
       <div class="log-layout">
@@ -123,6 +140,8 @@ include __DIR__ . '/include/header.php';
               / <?php echo e($selected_year); ?>年<?php echo $selected_month !== '' ? e((string) ((int) $selected_month)) . '月' : ''; ?>
             <?php endif; ?>
           </p>
+
+          <?php render_log_pagination($current_log_page, $total_pages); ?>
 
           <div class="improvement-list">
             <?php if (empty($paged_improvements)) : ?>
@@ -142,15 +161,7 @@ include __DIR__ . '/include/header.php';
             <?php endforeach; ?>
           </div>
 
-          <?php if ($total_pages > 1) : ?>
-            <nav class="pagination" aria-label="改善ログのページ送り">
-              <?php for ($page = 1; $page <= $total_pages; $page++) : ?>
-                <a href="<?php echo e(log_archive_url(['page' => $page])); ?>"<?php echo $page === $current_log_page ? ' aria-current="page"' : ''; ?>>
-                  <?php echo e((string) $page); ?>
-                </a>
-              <?php endfor; ?>
-            </nav>
-          <?php endif; ?>
+          <?php render_log_pagination($current_log_page, $total_pages); ?>
         </div>
 
         <aside class="log-archive" aria-label="改善ログアーカイブ">

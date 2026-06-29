@@ -35,7 +35,8 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label">Process</p>
-        <h2>改善が続く形へ、段階を分けて整えます。</h2>
+        <h2>改善が続く形へ、
+段階を分けて整えます。</h2>
       </div>
       <div class="method-step-list">
         <?php foreach ($method['steps'] as $step) : ?>
