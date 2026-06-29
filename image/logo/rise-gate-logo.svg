@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 160" role="img" aria-labelledby="title">
+  <title id="title">RISE GATE</title>
+  <g fill="none" fill-rule="evenodd">
+    <path fill="#d7d7d7" d="M128 28 234 80l-22 11-84-41-84 41-22-11z"/>
+    <path fill="#9c9c9c" d="M128 54 234 106l-22 11-84-41-84 41-22-11z"/>
+    <path fill="#4b4b4b" d="M128 82 234 132l-72 28v-42l-34-17-34 17v42l-72-28z"/>
+    <text x="274" y="128" fill="#000" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="104" font-weight="900" letter-spacing="8">RISE GATE</text>
+  </g>
+</svg>
