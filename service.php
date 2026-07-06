@@ -31,6 +31,50 @@ include __DIR__ . '/include/header.php';
     </div>
   </section>
 
+  <section class="website-value-section">
+    <div class="section-inner website-value-layout">
+      <div class="website-value-copy">
+        <p class="section-label"><?php echo e($service['website_value']['label']); ?></p>
+        <h2><?php echo e($service['website_value']['title']); ?></h2>
+        <p class="section-lead"><?php echo e($service['website_value']['lead']); ?></p>
+        <?php foreach ($service['website_value']['body'] as $paragraph) : ?>
+          <p><?php echo e($paragraph); ?></p>
+        <?php endforeach; ?>
+      </div>
+      <div class="website-value-points" aria-label="ホームページが会社の成長につながる理由">
+        <?php foreach ($service['website_value']['points'] as $point) : ?>
+          <article class="website-value-point">
+            <strong><?php echo e($point['number']); ?></strong>
+            <h3><?php echo e($point['label']); ?></h3>
+            <p><?php echo e($point['body']); ?></p>
+          </article>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </section>
+
+  <section class="website-value-section website-value-section--system">
+    <div class="section-inner website-value-layout">
+      <div class="website-value-copy">
+        <p class="section-label"><?php echo e($service['system_value']['label']); ?></p>
+        <h2><?php echo e($service['system_value']['title']); ?></h2>
+        <p class="section-lead"><?php echo e($service['system_value']['lead']); ?></p>
+        <?php foreach ($service['system_value']['body'] as $paragraph) : ?>
+          <p><?php echo e($paragraph); ?></p>
+        <?php endforeach; ?>
+      </div>
+      <div class="website-value-points" aria-label="システム導入が会社の改善につながる理由">
+        <?php foreach ($service['system_value']['points'] as $point) : ?>
+          <article class="website-value-point">
+            <strong><?php echo e($point['number']); ?></strong>
+            <h3><?php echo e($point['label']); ?></h3>
+            <p><?php echo e($point['body']); ?></p>
+          </article>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </section>
+
   <section class="service-fields">
     <div class="section-inner">
       <div class="section-heading">

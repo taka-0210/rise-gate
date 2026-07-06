@@ -22,13 +22,47 @@ include __DIR__ . '/include/header.php';
   </section>
 
   <section class="company-message">
-    <div class="section-inner section-inner--narrow">
-      <p class="section-label"><?php echo e($company['message']['label']); ?></p>
-      <h2><?php echo e($company['message']['title']); ?></h2>
-      <?php foreach ($company['message']['body'] as $paragraph) : ?>
-        <p><?php echo e($paragraph); ?></p>
-      <?php endforeach; ?>
-      <p class="message-signature"><?php echo e($company['message']['signature']); ?></p>
+    <div class="section-inner company-message__layout">
+      <div class="company-message__heading">
+        <p class="section-label"><?php echo e($company['message']['label']); ?></p>
+        <h2><?php echo e($company['message']['title']); ?></h2>
+      </div>
+      <div class="company-message__body">
+        <?php foreach ($company['message']['body'] as $index => $paragraph) : ?>
+          <?php if ($index === 3) : ?>
+            <p class="company-message__highlight"><?php echo e($company['message']['highlight']); ?></p>
+          <?php endif; ?>
+          <p><?php echo e($paragraph); ?></p>
+        <?php endforeach; ?>
+        <div class="message-signature">
+          <span><?php echo e($company['message']['signature_role']); ?></span>
+          <img src="<?php echo e($company['message']['signature_image']); ?>" alt="<?php echo e($company['message']['signature_alt']); ?>" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="company-logo-meaning">
+    <div class="section-inner company-logo-meaning__layout">
+      <div class="company-logo-meaning__visual">
+        <img src="<?php echo e($company['logo_meaning']['image']); ?>" alt="<?php echo e($company['logo_meaning']['image_alt']); ?>" loading="lazy">
+        <div class="company-logo-meaning__words" aria-label="RISE GATEの意味">
+          <?php foreach ($company['logo_meaning']['words'] as $item) : ?>
+            <div>
+              <strong><?php echo e($item['word']); ?></strong>
+              <span><?php echo e($item['meaning']); ?></span>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+      <div class="company-logo-meaning__copy">
+        <p class="section-label"><?php echo e($company['logo_meaning']['label']); ?></p>
+        <h2><?php echo e($company['logo_meaning']['title']); ?></h2>
+        <p class="section-lead"><?php echo e($company['logo_meaning']['lead']); ?></p>
+        <?php foreach ($company['logo_meaning']['body'] as $paragraph) : ?>
+          <p><?php echo e($paragraph); ?></p>
+        <?php endforeach; ?>
+      </div>
     </div>
   </section>
 
@@ -41,6 +75,28 @@ include __DIR__ . '/include/header.php';
         <div>
           <p class="section-label"><?php echo e($company['profile']['label']); ?></p>
           <h2><?php echo e($company['profile']['title']); ?></h2>
+          <p class="representative-profile__lead"><?php echo e($company['profile']['lead']); ?></p>
+          <div class="representative-profile__body">
+            <?php foreach ($company['profile']['body'] as $paragraph) : ?>
+              <p><?php echo e($paragraph); ?></p>
+            <?php endforeach; ?>
+          </div>
+          <div class="representative-profile__highlights" aria-label="代表プロフィールの要点">
+            <?php foreach ($company['profile']['highlights'] as $highlight) : ?>
+              <?php if (($highlight['url'] ?? '') !== '') : ?>
+              <a href="<?php echo e($highlight['url']); ?>" target="_blank" rel="noopener noreferrer">
+                <strong><?php echo e($highlight['label']); ?></strong>
+                <p><?php echo e($highlight['text']); ?></p>
+                <span class="representative-profile__link-label">詳しく見る</span>
+              </a>
+              <?php else : ?>
+              <article>
+                <strong><?php echo e($highlight['label']); ?></strong>
+                <p><?php echo e($highlight['text']); ?></p>
+              </article>
+              <?php endif; ?>
+            <?php endforeach; ?>
+          </div>
           <dl class="profile-list">
             <?php foreach ($company['profile']['items'] as $term => $description) : ?>
               <div>
