@@ -3,8 +3,8 @@ return [
     'name' => '株式会社ライズゲート',
     'short_name' => 'Rise Gate',
     'brand_statement' => '改善を、文化に。',
-    'tagline' => '改善が続く仕組みをデザインする。',
-    'description' => '株式会社ライズゲートは、ホームページ、生成AI、ナレッジ、システムを通じて、改善が文化として根付く会社づくりを支援します。',
+    'tagline' => '会社の改善を内製化する。',
+    'description' => '株式会社ライズゲートは、ホームページの内製化とシステムの内製化を通じて、中小企業が自分たちで改善を続けられる状態をつくります。',
     'base_url' => '',
     'contact_email' => 'info@example.com',
     'copyright_name' => 'Rise Gate Inc.',
@@ -13,10 +13,10 @@ return [
         'name' => '株式会社ライズゲート',
         'representative' => '',
         'address' => '',
-        'business' => '改善が続く仕組みの設計、ホームページ制作・内製化支援、業務改善、生成AI活用支援',
+        'business' => 'ホームページの内製化支援、システムの内製化支援、業務改善、生成AI活用支援',
     ],
     'common_cta' => [
-        'label' => '今、改善したいことを相談する',
+        'label' => '内製化について相談する',
         'url' => 'contact.php',
     ],
 ];

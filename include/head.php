@@ -21,6 +21,9 @@ $og_image_url = $og_image;
 if ($base_url !== '' && $og_image !== '' && !preg_match('/^https?:\/\//', $og_image)) {
     $og_image_url = $base_url . '/' . ltrim($og_image, '/');
 }
+
+$stylesheet_path = __DIR__ . '/../css/style.css';
+$stylesheet_version = file_exists($stylesheet_path) ? (string) filemtime($stylesheet_path) : '1';
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -43,5 +46,5 @@ if ($base_url !== '' && $og_image !== '' && !preg_match('/^https?:\/\//', $og_im
   <?php endif; ?>
   <meta name="twitter:card" content="summary_large_image">
   <title><?php echo htmlspecialchars($full_title, ENT_QUOTES, 'UTF-8'); ?></title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=<?php echo htmlspecialchars($stylesheet_version, ENT_QUOTES, 'UTF-8'); ?>">
 </head>

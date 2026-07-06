@@ -17,7 +17,7 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($company['hero']['label']); ?></p>
       <h1><?php echo e($company['hero']['title']); ?></h1>
-
+      <p class="section-lead"><?php echo e($company['hero']['lead']); ?></p>
     </div>
   </section>
 

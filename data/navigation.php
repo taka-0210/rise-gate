@@ -22,14 +22,29 @@ return [
             'url' => 'service.php',
         ],
         [
+            'key' => 'works',
+            'label' => '実績',
+            'url' => 'works.php',
+        ],
+        [
             'key' => 'future',
             'label' => 'Future',
             'url' => 'future.php',
         ],
         [
+            'key' => 'master',
+            'label' => 'Master',
+            'url' => 'master.php',
+        ],
+        [
             'key' => 'improvement-log',
             'label' => '改善ログ',
             'url' => 'improvement-log.php',
+        ],
+        [
+            'key' => 'company',
+            'label' => 'Company',
+            'url' => 'company.php',
         ],
     ],
     'primary_cta' => [
@@ -64,9 +79,19 @@ return [
             'url' => 'service.php',
         ],
         [
+            'key' => 'works',
+            'label' => '実績',
+            'url' => 'works.php',
+        ],
+        [
             'key' => 'future',
             'label' => 'Future',
             'url' => 'future.php',
+        ],
+        [
+            'key' => 'master',
+            'label' => 'Master',
+            'url' => 'master.php',
         ],
         [
             'key' => 'improvement-log',

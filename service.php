@@ -34,35 +34,53 @@ include __DIR__ . '/include/header.php';
   <section class="service-fields">
     <div class="section-inner">
       <div class="section-heading">
-        <p class="section-label">Fields</p>
-        <h2>改善文化を支える、
-4つの手段。</h2>
-        <p>それぞれは独立した商品ではありません。会社の状態に合わせて組み合わせる、改善の選択肢です。</p>
+        <p class="section-label"><?php echo e($service['pillars_heading']['label']); ?></p>
+        <h2><?php echo e($service['pillars_heading']['title']); ?></h2>
+        <p><?php echo e($service['pillars_heading']['lead']); ?></p>
       </div>
 
       <div class="service-field-list">
-        <?php foreach ($service['fields'] as $field) : ?>
-          <article class="service-field<?php echo !empty($field['image']) ? ' service-field--visual' : ''; ?>">
+        <?php foreach ($service['pillars'] as $pillar) : ?>
+          <article class="service-field service-field--pillar">
             <div class="service-field__head">
-              <span class="service-field__number" aria-hidden="true"><?php echo e($field['number']); ?></span>
+              <span class="service-field__number" aria-hidden="true"><?php echo e($pillar['number']); ?></span>
               <div>
-                <p class="section-label"><?php echo e($field['label']); ?></p>
-                <h3><?php echo e($field['title']); ?></h3>
+                <p class="section-label"><?php echo e($pillar['label']); ?></p>
+                <h3><?php echo e($pillar['title']); ?></h3>
               </div>
             </div>
-            <?php if (!empty($field['image'])) : ?>
-              <figure class="service-field__visual">
-                <img src="<?php echo e($field['image']['src']); ?>" alt="<?php echo e($field['image']['alt']); ?>" loading="lazy">
-              </figure>
-            <?php endif; ?>
             <div class="service-field__body">
-              <p><?php echo e($field['summary']); ?></p>
-              <ul class="simple-list">
-                <?php foreach ($field['items'] as $item) : ?>
-                  <li><?php echo e($item); ?></li>
+              <p class="service-pillar-lead"><?php echo e($pillar['lead']); ?></p>
+              <div class="service-pillar-grid">
+                <div>
+                  <h4>よく起きていること</h4>
+                  <ul class="simple-list">
+                    <?php foreach ($pillar['problem'] as $item) : ?>
+                      <li><?php echo e($item); ?></li>
+                    <?php endforeach; ?>
+                  </ul>
+                </div>
+                <div>
+                  <h4>ライズゲートが整えること</h4>
+                  <ul class="simple-list">
+                    <?php foreach ($pillar['solution'] as $item) : ?>
+                      <li><?php echo e($item); ?></li>
+                    <?php endforeach; ?>
+                  </ul>
+                </div>
+              </div>
+              <div class="service-question">
+                <h4><?php echo e($pillar['question']['title']); ?></h4>
+                <p><?php echo e($pillar['question']['answer']); ?></p>
+              </div>
+              <div class="service-pillar-visuals">
+                <?php foreach ($pillar['images'] as $image) : ?>
+                  <figure>
+                    <img src="<?php echo e($image['src']); ?>" alt="<?php echo e($image['alt']); ?>" loading="lazy">
+                    <figcaption><?php echo e($image['caption']); ?></figcaption>
+                  </figure>
                 <?php endforeach; ?>
-              </ul>
-              <p class="field-note"><?php echo e($field['note']); ?></p>
+              </div>
             </div>
           </article>
         <?php endforeach; ?>
@@ -72,9 +90,9 @@ include __DIR__ . '/include/header.php';
 
   <section class="service-choice">
     <div class="section-inner section-inner--narrow">
-      <p class="section-label"><?php echo e($service['choice']['label']); ?></p>
-      <h2><?php echo e($service['choice']['title']); ?></h2>
-      <?php foreach ($service['choice']['body'] as $paragraph) : ?>
+      <p class="section-label"><?php echo e($service['common']['label']); ?></p>
+      <h2><?php echo e($service['common']['title']); ?></h2>
+      <?php foreach ($service['common']['body'] as $paragraph) : ?>
         <p><?php echo e($paragraph); ?></p>
       <?php endforeach; ?>
     </div>
