@@ -10,6 +10,14 @@ $page_description = $philosophy['meta']['description'];
 
 include __DIR__ . '/include/head.php';
 include __DIR__ . '/include/header.php';
+
+$philosophy_cta = $philosophy['cta'];
+if (($philosophy_cta['label'] ?? '') === 'Method') {
+  $philosophy_cta['title'] = "この考え方を、\n続けられる進め方へ。";
+  $philosophy_cta['body'] = 'ライズゲートは、考え方だけで終わらせません。現場の状況を整理し、会社に合わせて使いながら育てられる形へ落とし込んでいきます。';
+  $philosophy_cta['link']['label'] = '進め方を見る';
+  $philosophy_cta['link']['url'] = 'method.php';
+}
 ?>
 
 <main>
@@ -63,11 +71,11 @@ include __DIR__ . '/include/header.php';
 
   <section class="next-cta">
     <div class="section-inner section-inner--narrow">
-      <p class="section-label"><?php echo e($philosophy['cta']['label']); ?></p>
-      <h2><?php echo e($philosophy['cta']['title']); ?></h2>
-      <p><?php echo e($philosophy['cta']['body']); ?></p>
-      <a class="button button--primary" href="<?php echo e($philosophy['cta']['link']['url']); ?>">
-        <?php echo e($philosophy['cta']['link']['label']); ?>
+      <p class="section-label"><?php echo e($philosophy_cta['label']); ?></p>
+      <h2><?php echo e($philosophy_cta['title']); ?></h2>
+      <p><?php echo e($philosophy_cta['body']); ?></p>
+      <a class="button button--primary" href="<?php echo e($philosophy_cta['link']['url']); ?>">
+        <?php echo e($philosophy_cta['link']['label']); ?>
       </a>
     </div>
   </section>

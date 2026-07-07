@@ -7,11 +7,6 @@ return [
             'url' => 'philosophy.php',
         ],
         [
-            'key' => 'story',
-            'label' => 'Story',
-            'url' => 'story.php',
-        ],
-        [
             'key' => 'method',
             'label' => 'Method',
             'url' => 'method.php',
@@ -37,14 +32,14 @@ return [
             'url' => 'master.php',
         ],
         [
-            'key' => 'improvement-log',
-            'label' => '改善ログ',
-            'url' => 'improvement-log.php',
-        ],
-        [
             'key' => 'company',
             'label' => 'Company',
             'url' => 'company.php',
+        ],
+        [
+            'key' => 'improvement-log',
+            'label' => '改善ログ',
+            'url' => 'improvement-log.php',
         ],
     ],
     'primary_cta' => [
@@ -64,11 +59,6 @@ return [
             'url' => 'philosophy.php',
         ],
         [
-            'key' => 'story',
-            'label' => 'Story',
-            'url' => 'story.php',
-        ],
-        [
             'key' => 'method',
             'label' => 'Method',
             'url' => 'method.php',
@@ -94,14 +84,14 @@ return [
             'url' => 'master.php',
         ],
         [
-            'key' => 'improvement-log',
-            'label' => '改善ログ',
-            'url' => 'improvement-log.php',
-        ],
-        [
             'key' => 'company',
             'label' => 'Company',
             'url' => 'company.php',
+        ],
+        [
+            'key' => 'improvement-log',
+            'label' => '改善ログ',
+            'url' => 'improvement-log.php',
         ],
         [
             'key' => 'contact',

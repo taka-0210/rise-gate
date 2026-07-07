@@ -42,7 +42,7 @@ include __DIR__ . '/include/header.php';
 <main>
   <section class="page-hero hero-scene hero-scene--works">
     <div class="section-inner section-inner--narrow">
-      <p class="section-label">05 / Works</p>
+      <p class="section-label">04 / Works</p>
       <h1>実績を、改善の記録として残す。</h1>
       <p class="section-lead">ホームページは、公開して終わりの制作物ではありません。採用、営業、信頼づくり、社内更新のしやすさなど、会社が改善を続けるための土台になります。</p>
       <p class="section-lead">そのため実績では、なぜ変えたのか、どう良くなったのか。制作内容だけでなく「課題」と「改善」をセットで残します。</p>

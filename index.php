@@ -46,11 +46,48 @@ include __DIR__ . '/include/header.php';
       <div class="sme-focus-stats" aria-label="中小企業に関する統計">
         <?php foreach ($home['sme_focus']['stats'] as $stat) : ?>
           <div class="sme-focus-stat">
-            <strong><?php echo e($stat['number']); ?></strong>
+            <strong>
+              <?php if ($stat['number'] === '約7割') : ?>
+                <span class="sme-focus-stat__unit">約</span><span>7</span><span class="sme-focus-stat__unit">割</span>
+              <?php else : ?>
+                <?php echo e($stat['number']); ?>
+              <?php endif; ?>
+            </strong>
             <span><?php echo e($stat['label']); ?></span>
           </div>
         <?php endforeach; ?>
-        <p><?php echo e($home['sme_focus']['note']); ?></p>
+      </div>
+
+      <p class="sme-focus-closing">
+        <?php foreach ($home['sme_focus']['closing'] as $index => $line) : ?>
+          <span<?php echo $index === 2 ? ' class="sme-focus-closing__last"' : ''; ?>><?php echo e($line); ?></span>
+        <?php endforeach; ?>
+      </p>
+    </div>
+  </section>
+
+  <section class="nurture-bridge-section">
+    <div class="section-inner nurture-bridge-layout">
+      <div class="nurture-bridge-heading">
+        <p class="section-label"><?php echo e($home['nurture_bridge']['label']); ?></p>
+        <h2>
+          <span class="nurture-bridge-heading__intro"><?php echo e($home['nurture_bridge']['title'][0]); ?></span>
+          <span class="nurture-bridge-heading__contrast">
+            <span class="nurture-bridge-heading__make"><?php echo e($home['nurture_bridge']['title'][1]); ?></span>
+            <span class="nurture-bridge-heading__not"><?php echo e($home['nurture_bridge']['title'][2]); ?></span>
+          </span>
+          <span class="nurture-bridge-heading__nurture"><?php echo e($home['nurture_bridge']['title'][3]); ?></span>
+          <span class="nurture-bridge-heading__choice"><?php echo e($home['nurture_bridge']['title'][4]); ?></span>
+        </h2>
+      </div>
+
+      <div class="nurture-bridge-copy">
+        <?php foreach ($home['nurture_bridge']['body'] as $index => $paragraph) : ?>
+          <p<?php echo $index >= 2 ? ' class="nurture-bridge-copy__conclusion"' : ''; ?>><?php echo e($paragraph); ?></p>
+        <?php endforeach; ?>
+        <a class="text-link text-link--statement nurture-bridge-link" href="<?php echo e($home['nurture_bridge']['link']['url']); ?>">
+          <?php echo e($home['nurture_bridge']['link']['label']); ?>
+        </a>
       </div>
     </div>
   </section>
@@ -60,19 +97,26 @@ include __DIR__ . '/include/header.php';
       <div class="section-heading">
         <p class="section-label"><?php echo e($home['service_teaser']['label']); ?></p>
         <h2><?php echo e($home['service_teaser']['title']); ?></h2>
+        <p class="service-teaser__subtitle"><?php echo e($home['service_teaser']['subtitle']); ?></p>
         <p><?php echo e($home['service_teaser']['lead']); ?></p>
       </div>
       <div class="content-grid content-grid--two">
-        <?php foreach ($home['service_teaser']['items'] as $item) : ?>
+        <?php foreach ($home['service_teaser']['items'] as $index => $item) : ?>
           <article class="content-card">
+            <span class="service-teaser__number"><?php echo e(str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT)); ?></span>
             <h3><?php echo e($item['title']); ?></h3>
+            <p class="service-teaser__catch"><?php echo e($item['catch']); ?></p>
             <p><?php echo e($item['body']); ?></p>
           </article>
         <?php endforeach; ?>
       </div>
-      <a class="text-link" href="<?php echo e($home['service_teaser']['link']['url']); ?>">
-        <?php echo e($home['service_teaser']['link']['label']); ?>
-      </a>
+      <div class="text-link-group">
+        <?php foreach ($home['service_teaser']['links'] as $link) : ?>
+          <a class="text-link" href="<?php echo e($link['url']); ?>">
+            <?php echo e($link['label']); ?>
+          </a>
+        <?php endforeach; ?>
+      </div>
     </div>
   </section>
 
@@ -112,29 +156,6 @@ include __DIR__ . '/include/header.php';
     </div>
   </section>
 
-  <section class="ai-partner-section">
-    <div class="section-inner">
-      <div class="section-heading">
-        <p class="section-label"><?php echo e($home['ai_partner']['label']); ?></p>
-        <h2><?php echo e($home['ai_partner']['title']); ?></h2>
-        <p><?php echo e($home['ai_partner']['lead']); ?></p>
-      </div>
-      <div class="section-inner--narrow ai-partner-copy">
-        <?php foreach ($home['ai_partner']['body'] as $paragraph) : ?>
-          <p><?php echo e($paragraph); ?></p>
-        <?php endforeach; ?>
-      </div>
-      <div class="content-grid content-grid--three">
-        <?php foreach ($home['ai_partner']['items'] as $item) : ?>
-          <article class="content-card ai-partner-card">
-            <h3><?php echo e($item['title']); ?></h3>
-            <p><?php echo e($item['body']); ?></p>
-          </article>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  </section>
-
   <section class="brand-message">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($home['brand_message']['label']); ?></p>
@@ -142,9 +163,13 @@ include __DIR__ . '/include/header.php';
       <?php foreach ($home['brand_message']['body'] as $paragraph) : ?>
         <p><?php echo e($paragraph); ?></p>
       <?php endforeach; ?>
-      <a class="text-link" href="<?php echo e($home['brand_message']['link']['url']); ?>">
-        <?php echo e($home['brand_message']['link']['label']); ?>
-      </a>
+      <div class="text-link-group text-link-group--statement">
+        <?php foreach ($home['brand_message']['links'] as $link) : ?>
+          <a class="text-link" href="<?php echo e($link['url']); ?>">
+            <?php echo e($link['label']); ?>
+          </a>
+        <?php endforeach; ?>
+      </div>
     </div>
   </section>
 
@@ -165,27 +190,6 @@ include __DIR__ . '/include/header.php';
       </ol>
       <a class="text-link" href="<?php echo e($home['approach']['link']['url']); ?>">
         <?php echo e($home['approach']['link']['label']); ?>
-      </a>
-    </div>
-  </section>
-
-  <section class="home-question-section">
-    <div class="section-inner">
-      <div class="section-heading">
-        <p class="section-label"><?php echo e($home['questions']['label']); ?></p>
-        <h2><?php echo e($home['questions']['title']); ?></h2>
-        <p><?php echo e($home['questions']['lead']); ?></p>
-      </div>
-      <div class="content-grid content-grid--two">
-        <?php foreach ($home['questions']['items'] as $item) : ?>
-          <article class="content-card home-question-card">
-            <h3><?php echo e($item['title']); ?></h3>
-            <p><?php echo e($item['body']); ?></p>
-          </article>
-        <?php endforeach; ?>
-      </div>
-      <a class="text-link" href="<?php echo e($home['questions']['link']['url']); ?>">
-        <?php echo e($home['questions']['link']['label']); ?>
       </a>
     </div>
   </section>

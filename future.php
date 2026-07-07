@@ -107,6 +107,7 @@ include __DIR__ . '/include/header.php';
           <p class="section-label">Network</p>
           <h3><?php echo e((string) count($published_masters)); ?>人の改善マスター</h3>
           <p>まだ小さな点でも、地域に根づいた改善が増えていけば、会社の変化は社会の文化になっていきます。</p>
+          <p class="master-map-panel__note">まだ立ち上がったばかり。<br>どんどん改善マスターのメンバーを増やしていきます。</p>
 
           <?php if (empty($published_masters)) : ?>
             <p class="master-map-empty">改善マスターはこれから登録していきます。</p>

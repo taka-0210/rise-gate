@@ -1,12 +1,62 @@
 <?php
 $site = require __DIR__ . '/data/site.php';
 $navigation = require __DIR__ . '/data/navigation.php';
-$service = require __DIR__ . '/data/service.php';
 require __DIR__ . '/include/functions.php';
 
 $current_page = 'service';
-$page_title = $service['meta']['title'];
-$page_description = $service['meta']['description'];
+$page_title = 'Service';
+$page_description = 'ライズゲートは、ホームページ制作会社でもシステム開発会社でもありません。会社の改善プロジェクトを設計し、社員を巻き込みながら改善が続く状態をつくります。';
+
+$experts = [
+  [
+    'label' => 'Design',
+    'title' => 'デザインが得意な人',
+    'body' => '伝えたい価値を整理し、見やすく、使いやすく、続けやすい形にします。',
+  ],
+  [
+    'label' => 'Coding',
+    'title' => 'コーディングが得意な人',
+    'body' => '会社に合わせた画面や仕組みを、扱いやすい形で実装します。',
+  ],
+  [
+    'label' => 'Improvement',
+    'title' => '業務改善が得意な人',
+    'body' => '現場の流れを見て、どこから改善するべきかを整理します。',
+  ],
+  [
+    'label' => 'Management',
+    'title' => '経営を整理できる人',
+    'body' => '会社の目的、優先順位、判断基準を言葉にして、進め方を整えます。',
+  ],
+  [
+    'label' => 'AI',
+    'title' => 'AI活用が得意な人',
+    'body' => 'AIを目的にせず、更新、整理、判断、改善の流れに自然に組み込みます。',
+  ],
+];
+
+$project_steps = [
+  [
+    'number' => '01',
+    'title' => '現場を知る',
+    'body' => '社長だけでなく、実際に使う人、更新する人、困っている人の声を聞きます。',
+  ],
+  [
+    'number' => '02',
+    'title' => '目的を整理する',
+    'body' => 'ホームページを作るのか、システムを入れるのかではなく、何を改善したいのかを明確にします。',
+  ],
+  [
+    'number' => '03',
+    'title' => 'チームで設計する',
+    'body' => '必要な専門家が集まり、発信、業務、運用、AI活用まで含めて改善プロジェクトを設計します。',
+  ],
+  [
+    'number' => '04',
+    'title' => '会社で育てる',
+    'body' => '納品で終わらせず、社員を巻き込みながら、使って見直し続けられる状態をつくります。',
+  ],
+];
 
 include __DIR__ . '/include/head.php';
 include __DIR__ . '/include/header.php';
@@ -15,145 +65,113 @@ include __DIR__ . '/include/header.php';
 <main>
   <section class="page-hero hero-scene hero-scene--service">
     <div class="section-inner section-inner--narrow">
-      <p class="section-label"><?php echo e($service['hero']['label']); ?></p>
-      <h1><?php echo e($service['hero']['title']); ?></h1>
-      <p class="section-lead"><?php echo e($service['hero']['lead']); ?></p>
+      <p class="section-label">03 / Service</p>
+      <h1>改善プロジェクトを、会社と設計する。</h1>
+      <p class="section-lead">ライズゲートは、ホームページ制作会社でも、システム開発会社でもありません。会社の改善が続く状態をつくるための、プロジェクト設計チームです。</p>
     </div>
   </section>
 
-  <section class="service-intro">
-    <div class="section-inner section-inner--narrow">
-      <p class="section-label"><?php echo e($service['intro']['label']); ?></p>
-      <h2><?php echo e($service['intro']['title']); ?></h2>
-      <?php foreach ($service['intro']['body'] as $paragraph) : ?>
-        <p><?php echo e($paragraph); ?></p>
-      <?php endforeach; ?>
-    </div>
-  </section>
-
-  <section class="website-value-section">
-    <div class="section-inner website-value-layout">
-      <div class="website-value-copy">
-        <p class="section-label"><?php echo e($service['website_value']['label']); ?></p>
-        <h2><?php echo e($service['website_value']['title']); ?></h2>
-        <p class="section-lead"><?php echo e($service['website_value']['lead']); ?></p>
-        <?php foreach ($service['website_value']['body'] as $paragraph) : ?>
-          <p><?php echo e($paragraph); ?></p>
-        <?php endforeach; ?>
+  <section class="service-declaration">
+    <div class="section-inner service-declaration__layout">
+      <div class="service-declaration__copy">
+        <p class="section-label">What We Do</p>
+        <h2>作るものではなく、<br>変わり続ける仕組みを設計する。</h2>
       </div>
-      <div class="website-value-points" aria-label="ホームページが会社の成長につながる理由">
-        <?php foreach ($service['website_value']['points'] as $point) : ?>
-          <article class="website-value-point">
-            <strong><?php echo e($point['number']); ?></strong>
-            <h3><?php echo e($point['label']); ?></h3>
-            <p><?php echo e($point['body']); ?></p>
-          </article>
-        <?php endforeach; ?>
+      <div class="service-declaration__body">
+        <p>ホームページも、業務システムも、会社を良くするための手段です。</p>
+        <p>大切なのは、何を作るかではなく、誰を巻き込み、どこから始め、どう改善を続けられる状態にするか。</p>
+        <p class="service-declaration__strong">ライズゲートの仕事は、会社の改善プロジェクトを設計することです。</p>
       </div>
     </div>
   </section>
 
-  <section class="website-value-section website-value-section--system">
-    <div class="section-inner website-value-layout">
-      <div class="website-value-copy">
-        <p class="section-label"><?php echo e($service['system_value']['label']); ?></p>
-        <h2><?php echo e($service['system_value']['title']); ?></h2>
-        <p class="section-lead"><?php echo e($service['system_value']['lead']); ?></p>
-        <?php foreach ($service['system_value']['body'] as $paragraph) : ?>
-          <p><?php echo e($paragraph); ?></p>
-        <?php endforeach; ?>
-      </div>
-      <div class="website-value-points" aria-label="システム導入が会社の改善につながる理由">
-        <?php foreach ($service['system_value']['points'] as $point) : ?>
-          <article class="website-value-point">
-            <strong><?php echo e($point['number']); ?></strong>
-            <h3><?php echo e($point['label']); ?></h3>
-            <p><?php echo e($point['body']); ?></p>
-          </article>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  </section>
-
-  <section class="service-fields">
+  <section class="service-team-section">
     <div class="section-inner">
       <div class="section-heading">
-        <p class="section-label"><?php echo e($service['pillars_heading']['label']); ?></p>
-        <h2><?php echo e($service['pillars_heading']['title']); ?></h2>
-        <p><?php echo e($service['pillars_heading']['lead']); ?></p>
+        <p class="section-label">Project Team</p>
+        <h2>専門家が集まり、<br>改善をひとつのプロジェクトにする。</h2>
+        <p>一人の担当者だけで、発信も、業務改善も、AI活用も、経営整理も進めるのは簡単ではありません。ライズゲートは、それぞれの得意分野を持つ人がチームとなって支えます。</p>
       </div>
 
-      <div class="service-field-list">
-        <?php foreach ($service['pillars'] as $pillar) : ?>
-          <article class="service-field service-field--pillar">
-            <div class="service-field__head">
-              <span class="service-field__number" aria-hidden="true"><?php echo e($pillar['number']); ?></span>
-              <div>
-                <p class="section-label"><?php echo e($pillar['label']); ?></p>
-                <h3><?php echo e($pillar['title']); ?></h3>
-              </div>
-            </div>
-            <div class="service-field__body">
-              <p class="service-pillar-lead"><?php echo e($pillar['lead']); ?></p>
-              <div class="service-pillar-grid">
-                <div>
-                  <h4>よく起きていること</h4>
-                  <ul class="simple-list">
-                    <?php foreach ($pillar['problem'] as $item) : ?>
-                      <li><?php echo e($item); ?></li>
-                    <?php endforeach; ?>
-                  </ul>
-                </div>
-                <div>
-                  <h4>ライズゲートが整えること</h4>
-                  <ul class="simple-list">
-                    <?php foreach ($pillar['solution'] as $item) : ?>
-                      <li><?php echo e($item); ?></li>
-                    <?php endforeach; ?>
-                  </ul>
-                </div>
-              </div>
-              <div class="service-question">
-                <h4><?php echo e($pillar['question']['title']); ?></h4>
-                <p><?php echo e($pillar['question']['answer']); ?></p>
-              </div>
-              <div class="service-pillar-visuals">
-                <?php foreach ($pillar['images'] as $image) : ?>
-                  <figure>
-                    <img src="<?php echo e($image['src']); ?>" alt="<?php echo e($image['alt']); ?>" loading="lazy">
-                    <figcaption><?php echo e($image['caption']); ?></figcaption>
-                  </figure>
-                <?php endforeach; ?>
-              </div>
-            </div>
+      <div class="service-team-diagram" aria-label="改善プロジェクトを支える専門家チーム">
+        <div class="service-team-diagram__center">
+          <span>RISE GATE</span>
+          <strong>改善プロジェクト設計</strong>
+        </div>
+        <div class="service-team-diagram__roles">
+          <?php foreach ($experts as $expert) : ?>
+            <article class="service-team-card">
+              <p class="section-label"><?php echo e($expert['label']); ?></p>
+              <h3><?php echo e($expert['title']); ?></h3>
+              <p><?php echo e($expert['body']); ?></p>
+            </article>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-involvement">
+    <div class="section-inner service-involvement__layout">
+      <div>
+        <p class="section-label">Not President Only</p>
+        <h2>社長だけのプロジェクトにしない。</h2>
+      </div>
+      <div class="service-involvement__body">
+        <p>ホームページも、システムも、社長だけが考えて、外部に依頼して終わりにしてしまうと、会社の中に改善は残りません。</p>
+        <p>使う人、更新する人、判断する人、困っている人。社員を巻き込み、会社全体で改善できる状態をつくること。</p>
+        <p class="service-declaration__strong">それが、ライズゲートのサービスです。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-project-section">
+    <div class="section-inner">
+      <div class="section-heading">
+        <p class="section-label">How It Works</p>
+        <h2>制作ではなく、<br>改善プロジェクトとして進める。</h2>
+      </div>
+      <div class="service-project-flow">
+        <?php foreach ($project_steps as $step) : ?>
+          <article class="service-project-step">
+            <span><?php echo e($step['number']); ?></span>
+            <h3><?php echo e($step['title']); ?></h3>
+            <p><?php echo e($step['body']); ?></p>
           </article>
         <?php endforeach; ?>
       </div>
     </div>
   </section>
 
-  <section class="service-choice">
-    <div class="section-inner section-inner--narrow">
-      <p class="section-label"><?php echo e($service['common']['label']); ?></p>
-      <h2><?php echo e($service['common']['title']); ?></h2>
-      <?php foreach ($service['common']['body'] as $paragraph) : ?>
-        <p><?php echo e($paragraph); ?></p>
-      <?php endforeach; ?>
+  <section class="service-tools-section">
+    <div class="section-inner service-tools__layout">
+      <div>
+        <p class="section-label">Tools</p>
+        <h2>ホームページも、システムも、目的ではなく手段です。</h2>
+      </div>
+      <div class="service-tools__items">
+        <article class="service-tool-card">
+          <p class="section-label">Website</p>
+          <h3>発信を育てるホームページ</h3>
+          <p>採用、実績、商品、サービス、改善ログなど、会社の価値を増やし続けられる発信の土台をつくります。</p>
+        </article>
+        <article class="service-tool-card">
+          <p class="section-label">System</p>
+          <h3>改善を育てる業務システム</h3>
+          <p>現場の課題を見える化し、入力、確認、判断、共有の流れを少しずつ整えながら育てます。</p>
+        </article>
+      </div>
     </div>
   </section>
 
   <section class="next-cta">
     <div class="section-inner section-inner--narrow">
-      <p class="section-label"><?php echo e($service['cta']['label']); ?></p>
-      <h2><?php echo e($service['cta']['title']); ?></h2>
-      <p><?php echo e($service['cta']['body']); ?></p>
+      <p class="section-label">Contact</p>
+      <h2>社長一人ではなく、会社みんなで。</h2>
+      <p>ホームページも。システムも。社員も巻き込みながら改善が続く会社へ。</p>
       <div class="button-group">
-        <a class="button button--primary" href="<?php echo e($service['cta']['link']['url']); ?>">
-          <?php echo e($service['cta']['link']['label']); ?>
-        </a>
-        <a class="button button--secondary" href="<?php echo e($service['cta']['sub_link']['url']); ?>">
-          <?php echo e($service['cta']['sub_link']['label']); ?>
-        </a>
+        <a class="button button--primary" href="contact.php">改善プロジェクトについて相談する</a>
+        <a class="button button--secondary" href="method.php">進め方を見る</a>
       </div>
     </div>
   </section>
