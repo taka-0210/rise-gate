@@ -1,0 +1,5 @@
+SetEnv RISEGATE_ADMIN_PASSWORD "RiseGate-Admin-2026-Q7mP9vT2xL4s"
+
+<FilesMatch "^contact_submissions\.php$">
+  Require all denied
+</FilesMatch>

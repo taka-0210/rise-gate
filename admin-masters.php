@@ -8,46 +8,53 @@ $admin_password = getenv('RISEGATE_ADMIN_PASSWORD') ?: '';
 $errors = [];
 $message = '';
 
-if ($admin_password !== '') {
-    session_start();
+if (PHP_SAPI === 'cli') {
+    session_save_path(dirname(__DIR__) . '/tmp/sessions');
+}
 
-    if (isset($_POST['admin_password'])) {
-        if (hash_equals($admin_password, (string) $_POST['admin_password'])) {
-            $_SESSION['risegate_admin'] = true;
-            header('Location: admin-masters.php');
-            exit;
-        }
+session_start();
 
-        $errors[] = 'パスワードが違います。';
-    }
-
-    if (empty($_SESSION['risegate_admin'])) {
-        $page_title = '改善マスター管理';
-        $page_description = 'ライズゲート改善マスター管理';
-        include __DIR__ . '/include/head.php';
-        ?>
-        <body class="admin-body">
-          <main class="admin-shell admin-shell--login">
-            <section class="admin-panel">
-              <p class="section-label">Rise Gate Admin</p>
-              <h1>改善マスター管理</h1>
-              <?php foreach ($errors as $error) : ?>
-                <p class="admin-alert admin-alert--error"><?php echo e($error); ?></p>
-              <?php endforeach; ?>
-              <form method="post" class="admin-form">
-                <label>
-                  <span>パスワード</span>
-                  <input type="password" name="admin_password" required>
-                </label>
-                <button class="button button--primary" type="submit">ログイン</button>
-              </form>
-            </section>
-          </main>
-        </body>
-        </html>
-        <?php
+if ($admin_password === '') {
+    unset($_SESSION['risegate_admin']);
+    $errors[] = 'Admin password is not configured. Set RISEGATE_ADMIN_PASSWORD on the server.';
+} elseif (isset($_POST['admin_password'])) {
+    if (hash_equals($admin_password, (string) $_POST['admin_password'])) {
+        $_SESSION['risegate_admin'] = true;
+        header('Location: admin-masters.php');
         exit;
     }
+
+    $errors[] = 'パスワードが違います。';
+}
+
+if ($admin_password === '' || empty($_SESSION['risegate_admin'])) {
+    $page_title = '改善マスター管理';
+    $page_description = 'ライズゲート改善マスター管理';
+    include __DIR__ . '/include/head.php';
+    ?>
+    <body class="admin-body">
+      <main class="admin-shell admin-shell--login">
+        <section class="admin-panel">
+          <p class="section-label">Rise Gate Admin</p>
+          <h1>改善マスター管理</h1>
+          <?php foreach ($errors as $error) : ?>
+            <p class="admin-alert admin-alert--error"><?php echo e($error); ?></p>
+          <?php endforeach; ?>
+          <?php if ($admin_password !== '') : ?>
+            <form method="post" class="admin-form">
+              <label>
+                <span>パスワード</span>
+                <input type="password" name="admin_password" required>
+              </label>
+              <button class="button button--primary" type="submit">ログイン</button>
+            </form>
+          <?php endif; ?>
+        </section>
+      </main>
+    </body>
+    </html>
+    <?php
+    exit;
 }
 
 function master_slugify(string $value): string
@@ -315,7 +322,9 @@ include __DIR__ . '/include/head.php';
         <p>ライズゲートのプログラムを受講し、各地域で改善を進める人たちを登録します。</p>
       </div>
       <div class="admin-header__links">
-        <a class="button button--secondary" href="admin.php">実績管理</a>
+        <a class="button button--secondary" href="admin.php">管理トップ</a>
+        <a class="button button--secondary" href="admin-works.php">実績管理</a>
+        <a class="button button--secondary" href="admin-contacts.php">問い合わせ管理</a>
         <a class="button button--secondary" href="future.php">Futureページ</a>
       </div>
     </header>

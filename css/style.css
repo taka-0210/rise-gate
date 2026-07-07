@@ -2174,6 +2174,46 @@ h3 {
   gap: 10px;
 }
 
+.admin-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.admin-dashboard-card {
+  display: grid;
+  gap: 12px;
+  min-height: 190px;
+  padding: 26px;
+  border: 1px solid rgba(16, 42, 86, 0.1);
+  border-radius: var(--radius);
+  color: var(--color-ink);
+  text-decoration: none;
+  background: var(--color-white);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-dashboard-card:hover {
+  border-color: rgba(61, 117, 111, 0.35);
+  color: var(--color-ink);
+  box-shadow: 0 22px 44px rgba(16, 42, 86, 0.14);
+  transform: translateY(-2px);
+}
+
+.admin-dashboard-card strong {
+  color: var(--color-brand);
+  font-size: clamp(24px, 3vw, 32px);
+  line-height: 1.35;
+}
+
+.admin-dashboard-card span:last-child {
+  align-self: end;
+  color: var(--color-sub);
+  font-size: 14px;
+  font-weight: 800;
+}
+
 .admin-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
@@ -2532,6 +2572,128 @@ h3 {
 .admin-work-item__actions .admin-action-button:hover {
   color: #ffffff;
   filter: brightness(1.08);
+}
+
+.admin-contact-panel {
+  margin-bottom: 22px;
+}
+
+.admin-count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  min-height: 34px;
+  border: 1px solid rgba(16, 42, 86, 0.12);
+  border-radius: 999px;
+  padding: 6px 14px;
+  color: var(--color-brand);
+  font-size: 14px;
+  font-weight: 800;
+  background: rgba(16, 42, 86, 0.04);
+}
+
+.admin-contact-table-wrap {
+  border: 1px solid rgba(16, 42, 86, 0.1);
+  border-radius: 8px;
+  overflow-x: auto;
+  background: #ffffff;
+}
+
+.admin-contact-table {
+  width: 100%;
+  min-width: 940px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+}
+
+.admin-contact-table th,
+.admin-contact-table td {
+  padding: 15px 16px;
+  border-top: 1px solid rgba(16, 42, 86, 0.08);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.admin-contact-table th {
+  border-top: 0;
+  color: var(--color-brand);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+  white-space: nowrap;
+  background: rgba(16, 42, 86, 0.04);
+}
+
+.admin-contact-table td {
+  color: var(--color-ink);
+  line-height: 1.55;
+}
+
+.admin-contact-table tbody tr:hover td {
+  background: rgba(61, 117, 111, 0.05);
+}
+
+.admin-contact-table__date {
+  white-space: nowrap;
+}
+
+.admin-contact-table__type {
+  max-width: 240px;
+  font-weight: 700;
+}
+
+.admin-contact-table__action {
+  width: 92px;
+  text-align: right;
+}
+
+.admin-contact-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  border-radius: 999px;
+  padding: 4px 10px;
+  color: var(--color-brand);
+  font-size: 13px;
+  font-weight: 800;
+  background: rgba(61, 117, 111, 0.1);
+  white-space: nowrap;
+}
+
+.admin-action-button.admin-action-button--compact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  border: 1px solid rgba(16, 42, 86, 0.2);
+  border-radius: 999px;
+  padding: 7px 14px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-decoration: none;
+  background: #29406f;
+}
+
+.admin-contact-detail {
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid var(--color-line);
+}
+
+.admin-contact-detail h3 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.admin-contact-detail pre {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: inherit;
 }
 
 .profile-list {
@@ -4076,7 +4238,8 @@ h3 {
   }
 
   .admin-header,
-  .admin-layout {
+  .admin-layout,
+  .admin-dashboard-grid {
     grid-template-columns: 1fr;
   }
 
