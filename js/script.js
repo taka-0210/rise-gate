@@ -27,7 +27,8 @@ if (navToggle && globalNav) {
 const revealTargets = document.querySelectorAll(`
   main > section:not(.home-hero):not(.page-hero):not(.brand-map-section),
   .brand-map-section .section-heading,
-  .brand-map-section .brand-journey
+  .brand-map-section .brand-journey,
+  .sme-focus-closing
 `);
 
 if (revealTargets.length > 0) {
