@@ -2139,7 +2139,7 @@ h3 {
 }
 
 .admin-shell {
-  width: min(calc(100% - 40px), 1180px);
+  width: min(calc(100% - 40px), 1880px);
   margin: 0 auto;
   padding: 48px 0 72px;
 }
@@ -2170,8 +2170,22 @@ h3 {
 
 .admin-header__links {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  align-items: center;
   gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  white-space: nowrap;
+}
+
+.admin-header__links .button {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+.admin-header__links form {
+  display: flex;
+  margin: 0;
 }
 
 .admin-dashboard-grid {

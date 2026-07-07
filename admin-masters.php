@@ -14,6 +14,13 @@ if (PHP_SAPI === 'cli') {
 
 session_start();
 
+if (isset($_POST['admin_logout'])) {
+    $_SESSION = [];
+    session_destroy();
+    header('Location: admin.php');
+    exit;
+}
+
 if ($admin_password === '') {
     unset($_SESSION['risegate_admin']);
     $errors[] = 'Admin password is not configured. Set RISEGATE_ADMIN_PASSWORD on the server.';
@@ -323,9 +330,10 @@ include __DIR__ . '/include/head.php';
       </div>
       <div class="admin-header__links">
         <a class="button button--secondary" href="admin.php">管理トップ</a>
-        <a class="button button--secondary" href="admin-works.php">実績管理</a>
-        <a class="button button--secondary" href="admin-contacts.php">問い合わせ管理</a>
         <a class="button button--secondary" href="future.php">Futureページ</a>
+        <form method="post">
+          <button class="button button--secondary" type="submit" name="admin_logout" value="1">ログアウト</button>
+        </form>
       </div>
     </header>
 
