@@ -8,6 +8,10 @@ $admin_password = getenv('RISEGATE_ADMIN_PASSWORD') ?: '';
 $errors = [];
 $message = '';
 const ADMIN_GALLERY_LIMIT = 10;
+const ADMIN_WORK_TYPES = [
+    'website' => 'Webサイト制作',
+    'system' => 'システム導入',
+];
 
 if (PHP_SAPI === 'cli') {
     session_save_path(dirname(__DIR__) . '/tmp/sessions');
@@ -82,6 +86,11 @@ function admin_split_tags(string $value): array
     return array_values(array_filter($tags, function ($tag) {
         return $tag !== '';
     }));
+}
+
+function admin_work_type_label(string $type): string
+{
+    return ADMIN_WORK_TYPES[$type] ?? ADMIN_WORK_TYPES['website'];
 }
 
 function admin_image_max_width(string $field): int
@@ -298,8 +307,8 @@ if (($_POST['action'] ?? '') === 'save') {
     $existing_gallery = admin_normalize_gallery($existing_work['gallery'] ?? []);
     $work = [
         'status' => in_array($_POST['status'] ?? 'draft', ['draft', 'published'], true) ? $_POST['status'] : 'draft',
-        'type' => 'website',
-        'type_label' => 'サイト制作',
+        'type' => array_key_exists($_POST['type'] ?? 'website', ADMIN_WORK_TYPES) ? (string) $_POST['type'] : 'website',
+        'type_label' => admin_work_type_label((string) ($_POST['type'] ?? 'website')),
         'slug' => $slug,
         'title' => trim((string) ($_POST['title'] ?? '')),
         'client_name' => trim((string) ($_POST['client_name'] ?? '')),
@@ -431,7 +440,7 @@ include __DIR__ . '/include/head.php';
       <div>
         <p class="section-label">Rise Gate Admin</p>
         <h1>実績管理</h1>
-        <p>サイト制作実績を登録します。実績は「課題」と「改善」が伝わる形で公開されます。</p>
+        <p>Webサイト制作とシステム導入の改善実績を登録します。実績は「課題」と「改善」が伝わる形で公開されます。</p>
       </div>
       <div class="admin-header__links">
         <a class="button button--secondary" href="admin.php">管理トップ</a>
@@ -476,6 +485,15 @@ include __DIR__ . '/include/head.php';
               <input type="date" name="published_at" value="<?php echo e($form_work['published_at']); ?>">
             </label>
           </div>
+
+          <label>
+            <span>実績種別</span>
+            <select name="type">
+              <?php foreach (ADMIN_WORK_TYPES as $type_value => $type_label) : ?>
+                <option value="<?php echo e($type_value); ?>"<?php echo ($form_work['type'] ?? 'website') === $type_value ? ' selected' : ''; ?>><?php echo e($type_label); ?></option>
+              <?php endforeach; ?>
+            </select>
+          </label>
 
           <label>
             <span>タイトル</span>
@@ -572,7 +590,7 @@ include __DIR__ . '/include/head.php';
           <section class="admin-gallery-fields">
             <div class="admin-subheading">
               <h3>画面紹介</h3>
-              <p>実績詳細で横並び表示する画像です。公開サイト、管理画面、会員専用画面など最大10枚まで登録できます。</p>
+              <p>実績詳細で横並び表示する画像です。公開サイト、管理画面、会員専用画面、業務画面など最大10枚まで登録できます。</p>
             </div>
 
             <?php foreach ($form_gallery as $index => $gallery_item) : ?>
@@ -605,7 +623,7 @@ include __DIR__ . '/include/head.php';
 
                 <label>
                   <span>画面名</span>
-                  <input type="text" name="gallery_title[<?php echo e((string) $index); ?>]" value="<?php echo e($gallery_item['title'] ?? ''); ?>" placeholder="公開サイト / 管理画面 / 会員専用画面">
+                  <input type="text" name="gallery_title[<?php echo e((string) $index); ?>]" value="<?php echo e($gallery_item['title'] ?? ''); ?>" placeholder="公開サイト / 管理画面 / 会員専用画面 / 業務画面">
                 </label>
 
                 <label>
@@ -618,7 +636,7 @@ include __DIR__ . '/include/head.php';
 
           <div class="admin-form__grid">
             <label>
-              <span>サイトURL</span>
+              <span>関連URL</span>
               <input type="url" name="site_url" value="<?php echo e($form_work['site_url']); ?>">
             </label>
 
@@ -646,7 +664,7 @@ include __DIR__ . '/include/head.php';
           <?php foreach ($works as $work) : ?>
             <article class="admin-work-item">
               <div>
-                <p class="admin-work-item__meta"><?php echo e($work['status'] === 'published' ? '公開' : '下書き'); ?> / <?php echo e($work['published_at']); ?></p>
+                <p class="admin-work-item__meta"><?php echo e($work['status'] === 'published' ? '公開' : '下書き'); ?> / <?php echo e($work['published_at']); ?> / <?php echo e($work['type_label'] ?? admin_work_type_label((string) ($work['type'] ?? 'website'))); ?></p>
                 <h3><?php echo e($work['title']); ?></h3>
                 <p><?php echo e($work['summary']); ?></p>
               </div>

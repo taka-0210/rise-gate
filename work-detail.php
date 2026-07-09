@@ -39,6 +39,14 @@ $work_gallery = array_values(array_filter($work['gallery'] ?? [], function ($ite
     return (($item['image'] ?? '') !== '') || (($item['title'] ?? '') !== '') || (($item['description'] ?? '') !== '');
 }));
 
+$work_types = [
+    'website' => 'Webサイト制作',
+    'system' => 'システム導入',
+];
+$work_type = (string) ($work['type'] ?? 'website');
+$work_type_label = (string) ($work['type_label'] ?? $work_types[$work_type] ?? '改善実績');
+$external_link_label = $work_type === 'website' ? 'サイトを見る' : '取り組みを見る';
+
 $current_page = 'works';
 $page_title = $work['title'];
 $page_description = $work['summary'];
@@ -51,7 +59,7 @@ include __DIR__ . '/include/header.php';
   <article class="work-detail">
     <section class="page-hero hero-scene hero-scene--works">
       <div class="section-inner section-inner--narrow">
-        <p class="section-label"><?php echo e($work['type_label'] ?? 'サイト制作'); ?></p>
+        <p class="section-label"><?php echo e($work_type_label); ?></p>
         <h1><?php echo e($work['title']); ?></h1>
         <p class="section-lead"><?php echo e($work['summary']); ?></p>
         <p class="detail-date">
@@ -69,7 +77,7 @@ include __DIR__ . '/include/header.php';
           <div class="section-heading">
             <p class="section-label">Screenshots</p>
             <h2>画面で見る。</h2>
-            <p>どこを変え、どう整えたのか。課題と改善の流れを、実際の画面とあわせて紹介します。</p>
+            <p>どこを変え、どう整えたのか。課題と改善の流れを、実際の画面や導入後の状態とあわせて紹介します。</p>
           </div>
 
           <figure class="work-device-showcase">
@@ -98,8 +106,8 @@ include __DIR__ . '/include/header.php';
         <div class="section-inner">
           <div class="section-heading">
             <p class="section-label">Screens</p>
-            <h2>制作した画面</h2>
-            <p>公開サイト、管理画面、会員専用画面など、制作した画面ごとの役割を紹介します。</p>
+            <h2>整えた画面</h2>
+            <p>公開サイト、管理画面、会員専用画面、業務画面など、整えた画面ごとの役割を紹介します。</p>
           </div>
 
           <div class="work-gallery-grid">
@@ -139,8 +147,8 @@ include __DIR__ . '/include/header.php';
           <section class="work-gallery-inline">
             <div class="section-heading">
               <p class="section-label">Screens</p>
-              <h2>制作した画面</h2>
-              <p>公開サイト、管理画面、会員専用画面など、制作した画面ごとの役割を紹介します。</p>
+              <h2>整えた画面</h2>
+              <p>公開サイト、管理画面、会員専用画面、業務画面など、整えた画面ごとの役割を紹介します。</p>
             </div>
 
             <div class="work-gallery-compact">
@@ -168,7 +176,7 @@ include __DIR__ . '/include/header.php';
         <div class="before-after-detail before-after-detail--single before-after-detail--improvement">
           <section>
             <p class="section-label">Improvement</p>
-            <h2>どのような視点で計画したか</h2>
+            <h2>どのような視点で整えたか</h2>
             <p><?php echo e($work['improvement']); ?></p>
           </section>
         </div>
@@ -193,7 +201,7 @@ include __DIR__ . '/include/header.php';
 
         <div class="work-detail__links">
           <?php if (($work['site_url'] ?? '') !== '') : ?>
-            <a class="button button--secondary" href="<?php echo e($work['site_url']); ?>" target="_blank" rel="noopener">サイトを見る</a>
+            <a class="button button--secondary" href="<?php echo e($work['site_url']); ?>" target="_blank" rel="noopener"><?php echo e($external_link_label); ?></a>
           <?php endif; ?>
           <a class="text-link" href="works.php">実績一覧へ戻る</a>
         </div>

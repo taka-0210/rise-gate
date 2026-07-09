@@ -1774,6 +1774,67 @@ h3 {
   gap: 18px;
 }
 
+.works-scope-section {
+  padding: 72px 0 34px;
+  background:
+    linear-gradient(90deg, rgba(16, 42, 86, 0.018) 1px, transparent 1px),
+    linear-gradient(180deg, var(--color-bg-soft), var(--color-white));
+  background-size: 112px 100%, auto;
+}
+
+.works-list-section {
+  padding-top: 38px;
+  scroll-margin-top: 96px;
+}
+
+.works-scope {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.55fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: start;
+}
+
+.works-scope h2 {
+  max-width: 760px;
+  margin-bottom: 18px;
+}
+
+.works-scope p:not(.section-label) {
+  max-width: 760px;
+}
+
+.works-type-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.works-type-list--filters {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: -12px 0 28px;
+}
+
+.works-type-list a {
+  display: block;
+  text-align: center;
+  padding: 12px 4px;
+  border-bottom: 1px solid rgba(16, 42, 86, 0.16);
+  color: var(--color-sub);
+  font-size: 15px;
+  font-weight: 800;
+  transition:
+    border-color 0.24s ease,
+    color 0.24s ease;
+}
+
+.works-type-list a:hover,
+.works-type-list a[aria-current="page"] {
+  border-color: var(--color-brand);
+  color: var(--color-brand);
+}
+
 .improvement-card {
   position: relative;
   padding: 22px 24px;
@@ -4839,6 +4900,7 @@ h3 {
   .content-grid--three,
   .content-grid--values,
   .brand-journey,
+  .works-scope,
   .work-list,
   .work-gallery-grid,
   .step-list,
