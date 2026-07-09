@@ -182,13 +182,19 @@ include __DIR__ . '/include/header.php';
         </div>
 
         <?php if (($work['result'] ?? '') !== '') : ?>
-          <h2>改善の結果</h2>
-          <p><?php echo e($work['result']); ?></p>
+          <section class="work-detail-text-block">
+            <p class="section-label">Result</p>
+            <h2>改善の結果</h2>
+            <p><?php echo e($work['result']); ?></p>
+          </section>
         <?php endif; ?>
 
         <?php if (($work['role'] ?? '') !== '') : ?>
-          <h2>担当したこと</h2>
-          <p><?php echo e($work['role']); ?></p>
+          <section class="work-detail-text-block">
+            <p class="section-label">Role</p>
+            <h2>担当したこと</h2>
+            <p><?php echo e($work['role']); ?></p>
+          </section>
         <?php endif; ?>
 
         <?php if (!empty($work['tags'])) : ?>
