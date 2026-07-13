@@ -17,6 +17,16 @@ return [
             'url' => 'service.php',
         ],
         [
+            'key' => 'rise-gate-os',
+            'label' => 'RISE GATE OS',
+            'url' => 'rise-gate-os.php',
+        ],
+        [
+            'key' => 'master',
+            'label' => 'Master',
+            'url' => 'master.php',
+        ],
+        [
             'key' => 'works',
             'label' => '実績',
             'url' => 'works.php',
@@ -25,11 +35,6 @@ return [
             'key' => 'future',
             'label' => 'Future',
             'url' => 'future.php',
-        ],
-        [
-            'key' => 'master',
-            'label' => 'Master',
-            'url' => 'master.php',
         ],
         [
             'key' => 'company',
@@ -69,6 +74,16 @@ return [
             'url' => 'service.php',
         ],
         [
+            'key' => 'rise-gate-os',
+            'label' => 'RISE GATE OS',
+            'url' => 'rise-gate-os.php',
+        ],
+        [
+            'key' => 'master',
+            'label' => 'Master',
+            'url' => 'master.php',
+        ],
+        [
             'key' => 'works',
             'label' => '実績',
             'url' => 'works.php',
@@ -77,11 +92,6 @@ return [
             'key' => 'future',
             'label' => 'Future',
             'url' => 'future.php',
-        ],
-        [
-            'key' => 'master',
-            'label' => 'Master',
-            'url' => 'master.php',
         ],
         [
             'key' => 'company',

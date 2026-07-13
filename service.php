@@ -160,6 +160,12 @@ include __DIR__ . '/include/header.php';
           <h3>改善を育てる業務システム</h3>
           <p>現場の課題を見える化し、入力、確認、判断、共有の流れを少しずつ整えながら育てます。</p>
         </article>
+        <article class="service-tool-card">
+          <p class="section-label">RISE GATE OS</p>
+          <h3>改善文化を支えるプラットフォーム</h3>
+          <p>進捗、改善提案、改善履歴を同じ場所に集め、ライズゲートとクライアントが一緒に改善を回せる状態をつくります。</p>
+          <a class="text-link" href="rise-gate-os.php">RISE GATE OSを見る</a>
+        </article>
       </div>
     </div>
   </section>

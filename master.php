@@ -72,6 +72,28 @@ include __DIR__ . '/include/header.php';
     </div>
   </section>
 
+  <section class="master-os-support">
+    <div class="section-inner">
+      <div class="master-os-support__heading">
+        <p class="section-label"><?php echo e($master_page['os_support']['label']); ?></p>
+        <h2><?php echo e($master_page['os_support']['title']); ?></h2>
+        <p><?php echo e($master_page['os_support']['lead']); ?></p>
+        <a class="text-link" href="<?php echo e($master_page['os_support']['link']['url']); ?>">
+          <?php echo e($master_page['os_support']['link']['label']); ?>
+        </a>
+      </div>
+
+      <div class="master-os-support__items">
+        <?php foreach ($master_page['os_support']['items'] as $item) : ?>
+          <article class="master-os-support__item">
+            <h3><?php echo e($item['title']); ?></h3>
+            <p><?php echo e($item['body']); ?></p>
+          </article>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </section>
+
   <section class="next-cta">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($master_page['cta']['label']); ?></p>

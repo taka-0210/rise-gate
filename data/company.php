@@ -5,7 +5,7 @@ return [
         'description' => '株式会社ライズゲートの会社情報です。ホームページ制作とシステム制作を通じて、会社が変化に合わせて発信と改善を続けられる仕組みをつくる会社です。',
     ],
     'hero' => [
-        'label' => '07 / Company',
+        'label' => '08 / Company',
         'title' => 'ABOUT RISE GATE',
         'lead' => 'ライズゲートの基本情報です。',
     ],
