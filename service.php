@@ -66,7 +66,11 @@ include __DIR__ . '/include/header.php';
   <section class="page-hero hero-scene hero-scene--service">
     <div class="section-inner section-inner--narrow">
       <p class="section-label">03 / Service</p>
-      <h1>改善プロジェクトを、会社と設計する。</h1>
+      <h1><?php echo responsive_lines([
+        'desktop' => ['改善プロジェクトを、会社と設計する。'],
+        'tablet' => ['改善プロジェクトを、', '会社と設計する。'],
+        'mobile' => ['改善プロジェクトを、', '会社と', '設計する。'],
+      ]); ?></h1>
       <p class="section-lead">ライズゲートは、ホームページ制作会社でも、システム開発会社でもありません。会社の改善が続く状態をつくるための、プロジェクト設計チームです。</p>
     </div>
   </section>
@@ -75,7 +79,11 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner service-declaration__layout">
       <div class="service-declaration__copy">
         <p class="section-label">What We Do</p>
-        <h2>作るものではなく、<br>変わり続ける仕組みを設計する。</h2>
+        <h2><?php echo responsive_lines([
+          'desktop' => ['作るものではなく、', '変わり続ける仕組みを設計する。'],
+          'tablet' => ['作るものではなく、', '変わり続ける仕組みを', '設計する。'],
+          'mobile' => ['作るものではなく、', '変わり続ける', '仕組みを設計する。'],
+        ]); ?></h2>
       </div>
       <div class="service-declaration__body">
         <p>ホームページも、業務システムも、会社を良くするための手段です。</p>
@@ -89,7 +97,11 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label">Project Team</p>
-        <h2>専門家が集まり、<br>改善をひとつのプロジェクトにする。</h2>
+        <h2><?php echo responsive_lines([
+          'desktop' => ['専門家が集まり、', '改善をひとつのプロジェクトにする。'],
+          'tablet' => ['専門家が集まり、', '改善をひとつの', 'プロジェクトにする。'],
+          'mobile' => ['専門家が集まり、', '改善をひとつの', 'プロジェクトにする。'],
+        ]); ?></h2>
         <p>一人の担当者だけで、発信も、業務改善も、AI活用も、経営整理も進めるのは簡単ではありません。ライズゲートは、それぞれの得意分野を持つ人がチームとなって支えます。</p>
       </div>
 
@@ -115,7 +127,11 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner service-involvement__layout">
       <div>
         <p class="section-label">Not President Only</p>
-        <h2>社長だけのプロジェクトにしない。</h2>
+        <h2><?php echo responsive_lines([
+          'desktop' => ['社長だけのプロジェクトにしない。'],
+          'tablet' => ['社長だけのプロジェクトにしない。'],
+          'mobile' => ['社長だけの', 'プロジェクトにしない。'],
+        ]); ?></h2>
       </div>
       <div class="service-involvement__body">
         <p>ホームページも、システムも、社長だけが考えて、外部に依頼して終わりにしてしまうと、会社の中に改善は残りません。</p>
@@ -129,7 +145,11 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label">How It Works</p>
-        <h2>制作ではなく、<br>改善プロジェクトとして進める。</h2>
+        <h2><?php echo responsive_lines([
+          'desktop' => ['制作ではなく、', '改善プロジェクトとして進める。'],
+          'tablet' => ['制作ではなく、', '改善プロジェクトとして', '進める。'],
+          'mobile' => ['制作ではなく、', '改善プロジェクトとして', '進める。'],
+        ]); ?></h2>
       </div>
       <div class="service-project-flow">
         <?php foreach ($project_steps as $step) : ?>
@@ -147,7 +167,11 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner service-tools__layout">
       <div>
         <p class="section-label">Tools</p>
-        <h2>ホームページも、システムも、目的ではなく手段です。</h2>
+        <h2><?php echo responsive_lines([
+          'desktop' => ['ホームページも、システムも、目的ではなく手段です。'],
+          'tablet' => ['ホームページも、システムも、', '目的ではなく手段です。'],
+          'mobile' => ['ホームページも、', 'システムも、', '目的ではなく手段です。'],
+        ]); ?></h2>
       </div>
       <div class="service-tools__items">
         <article class="service-tool-card">
@@ -173,7 +197,11 @@ include __DIR__ . '/include/header.php';
   <section class="next-cta">
     <div class="section-inner section-inner--narrow">
       <p class="section-label">Contact</p>
-      <h2>社長一人ではなく、会社みんなで。</h2>
+      <h2><?php echo responsive_lines([
+        'desktop' => ['社長一人ではなく、会社みんなで。'],
+        'tablet' => ['社長一人ではなく、', '会社みんなで。'],
+        'mobile' => ['社長一人ではなく、', '会社みんなで。'],
+      ]); ?></h2>
       <p>ホームページも。システムも。社員も巻き込みながら改善が続く会社へ。</p>
       <div class="button-group">
         <a class="button button--primary" href="contact.php">改善プロジェクトについて相談する</a>

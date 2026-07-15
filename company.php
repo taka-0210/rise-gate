@@ -16,7 +16,7 @@ include __DIR__ . '/include/header.php';
   <section class="page-hero hero-scene hero-scene--company">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($company['hero']['label']); ?></p>
-      <h1><?php echo e($company['hero']['title']); ?></h1>
+      <h1><?php echo responsive_text($company['hero'], 'title'); ?></h1>
       <p class="section-lead"><?php echo e($company['hero']['lead']); ?></p>
     </div>
   </section>
@@ -25,7 +25,7 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner company-message__layout">
       <div class="company-message__heading">
         <p class="section-label"><?php echo e($company['message']['label']); ?></p>
-        <h2><?php echo e($company['message']['title']); ?></h2>
+        <h2><?php echo responsive_text($company['message'], 'title'); ?></h2>
       </div>
       <div class="company-message__body">
         <?php foreach ($company['message']['body'] as $index => $paragraph) : ?>
@@ -57,7 +57,7 @@ include __DIR__ . '/include/header.php';
       </div>
       <div class="company-logo-meaning__copy">
         <p class="section-label"><?php echo e($company['logo_meaning']['label']); ?></p>
-        <h2><?php echo e($company['logo_meaning']['title']); ?></h2>
+        <h2><?php echo responsive_text($company['logo_meaning'], 'title'); ?></h2>
         <p class="section-lead"><?php echo e($company['logo_meaning']['lead']); ?></p>
         <?php foreach ($company['logo_meaning']['body'] as $paragraph) : ?>
           <p><?php echo e($paragraph); ?></p>
@@ -74,7 +74,7 @@ include __DIR__ . '/include/header.php';
         </figure>
         <div>
           <p class="section-label"><?php echo e($company['profile']['label']); ?></p>
-          <h2><?php echo e($company['profile']['title']); ?></h2>
+          <h2><?php echo responsive_text($company['profile'], 'title'); ?></h2>
           <p class="representative-profile__lead"><?php echo e($company['profile']['lead']); ?></p>
           <div class="representative-profile__body">
             <?php foreach ($company['profile']['body'] as $paragraph) : ?>
@@ -113,7 +113,7 @@ include __DIR__ . '/include/header.php';
   <section class="next-cta">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($company['cta']['label']); ?></p>
-      <h2><?php echo e($company['cta']['title']); ?></h2>
+      <h2><?php echo responsive_text($company['cta'], 'title'); ?></h2>
       <p><?php echo e($company['cta']['body']); ?></p>
       <a class="button button--primary" href="<?php echo e($company['cta']['link']['url']); ?>">
         <?php echo e($company['cta']['link']['label']); ?>

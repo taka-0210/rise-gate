@@ -39,7 +39,7 @@ include __DIR__ . '/include/header.php';
   <section class="page-hero hero-scene hero-scene--future">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($future['hero']['label']); ?></p>
-      <h1><?php echo e($future['hero']['title']); ?></h1>
+      <h1><?php echo responsive_text($future['hero'], 'title'); ?></h1>
       <p class="section-lead"><?php echo e($future['hero']['lead']); ?></p>
     </div>
   </section>
@@ -48,7 +48,7 @@ include __DIR__ . '/include/header.php';
     <section class="future-section">
       <div class="section-inner section-inner--narrow">
         <p class="section-label"><?php echo e($section['label']); ?></p>
-        <h2><?php echo e($section['title']); ?></h2>
+        <h2><?php echo responsive_text($section, 'title'); ?></h2>
         <?php foreach ($section['body'] as $paragraph) : ?>
           <p><?php echo e($paragraph); ?></p>
         <?php endforeach; ?>
@@ -60,7 +60,11 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label">Improvement Masters</p>
-        <h2>改善が文化になる社会へ。</h2>
+        <h2><?php echo responsive_lines([
+          'desktop' => ['改善が文化になる社会へ。'],
+          'tablet' => ['改善が文化になる社会へ。'],
+          'mobile' => ['改善が文化になる', '社会へ。'],
+        ]); ?></h2>
         <p>ライズゲートのプログラムを受講し、各地域で改善を進める人たちを「改善マスター」として記録していきます。</p>
       </div>
 
@@ -138,7 +142,7 @@ include __DIR__ . '/include/header.php';
   <section class="future-question">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($future['question']['label']); ?></p>
-      <h2><?php echo e($future['question']['title']); ?></h2>
+      <h2><?php echo responsive_text($future['question'], 'title'); ?></h2>
       <?php foreach ($future['question']['body'] as $paragraph) : ?>
         <p><?php echo e($paragraph); ?></p>
       <?php endforeach; ?>
@@ -148,7 +152,7 @@ include __DIR__ . '/include/header.php';
   <section class="next-cta">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($future['cta']['label']); ?></p>
-      <h2><?php echo e($future['cta']['title']); ?></h2>
+      <h2><?php echo responsive_text($future['cta'], 'title'); ?></h2>
       <p><?php echo e($future['cta']['body']); ?></p>
       <div class="button-group">
         <a class="button button--primary" href="<?php echo e($future['cta']['link']['url']); ?>">

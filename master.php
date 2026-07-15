@@ -16,7 +16,7 @@ include __DIR__ . '/include/header.php';
   <section class="page-hero hero-scene hero-scene--master">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($master_page['hero']['label']); ?></p>
-      <h1><?php echo e($master_page['hero']['title']); ?></h1>
+      <h1><?php echo responsive_text($master_page['hero'], 'title'); ?></h1>
       <p class="section-lead"><?php echo e($master_page['hero']['lead']); ?></p>
       <div class="button-group">
         <a class="button button--primary" href="future.php#improvement-masters">改善マスターマップを見る</a>
@@ -28,7 +28,7 @@ include __DIR__ . '/include/header.php';
   <section class="master-program-intro">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($master_page['intro']['label']); ?></p>
-      <h2><?php echo e($master_page['intro']['title']); ?></h2>
+      <h2><?php echo responsive_text($master_page['intro'], 'title'); ?></h2>
       <?php foreach ($master_page['intro']['body'] as $paragraph) : ?>
         <p><?php echo e($paragraph); ?></p>
       <?php endforeach; ?>
@@ -39,7 +39,7 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label"><?php echo e($master_page['roles']['label']); ?></p>
-        <h2><?php echo e($master_page['roles']['title']); ?></h2>
+        <h2><?php echo responsive_text($master_page['roles'], 'title'); ?></h2>
       </div>
 
       <div class="content-grid content-grid--four">
@@ -57,7 +57,7 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="master-program-flow__copy">
         <p class="section-label"><?php echo e($master_page['flow']['label']); ?></p>
-        <h2><?php echo e($master_page['flow']['title']); ?></h2>
+        <h2><?php echo responsive_text($master_page['flow'], 'title'); ?></h2>
         <p><?php echo e($master_page['flow']['body']); ?></p>
       </div>
 
@@ -76,7 +76,7 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="master-os-support__heading">
         <p class="section-label"><?php echo e($master_page['os_support']['label']); ?></p>
-        <h2><?php echo e($master_page['os_support']['title']); ?></h2>
+        <h2><?php echo responsive_text($master_page['os_support'], 'title'); ?></h2>
         <p><?php echo e($master_page['os_support']['lead']); ?></p>
         <a class="text-link" href="<?php echo e($master_page['os_support']['link']['url']); ?>">
           <?php echo e($master_page['os_support']['link']['label']); ?>
@@ -97,7 +97,7 @@ include __DIR__ . '/include/header.php';
   <section class="next-cta">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($master_page['cta']['label']); ?></p>
-      <h2><?php echo e($master_page['cta']['title']); ?></h2>
+      <h2><?php echo responsive_text($master_page['cta'], 'title'); ?></h2>
       <p><?php echo e($master_page['cta']['body']); ?></p>
       <a class="button button--primary" href="<?php echo e($master_page['cta']['link']['url']); ?>">
         <?php echo e($master_page['cta']['link']['label']); ?>

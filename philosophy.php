@@ -24,8 +24,8 @@ if (($philosophy_cta['label'] ?? '') === 'Method') {
   <section class="page-hero hero-scene hero-scene--philosophy">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($philosophy['hero']['label']); ?></p>
-      <h1><?php echo e($philosophy['hero']['title']); ?></h1>
-      <p class="hero-subcopy"><?php echo e($philosophy['hero']['subtitle']); ?></p>
+      <h1><?php echo responsive_text($philosophy['hero'], 'title'); ?></h1>
+      <p class="hero-subcopy"><?php echo responsive_text($philosophy['hero'], 'subtitle'); ?></p>
       <p class="section-lead"><?php echo e($philosophy['hero']['lead']); ?></p>
     </div>
   </section>
@@ -34,7 +34,7 @@ if (($philosophy_cta['label'] ?? '') === 'Method') {
     <section class="definition-section definition-section--<?php echo e($definition['id']); ?>">
       <div class="section-inner section-inner--narrow">
         <p class="section-label"><?php echo e($definition['label']); ?></p>
-        <h2><?php echo e($definition['title']); ?></h2>
+        <h2><?php echo responsive_text($definition, 'title'); ?></h2>
         <?php foreach ($definition['body'] as $paragraph) : ?>
           <p><?php echo e($paragraph); ?></p>
         <?php endforeach; ?>
@@ -45,7 +45,7 @@ if (($philosophy_cta['label'] ?? '') === 'Method') {
   <section class="means-section">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($philosophy['means']['label']); ?></p>
-      <h2><?php echo e($philosophy['means']['title']); ?></h2>
+      <h2><?php echo responsive_text($philosophy['means'], 'title'); ?></h2>
       <?php foreach ($philosophy['means']['body'] as $paragraph) : ?>
         <p><?php echo e($paragraph); ?></p>
       <?php endforeach; ?>
@@ -56,7 +56,7 @@ if (($philosophy_cta['label'] ?? '') === 'Method') {
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label"><?php echo e($philosophy['values']['label']); ?></p>
-        <h2><?php echo e($philosophy['values']['title']); ?></h2>
+        <h2><?php echo responsive_text($philosophy['values'], 'title'); ?></h2>
       </div>
       <div class="content-grid content-grid--values">
         <?php foreach ($philosophy['values']['items'] as $item) : ?>
@@ -72,7 +72,7 @@ if (($philosophy_cta['label'] ?? '') === 'Method') {
   <section class="next-cta">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($philosophy_cta['label']); ?></p>
-      <h2><?php echo e($philosophy_cta['title']); ?></h2>
+      <h2><?php echo responsive_text($philosophy_cta, 'title'); ?></h2>
       <p><?php echo e($philosophy_cta['body']); ?></p>
       <a class="button button--primary" href="<?php echo e($philosophy_cta['link']['url']); ?>">
         <?php echo e($philosophy_cta['link']['label']); ?>

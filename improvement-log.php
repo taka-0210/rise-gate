@@ -95,7 +95,7 @@ include __DIR__ . '/include/header.php';
   <section class="page-hero hero-scene hero-scene--log">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($logPage['hero']['label']); ?></p>
-      <h1><?php echo e($logPage['hero']['title']); ?></h1>
+      <h1><?php echo responsive_text($logPage['hero'], 'title'); ?></h1>
       <p class="section-lead"><?php echo e($logPage['hero']['lead']); ?></p>
     </div>
   </section>
@@ -103,7 +103,7 @@ include __DIR__ . '/include/header.php';
   <section class="log-purpose">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($logPage['intro']['label']); ?></p>
-      <h2><?php echo e($logPage['intro']['title']); ?></h2>
+      <h2><?php echo responsive_text($logPage['intro'], 'title'); ?></h2>
       <?php foreach ($logPage['intro']['body'] as $paragraph) : ?>
         <p><?php echo e($paragraph); ?></p>
       <?php endforeach; ?>
@@ -114,7 +114,11 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label">Categories</p>
-        <h2>改善の種類。</h2>
+        <h2><?php echo responsive_lines([
+          'desktop' => ['改善の種類。'],
+          'tablet' => ['改善の種類。'],
+          'mobile' => ['改善の種類。'],
+        ]); ?></h2>
       </div>
       <ul class="tag-list">
         <?php foreach ($logPage['categories'] as $category) : ?>
@@ -128,8 +132,11 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label">Logs</p>
-        <h2>何を変え、
-なぜ変えたのか。</h2>
+        <h2><?php echo responsive_lines([
+          'desktop' => ['何を変え、', 'なぜ変えたのか。'],
+          'tablet' => ['何を変え、', 'なぜ変えたのか。'],
+          'mobile' => ['何を変え、', 'なぜ変えたのか。'],
+        ]); ?></h2>
       </div>
 
       <div class="log-layout">
@@ -195,7 +202,7 @@ include __DIR__ . '/include/header.php';
   <section class="next-cta">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($logPage['cta']['label']); ?></p>
-      <h2><?php echo e($logPage['cta']['title']); ?></h2>
+      <h2><?php echo responsive_text($logPage['cta'], 'title'); ?></h2>
       <p><?php echo e($logPage['cta']['body']); ?></p>
       <a class="button button--primary" href="<?php echo e($logPage['cta']['link']['url']); ?>">
         <?php echo e($logPage['cta']['link']['label']); ?>

@@ -44,7 +44,7 @@ include __DIR__ . '/include/header.php';
   <section class="page-hero hero-scene hero-scene--method">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($method['hero']['label']); ?></p>
-      <h1><?php echo e($method['hero']['title']); ?></h1>
+      <h1><?php echo responsive_text($method['hero'], 'title'); ?></h1>
       <p class="section-lead"><?php echo e($method['hero']['lead']); ?></p>
     </div>
   </section>
@@ -52,7 +52,7 @@ include __DIR__ . '/include/header.php';
   <section class="method-intro">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($method['intro']['label']); ?></p>
-      <h2><?php echo e($method['intro']['title']); ?></h2>
+      <h2><?php echo responsive_text($method['intro'], 'title'); ?></h2>
       <?php foreach ($method['intro']['body'] as $paragraph) : ?>
         <p><?php echo e($paragraph); ?></p>
       <?php endforeach; ?>
@@ -63,8 +63,11 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label">Process</p>
-        <h2>改善が続く形へ、
-段階を分けて整えます。</h2>
+        <h2><?php echo responsive_lines([
+          'desktop' => ['改善が続く形へ、', '段階を分けて整えます。'],
+          'tablet' => ['改善が続く形へ、', '段階を分けて整えます。'],
+          'mobile' => ['改善が続く形へ、', '段階を分けて', '整えます。'],
+        ]); ?></h2>
       </div>
       <div class="method-step-list">
         <?php foreach ($method['steps'] as $step) : ?>
@@ -81,7 +84,7 @@ include __DIR__ . '/include/header.php';
   <section class="method-stance">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($method['stance']['label']); ?></p>
-      <h2><?php echo e($method['stance']['title']); ?></h2>
+      <h2><?php echo responsive_text($method['stance'], 'title'); ?></h2>
       <?php foreach ($method['stance']['body'] as $paragraph) : ?>
         <p><?php echo e($paragraph); ?></p>
       <?php endforeach; ?>
@@ -91,7 +94,7 @@ include __DIR__ . '/include/header.php';
   <section class="next-cta">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($method['cta']['label']); ?></p>
-      <h2><?php echo e($method['cta']['title']); ?></h2>
+      <h2><?php echo responsive_text($method['cta'], 'title'); ?></h2>
       <p><?php echo e($method['cta']['body']); ?></p>
       <div class="button-group">
         <a class="button button--primary" href="<?php echo e($method['cta']['link']['url']); ?>">

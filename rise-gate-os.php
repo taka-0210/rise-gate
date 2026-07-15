@@ -47,7 +47,11 @@ include __DIR__ . '/include/header.php';
   <section class="page-hero hero-scene hero-scene--rise-os">
     <div class="section-inner section-inner--narrow">
       <p class="section-label">04 / RISE GATE OS</p>
-      <h1>クライアントの改善文化を支える。</h1>
+      <h1><?php echo responsive_lines([
+        'desktop' => ['クライアントの改善文化を支える。'],
+        'tablet' => ['クライアントの改善文化を支える。'],
+        'mobile' => ['クライアントの', '改善文化を支える。'],
+      ]); ?></h1>
       <p class="section-lead">RISE GATE OSは、ライズゲートとクライアントが一緒に改善を積み重ねていくためのプラットフォームです。</p>
     </div>
   </section>
@@ -55,7 +59,11 @@ include __DIR__ . '/include/header.php';
   <section class="os-release-section">
     <div class="section-inner section-inner--narrow">
       <p class="section-label">Release</p>
-      <h2>RISE GATE OSを、<br>開発しました。</h2>
+      <h2><?php echo responsive_lines([
+        'desktop' => ['RISE GATE OSを、', '開発しました。'],
+        'tablet' => ['RISE GATE OSを、', '開発しました。'],
+        'mobile' => ['RISE GATE OSを、', '開発しました。'],
+      ]); ?></h2>
       <p>ホームページや業務システムを作ったあとも、改善は続いていきます。</p>
       <p>その改善を、感覚や口頭のやり取りだけに頼らず、見える形で積み重ねていくために、ライズゲートはRISE GATE OSを開発しました。</p>
       <p class="service-declaration__strong">制作後の進捗も。思いついた改善提案も。これまでの改善履歴も。クライアントとライズゲートが同じ場所で共有し、会社の変化を一緒に育てていきます。</p>
@@ -74,7 +82,11 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner os-intro-layout">
       <div class="os-intro-heading">
         <p class="section-label">Concept</p>
-        <h2>公開したら終わり。<br>導入したら終わり。<br><span>ではありません。</span></h2>
+        <h2><?php echo responsive_lines([
+          'desktop' => ['公開したら終わり。', '導入したら終わり。', 'ではありません。'],
+          'tablet' => ['公開したら終わり。', '導入したら終わり。', 'ではありません。'],
+          'mobile' => ['公開したら終わり。', '導入したら終わり。', 'ではありません。'],
+        ]); ?></h2>
       </div>
       <div class="os-intro-body">
         <p>ホームページは、公開したら終わりではありません。</p>
@@ -89,7 +101,11 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label">Platform</p>
-        <h2>機能を並べるためではなく、<br>改善が文化になるために。</h2>
+        <h2><?php echo responsive_lines([
+          'desktop' => ['機能を並べるためではなく、', '改善が文化になるために。'],
+          'tablet' => ['機能を並べるためではなく、', '改善が文化になるために。'],
+          'mobile' => ['機能を並べる', 'ためではなく、', '改善が文化になるために。'],
+        ]); ?></h2>
       </div>
       <div class="os-point-list">
         <?php foreach ($platform_points as $index => $point) : ?>
@@ -112,7 +128,11 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner os-together-layout">
       <div>
         <p class="section-label">Together</p>
-        <h2>ライズゲートも、<br>同じ画面で伴走します。</h2>
+        <h2><?php echo responsive_lines([
+          'desktop' => ['ライズゲートも、', '同じ画面で伴走します。'],
+          'tablet' => ['ライズゲートも、', '同じ画面で伴走します。'],
+          'mobile' => ['ライズゲートも、', '同じ画面で', '伴走します。'],
+        ]); ?></h2>
         <p>担当者だけが管理するのではありません。全員が同じ情報を見ながら、同じゴールに向かって改善を進めます。</p>
       </div>
       <div class="os-member-list" aria-label="RISE GATE OSで同じ情報を見るメンバー">
@@ -126,7 +146,11 @@ include __DIR__ . '/include/header.php';
   <section class="os-nurture-section">
     <div class="section-inner section-inner--narrow">
       <p class="section-label">Purpose</p>
-      <h2>作ることより、育てること。</h2>
+      <h2><?php echo responsive_lines([
+        'desktop' => ['作ることより、育てること。'],
+        'tablet' => ['作ることより、育てること。'],
+        'mobile' => ['作ることより、', '育てること。'],
+      ]); ?></h2>
       <p>私たちが目指しているのは、ホームページ制作会社ではありません。システム開発会社でもありません。</p>
       <p>改善が続く会社を増やすことです。</p>
       <p>ホームページも。業務システムも。改善提案も。すべてを一つにつなぎ、会社が進化し続ける環境を支えます。</p>

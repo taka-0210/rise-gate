@@ -315,7 +315,7 @@ include __DIR__ . '/include/header.php';
   <section class="page-hero hero-scene hero-scene--contact">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($contact['hero']['label']); ?></p>
-      <h1><?php echo e($contact['hero']['title']); ?></h1>
+      <h1><?php echo responsive_text($contact['hero'], 'title'); ?></h1>
       <p class="section-lead"><?php echo e($contact['hero']['lead']); ?></p>
     </div>
   </section>
@@ -324,7 +324,7 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label"><?php echo e($contact['examples']['label']); ?></p>
-        <h2><?php echo e($contact['examples']['title']); ?></h2>
+        <h2><?php echo responsive_text($contact['examples'], 'title'); ?></h2>
       </div>
       <div class="content-grid content-grid--three">
         <?php foreach ($contact['examples']['items'] as $item) : ?>
@@ -339,7 +339,7 @@ include __DIR__ . '/include/header.php';
   <section class="contact-stance">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($contact['stance']['label']); ?></p>
-      <h2><?php echo e($contact['stance']['title']); ?></h2>
+      <h2><?php echo responsive_text($contact['stance'], 'title'); ?></h2>
       <?php foreach ($contact['stance']['body'] as $paragraph) : ?>
         <p><?php echo e($paragraph); ?></p>
       <?php endforeach; ?>
@@ -349,7 +349,7 @@ include __DIR__ . '/include/header.php';
   <section class="contact-pricing">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($contact['pricing']['label']); ?></p>
-      <h2><?php echo e($contact['pricing']['title']); ?></h2>
+      <h2><?php echo responsive_text($contact['pricing'], 'title'); ?></h2>
       <?php foreach ($contact['pricing']['body'] as $paragraph) : ?>
         <p><?php echo e($paragraph); ?></p>
       <?php endforeach; ?>
@@ -359,7 +359,7 @@ include __DIR__ . '/include/header.php';
   <section class="contact-form-section" id="contact-form">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($contact['form']['label']); ?></p>
-      <h2><?php echo e($contact['form']['title']); ?></h2>
+      <h2><?php echo responsive_text($contact['form'], 'title'); ?></h2>
       <p><?php echo e($contact['form']['body']); ?></p>
 
       <?php if ($is_sent) : ?>
@@ -452,7 +452,7 @@ include __DIR__ . '/include/header.php';
   <section class="company-link">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($contact['company_link']['label']); ?></p>
-      <h2><?php echo e($contact['company_link']['title']); ?></h2>
+      <h2><?php echo responsive_text($contact['company_link'], 'title'); ?></h2>
       <p><?php echo e($contact['company_link']['body']); ?></p>
       <a class="text-link" href="<?php echo e($contact['company_link']['link']['url']); ?>">
         <?php echo e($contact['company_link']['link']['label']); ?>

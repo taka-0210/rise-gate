@@ -16,7 +16,7 @@ include __DIR__ . '/include/header.php';
   <section class="page-hero hero-scene hero-scene--story">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($story['hero']['label']); ?></p>
-      <h1><?php echo e($story['hero']['title']); ?></h1>
+      <h1><?php echo responsive_text($story['hero'], 'title'); ?></h1>
       <p class="section-lead"><?php echo e($story['hero']['lead']); ?></p>
     </div>
   </section>
@@ -26,7 +26,7 @@ include __DIR__ . '/include/header.php';
     <section class="story-section<?php echo $is_system_section ? ' story-section--system' : ''; ?>">
       <div class="section-inner section-inner--narrow">
         <p class="section-label"><?php echo e($section['label']); ?></p>
-        <h2><?php echo e($section['title']); ?></h2>
+        <h2><?php echo responsive_text($section, 'title'); ?></h2>
         <?php foreach ($section['body'] as $paragraph) : ?>
           <p><?php echo e($paragraph); ?></p>
         <?php endforeach; ?>
@@ -42,7 +42,7 @@ include __DIR__ . '/include/header.php';
   <section class="next-cta">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($story['cta']['label']); ?></p>
-      <h2><?php echo e($story['cta']['title']); ?></h2>
+      <h2><?php echo responsive_text($story['cta'], 'title'); ?></h2>
       <p><?php echo e($story['cta']['body']); ?></p>
       <a class="button button--primary" href="<?php echo e($story['cta']['link']['url']); ?>">
         <?php echo e($story['cta']['link']['label']); ?>

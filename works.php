@@ -67,7 +67,11 @@ include __DIR__ . '/include/header.php';
   <section class="page-hero hero-scene hero-scene--works">
     <div class="section-inner section-inner--narrow">
       <p class="section-label">06 / Works</p>
-      <h1>実績を、改善の記録として残す。</h1>
+      <h1><?php echo responsive_lines([
+        'desktop' => ['実績を、改善の記録として残す。'],
+        'tablet' => ['実績を、改善の記録として残す。'],
+        'mobile' => ['実績を、', '改善の記録として残す。'],
+      ]); ?></h1>
       <p class="section-lead">ホームページも、システムも、会社を良くするための手段です。採用、営業、情報共有、現場の業務など、会社が改善を続けるための土台として整えていきます。</p>
       <p class="section-lead">そのため実績では、何を作ったかだけでなく、なぜ変えたのか、どう良くなったのか。「課題」と「改善」をセットで残します。</p>
     </div>
@@ -78,7 +82,11 @@ include __DIR__ . '/include/header.php';
       <div class="works-scope">
         <div>
           <p class="section-label">Improvement Works</p>
-          <h2>Webサイト制作から、システム導入まで。</h2>
+          <h2><?php echo responsive_lines([
+            'desktop' => ['Webサイト制作から、システム導入まで。'],
+            'tablet' => ['Webサイト制作から、', 'システム導入まで。'],
+            'mobile' => ['Webサイト制作から、', 'システム導入まで。'],
+          ]); ?></h2>
           <p>ライズゲートの実績は、完成した画面を並べるだけではなく、会社の発信や業務がどう改善されたかを見る場所です。</p>
         </div>
       </div>
@@ -89,7 +97,11 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label">Works</p>
-        <h2>改善実績。</h2>
+        <h2><?php echo responsive_lines([
+          'desktop' => ['改善実績。'],
+          'tablet' => ['改善実績。'],
+          'mobile' => ['改善実績。'],
+        ]); ?></h2>
         <p>Webサイトと業務システムを入口に、会社の改善につながった取り組みを掲載していきます。</p>
       </div>
 
@@ -162,7 +174,11 @@ include __DIR__ . '/include/header.php';
   <section class="next-cta">
     <div class="section-inner section-inner--narrow">
       <p class="section-label">Contact</p>
-      <h2>あなたの会社では、何を変えたいですか。</h2>
+      <h2><?php echo responsive_lines([
+        'desktop' => ['あなたの会社では、何を変えたいですか。'],
+        'tablet' => ['あなたの会社では、', '何を変えたいですか。'],
+        'mobile' => ['あなたの会社では、', '何を変えたいですか。'],
+      ]); ?></h2>
       <p>Webサイトか、システムか。決める前に、まずは今止まっていること、変えたいことを一緒に整理します。</p>
       <a class="button button--primary" href="contact.php">改善について相談する</a>
     </div>
