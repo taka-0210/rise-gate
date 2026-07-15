@@ -24,3 +24,14 @@ function responsive_lines(array $line_sets): string
 
     return $html;
 }
+
+function responsive_text(array $source, string $key): string
+{
+    $line_key = $key . '_lines';
+
+    if (isset($source[$line_key]) && is_array($source[$line_key])) {
+        return responsive_lines($source[$line_key]);
+    }
+
+    return e((string) ($source[$key] ?? ''));
+}

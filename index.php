@@ -17,8 +17,8 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner hero-layout">
       <div class="hero-copy">
         <p class="section-label"><?php echo e($home['hero']['label']); ?></p>
-        <h1><?php echo isset($home['hero']['title_lines']) ? responsive_lines($home['hero']['title_lines']) : e($home['hero']['title']); ?></h1>
-        <p class="hero-subcopy"><?php echo isset($home['hero']['subtitle_lines']) ? responsive_lines($home['hero']['subtitle_lines']) : e($home['hero']['subtitle']); ?></p>
+        <h1><?php echo responsive_text($home['hero'], 'title'); ?></h1>
+        <p class="hero-subcopy"><?php echo responsive_text($home['hero'], 'subtitle'); ?></p>
         <p class="section-lead"><?php echo e($home['hero']['lead']); ?></p>
         <div class="button-group">
           <a class="button button--primary" href="<?php echo e($home['hero']['primary_cta']['url']); ?>">
@@ -36,7 +36,7 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner sme-focus-layout">
       <div class="sme-focus-copy">
         <p class="section-label"><?php echo e($home['sme_focus']['label']); ?></p>
-        <h2><?php echo e($home['sme_focus']['title']); ?></h2>
+        <h2><?php echo responsive_text($home['sme_focus'], 'title'); ?></h2>
         <p class="section-lead"><?php echo e($home['sme_focus']['lead']); ?></p>
         <?php foreach ($home['sme_focus']['body'] as $paragraph) : ?>
           <p><?php echo e($paragraph); ?></p>
@@ -96,8 +96,8 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label"><?php echo e($home['service_teaser']['label']); ?></p>
-        <h2><?php echo e($home['service_teaser']['title']); ?></h2>
-        <p class="service-teaser__subtitle"><?php echo e($home['service_teaser']['subtitle']); ?></p>
+        <h2><?php echo responsive_text($home['service_teaser'], 'title'); ?></h2>
+        <p class="service-teaser__subtitle"><?php echo responsive_text($home['service_teaser'], 'subtitle'); ?></p>
         <p><?php echo e($home['service_teaser']['lead']); ?></p>
       </div>
       <div class="content-grid content-grid--two">
@@ -124,7 +124,7 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label"><?php echo e($home['problems']['label']); ?></p>
-        <h2><?php echo e($home['problems']['title']); ?></h2>
+        <h2><?php echo responsive_text($home['problems'], 'title'); ?></h2>
         <p><?php echo e($home['problems']['lead']); ?></p>
       </div>
       <div class="content-grid content-grid--four">
@@ -142,7 +142,7 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label"><?php echo e($home['environment']['label']); ?></p>
-        <h2><?php echo e($home['environment']['title']); ?></h2>
+        <h2><?php echo responsive_text($home['environment'], 'title'); ?></h2>
         <p><?php echo e($home['environment']['lead']); ?></p>
       </div>
       <div class="content-grid content-grid--three">
@@ -159,7 +159,7 @@ include __DIR__ . '/include/header.php';
   <section class="brand-message">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($home['brand_message']['label']); ?></p>
-      <h2><?php echo e($home['brand_message']['title']); ?></h2>
+      <h2><?php echo responsive_text($home['brand_message'], 'title'); ?></h2>
       <?php foreach ($home['brand_message']['body'] as $paragraph) : ?>
         <p><?php echo e($paragraph); ?></p>
       <?php endforeach; ?>
@@ -177,7 +177,7 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label"><?php echo e($home['approach']['label']); ?></p>
-        <h2><?php echo e($home['approach']['title']); ?></h2>
+        <h2><?php echo responsive_text($home['approach'], 'title'); ?></h2>
         <p><?php echo e($home['approach']['lead']); ?></p>
       </div>
       <ol class="step-list">
@@ -197,7 +197,7 @@ include __DIR__ . '/include/header.php';
   <section class="next-cta">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($home['cta']['label']); ?></p>
-      <h2><?php echo e($home['cta']['title']); ?></h2>
+      <h2><?php echo responsive_text($home['cta'], 'title'); ?></h2>
       <p><?php echo e($home['cta']['body']); ?></p>
       <a class="button button--primary" href="<?php echo e($home['cta']['link']['url']); ?>">
         <?php echo e($home['cta']['link']['label']); ?>
