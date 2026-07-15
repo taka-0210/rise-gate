@@ -17,8 +17,8 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner hero-layout">
       <div class="hero-copy">
         <p class="section-label"><?php echo e($home['hero']['label']); ?></p>
-        <h1><?php echo e($home['hero']['title']); ?></h1>
-        <p class="hero-subcopy"><?php echo e($home['hero']['subtitle']); ?></p>
+        <h1><?php echo isset($home['hero']['title_lines']) ? responsive_lines($home['hero']['title_lines']) : e($home['hero']['title']); ?></h1>
+        <p class="hero-subcopy"><?php echo isset($home['hero']['subtitle_lines']) ? responsive_lines($home['hero']['subtitle_lines']) : e($home['hero']['subtitle']); ?></p>
         <p class="section-lead"><?php echo e($home['hero']['lead']); ?></p>
         <div class="button-group">
           <a class="button button--primary" href="<?php echo e($home['hero']['primary_cta']['url']); ?>">

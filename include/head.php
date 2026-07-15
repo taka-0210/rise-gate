@@ -46,5 +46,9 @@ $stylesheet_version = file_exists($stylesheet_path) ? (string) filemtime($styles
   <?php endif; ?>
   <meta name="twitter:card" content="summary_large_image">
   <title><?php echo htmlspecialchars($full_title, ENT_QUOTES, 'UTF-8'); ?></title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="css/style.css?v=<?php echo htmlspecialchars($stylesheet_version, ENT_QUOTES, 'UTF-8'); ?>">
 </head>

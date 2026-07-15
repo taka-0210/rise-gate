@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Rise Gate">
+  <rect width="256" height="256" rx="44" fill="#1f1f1f"/>
+  <g fill="none" fill-rule="evenodd" transform="translate(0 34)">
+    <path fill="#f3f3f3" d="M128 28 234 80l-22 11-84-41-84 41-22-11z"/>
+    <path fill="#b9b9b9" d="M128 54 234 106l-22 11-84-41-84 41-22-11z"/>
+    <path fill="#686868" d="M128 82 234 132l-72 28v-42l-34-17-34 17v42l-72-28z"/>
+  </g>
+</svg>
