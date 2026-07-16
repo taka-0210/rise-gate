@@ -60,7 +60,14 @@ include __DIR__ . '/include/header.php';
 
       <p class="sme-focus-closing">
         <?php foreach ($home['sme_focus']['closing'] as $index => $line) : ?>
-          <span<?php echo $index === 2 ? ' class="sme-focus-closing__last"' : ''; ?>><?php echo e($line); ?></span>
+          <?php if ($index === 2) : ?>
+            <span class="sme-focus-closing__last">
+              <span class="sme-focus-closing__desktop"><?php echo e($line); ?></span>
+              <span class="sme-focus-closing__mobile">日本はもっと<br>良くなる</span>
+            </span>
+          <?php else : ?>
+            <span><?php echo e($line); ?></span>
+          <?php endif; ?>
         <?php endforeach; ?>
       </p>
     </div>

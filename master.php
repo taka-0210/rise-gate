@@ -18,10 +18,6 @@ include __DIR__ . '/include/header.php';
       <p class="section-label"><?php echo e($master_page['hero']['label']); ?></p>
       <h1><?php echo responsive_text($master_page['hero'], 'title'); ?></h1>
       <p class="section-lead"><?php echo e($master_page['hero']['lead']); ?></p>
-      <div class="button-group">
-        <a class="button button--primary" href="future.php#improvement-masters">改善マスターマップを見る</a>
-        <a class="button button--secondary" href="contact.php">制度について相談する</a>
-      </div>
     </div>
   </section>
 

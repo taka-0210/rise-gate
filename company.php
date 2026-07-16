@@ -7,6 +7,8 @@ require __DIR__ . '/include/functions.php';
 $current_page = 'company';
 $page_title = $company['meta']['title'];
 $page_description = $company['meta']['description'];
+$representative_image_path = __DIR__ . '/image/profile/representative.png';
+$representative_image_version = file_exists($representative_image_path) ? (string) filemtime($representative_image_path) : '1';
 
 include __DIR__ . '/include/head.php';
 include __DIR__ . '/include/header.php';
@@ -36,7 +38,7 @@ include __DIR__ . '/include/header.php';
         <?php endforeach; ?>
         <div class="message-signature">
           <span><?php echo e($company['message']['signature_role']); ?></span>
-          <img src="<?php echo e($company['message']['signature_image']); ?>" alt="<?php echo e($company['message']['signature_alt']); ?>" loading="lazy">
+          <strong><?php echo e($company['message']['signature_name']); ?></strong>
         </div>
       </div>
     </div>
@@ -70,7 +72,7 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="representative-profile">
         <figure class="representative-profile__photo">
-          <img src="image/profile/representative.png" alt="ライズゲート代表者のポートレート" loading="lazy">
+          <img src="image/profile/representative.png?v=<?php echo e($representative_image_version); ?>" alt="ライズゲート代表者のポートレート" loading="lazy">
         </figure>
         <div>
           <p class="section-label"><?php echo e($company['profile']['label']); ?></p>

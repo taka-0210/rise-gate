@@ -52,6 +52,11 @@ include __DIR__ . '/include/header.php';
         <?php foreach ($section['body'] as $paragraph) : ?>
           <p><?php echo e($paragraph); ?></p>
         <?php endforeach; ?>
+        <?php if (!empty($section['link'])) : ?>
+          <a class="button button--primary" href="<?php echo e($section['link']['url']); ?>">
+            <?php echo e($section['link']['label']); ?>
+          </a>
+        <?php endif; ?>
       </div>
     </section>
   <?php endforeach; ?>

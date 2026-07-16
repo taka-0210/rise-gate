@@ -6,6 +6,8 @@ require __DIR__ . '/include/functions.php';
 $current_page = 'rise-gate-os';
 $page_title = 'RISE GATE OS';
 $page_description = 'RISE GATE OSは、ライズゲートとクライアントが同じ情報を見ながら、進捗、改善提案、改善履歴を積み重ねていくためのプラットフォームです。';
+$platform_image_path = __DIR__ . '/image/scene/rise-gate-os-platform.png';
+$platform_image_version = file_exists($platform_image_path) ? (string) filemtime($platform_image_path) : '1';
 
 $platform_points = [
   [
@@ -73,7 +75,7 @@ include __DIR__ . '/include/header.php';
   <section class="os-visual-section">
     <div class="section-inner">
       <figure class="os-platform-visual">
-        <img src="image/scene/rise-gate-os-platform.png" alt="RISE GATE OSで進捗、改善提案、改善履歴を共有しながら、クライアントとライズゲートが同じ画面で改善を進めるイメージ">
+        <img src="image/scene/rise-gate-os-platform.png?v=<?php echo e($platform_image_version); ?>" alt="RISE GATE OSで進捗、改善提案、改善履歴を共有しながら、クライアントとライズゲートが同じ画面で改善を進めるイメージ">
       </figure>
     </div>
   </section>

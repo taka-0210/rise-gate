@@ -47,7 +47,7 @@ include __DIR__ . '/include/header.php';
       <div class="service-team-diagram" aria-label="改善プロジェクトを支える専門家チーム">
         <div class="service-team-diagram__center">
           <span><?php echo e($service['team']['center_label']); ?></span>
-          <strong><?php echo e($service['team']['center_title']); ?></strong>
+          <strong><?php echo responsive_text($service['team'], 'center_title'); ?></strong>
         </div>
         <div class="service-team-diagram__roles">
           <?php foreach ($service['team']['experts'] as $expert) : ?>

@@ -2,12 +2,14 @@
 $site = $site ?? require __DIR__ . '/../data/site.php';
 $navigation = $navigation ?? require __DIR__ . '/../data/navigation.php';
 $current_page = $current_page ?? '';
+$logo_path = __DIR__ . '/../image/logo/risegate-logo.png';
+$logo_version = file_exists($logo_path) ? (string) filemtime($logo_path) : '1';
 ?>
 <body>
   <header class="site-header">
     <div class="site-header__inner">
       <a class="site-logo" href="index.php" aria-label="<?php echo htmlspecialchars($site['short_name'], ENT_QUOTES, 'UTF-8'); ?> トップページ">
-        <img src="image/logo/risegate-logo.png" alt="<?php echo htmlspecialchars($site['short_name'], ENT_QUOTES, 'UTF-8'); ?>">
+        <img src="image/logo/risegate-logo.png?v=<?php echo htmlspecialchars($logo_version, ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($site['short_name'], ENT_QUOTES, 'UTF-8'); ?>">
       </a>
 
       <button class="nav-toggle" type="button" aria-label="メニューを開閉する" aria-expanded="false" aria-controls="global-nav">

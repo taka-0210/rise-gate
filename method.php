@@ -11,7 +11,7 @@ $page_description = $method['meta']['description'];
 $method['steps'] = [
   [
     'label' => 'Step 01',
-    'title' => '現場を見る',
+    'title' => '現場を知る',
     'body' => '答えは、実際の仕事の中にあります。働く人の声、日々の流れ、止まっている情報や業務を見ながら、改善の入口を探します。',
   ],
   [
