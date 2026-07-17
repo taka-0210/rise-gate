@@ -268,6 +268,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
         $submission = [
             'id' => date('YmdHis') . '-' . bin2hex(random_bytes(4)),
             'created_at' => date('Y-m-d H:i:s'),
+            'status' => 'unread',
             'prefecture' => $form['prefecture'],
             'consultation_type' => $form['type'],
             'recipient' => $selected_master ? 'master' : 'headquarters',

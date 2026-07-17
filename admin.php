@@ -89,7 +89,13 @@ $published_masters_count = count(array_filter($masters, function ($master) {
 usort($contact_submissions, function ($a, $b) {
     return strcmp($b['created_at'] ?? '', $a['created_at'] ?? '');
 });
-$latest_contact = $contact_submissions[0]['created_at'] ?? '';
+$active_contact_submissions = array_values(array_filter($contact_submissions, function ($submission) {
+    return ($submission['status'] ?? 'unread') !== 'spam';
+}));
+$unread_contact_count = count(array_filter($active_contact_submissions, function ($submission) {
+    return ($submission['status'] ?? 'unread') === 'unread';
+}));
+$latest_contact = $active_contact_submissions[0]['created_at'] ?? '';
 
 $page_title = '管理画面';
 $page_description = 'ライズゲート管理画面';
@@ -119,7 +125,7 @@ include __DIR__ . '/include/head.php';
       <a class="admin-dashboard-card" href="admin-contacts.php">
         <span class="section-label">Contact Inbox</span>
         <strong>問い合わせ管理</strong>
-        <span><?php echo e((string) count($contact_submissions)); ?>件<?php echo $latest_contact !== '' ? ' / 最新 ' . e($latest_contact) : ''; ?></span>
+        <span><?php echo e((string) $unread_contact_count); ?>件未確認 / 全<?php echo e((string) count($active_contact_submissions)); ?>件<?php echo $latest_contact !== '' ? ' / 最新 ' . e($latest_contact) : ''; ?></span>
       </a>
 
       <a class="admin-dashboard-card" href="admin-works.php">

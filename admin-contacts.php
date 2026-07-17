@@ -96,14 +96,85 @@ function admin_contact_mail_status_label($value): string
     return '-';
 }
 
+function admin_contact_status(array $submission): string
+{
+    $status = (string) ($submission['status'] ?? 'unread');
+    return in_array($status, ['unread', 'read', 'spam'], true) ? $status : 'unread';
+}
+
+function admin_contact_status_label(string $status): string
+{
+    return match ($status) {
+        'read' => '確認済み',
+        'spam' => '迷惑メール',
+        default => '未確認',
+    };
+}
+
+function admin_contact_save_all(string $data_file, array $submissions): bool
+{
+    $export = var_export(array_values($submissions), true);
+    return file_put_contents($data_file, "<?php\nreturn " . $export . ";\n", LOCK_EX) !== false;
+}
+
 if (!is_array($contact_submissions)) {
     $contact_submissions = [];
 }
+
+if (empty($_SESSION['admin_contact_csrf'])) {
+    $_SESSION['admin_contact_csrf'] = bin2hex(random_bytes(24));
+}
+
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['contact_status'])) {
+    $csrf = (string) ($_POST['csrf_token'] ?? '');
+    $submission_id = trim((string) ($_POST['submission_id'] ?? ''));
+    $new_status = (string) ($_POST['contact_status'] ?? '');
+    $return_view = (string) ($_POST['return_view'] ?? 'inbox');
+
+    if (!hash_equals((string) $_SESSION['admin_contact_csrf'], $csrf)) {
+        $errors[] = '操作を確認できませんでした。もう一度お試しください。';
+    } elseif (!in_array($new_status, ['unread', 'read', 'spam'], true)) {
+        $errors[] = '指定された状態が正しくありません。';
+    } else {
+        $updated = false;
+        foreach ($contact_submissions as &$submission) {
+            if (($submission['id'] ?? '') === $submission_id) {
+                $submission['status'] = $new_status;
+                $updated = true;
+                break;
+            }
+        }
+        unset($submission);
+
+        if (!$updated) {
+            $errors[] = '指定された問い合わせが見つかりませんでした。';
+        } elseif (!admin_contact_save_all($contact_submissions_file, $contact_submissions)) {
+            $errors[] = '状態を保存できませんでした。';
+        } else {
+            $_SESSION['admin_contact_notice'] = admin_contact_status_label($new_status) . 'に変更しました。';
+            $redirect_view = $return_view === 'spam' ? '?view=spam' : '';
+            header('Location: admin-contacts.php' . $redirect_view . '#contact-submissions');
+            exit;
+        }
+    }
+}
+
+$notice = (string) ($_SESSION['admin_contact_notice'] ?? '');
+unset($_SESSION['admin_contact_notice']);
 
 usort($contact_submissions, function ($a, $b) {
     return strcmp($b['created_at'] ?? '', $a['created_at'] ?? '');
 });
 
+$current_view = (string) ($_GET['view'] ?? '') === 'spam' ? 'spam' : 'inbox';
+$unread_count = count(array_filter($contact_submissions, fn($submission) => admin_contact_status($submission) === 'unread'));
+$spam_count = count(array_filter($contact_submissions, fn($submission) => admin_contact_status($submission) === 'spam'));
+$visible_submissions = array_values(array_filter(
+    $contact_submissions,
+    fn($submission) => $current_view === 'spam'
+        ? admin_contact_status($submission) === 'spam'
+        : admin_contact_status($submission) !== 'spam'
+));
 $selected_submission_id = trim((string) ($_GET['inquiry'] ?? ''));
 $selected_submission = $selected_submission_id !== '' ? admin_contact_find_submission($contact_submissions, $selected_submission_id) : null;
 
@@ -131,24 +202,33 @@ include __DIR__ . '/include/head.php';
     <?php foreach ($errors as $error) : ?>
       <p class="admin-alert admin-alert--error"><?php echo e($error); ?></p>
     <?php endforeach; ?>
+    <?php if ($notice !== '') : ?>
+      <p class="admin-alert admin-alert--success"><?php echo e($notice); ?></p>
+    <?php endif; ?>
 
     <section class="admin-panel admin-contact-panel" id="contact-submissions">
       <div class="admin-panel__head">
         <div>
           <p class="section-label">Contact Inbox</p>
-          <h2>問い合わせ一覧</h2>
+          <h2><?php echo $current_view === 'spam' ? '迷惑メール' : '問い合わせ一覧'; ?></h2>
         </div>
-        <span class="admin-count-badge"><?php echo e((string) count($contact_submissions)); ?>件</span>
+        <span class="admin-count-badge"><?php echo e((string) count($visible_submissions)); ?>件</span>
       </div>
 
-      <?php if (empty($contact_submissions)) : ?>
-        <p>問い合わせはまだありません。</p>
+      <nav class="admin-contact-tabs" aria-label="問い合わせ表示切り替え">
+        <a href="admin-contacts.php#contact-submissions"<?php echo $current_view === 'inbox' ? ' aria-current="page"' : ''; ?>>通常一覧 <span><?php echo e((string) $unread_count); ?>件未確認</span></a>
+        <a href="admin-contacts.php?view=spam#contact-submissions"<?php echo $current_view === 'spam' ? ' aria-current="page"' : ''; ?>>迷惑メール <span><?php echo e((string) $spam_count); ?>件</span></a>
+      </nav>
+
+      <?php if (empty($visible_submissions)) : ?>
+        <p><?php echo $current_view === 'spam' ? '迷惑メールはありません。' : '問い合わせはまだありません。'; ?></p>
       <?php else : ?>
         <div class="admin-contact-table-wrap">
           <table class="admin-contact-table">
             <thead>
               <tr>
                 <th>日付時間</th>
+                <th>状態</th>
                 <th>都道府県</th>
                 <th>相談選択肢</th>
                 <th>宛先</th>
@@ -157,15 +237,17 @@ include __DIR__ . '/include/head.php';
               </tr>
             </thead>
             <tbody>
-              <?php foreach ($contact_submissions as $submission) : ?>
-                <tr>
+              <?php foreach ($visible_submissions as $submission) : ?>
+                <?php $submission_status = admin_contact_status($submission); ?>
+                <tr class="admin-contact-row--<?php echo e($submission_status); ?>">
                   <td class="admin-contact-table__date"><?php echo e($submission['created_at'] ?? ''); ?></td>
+                  <td><span class="admin-contact-status admin-contact-status--<?php echo e($submission_status); ?>"><?php echo e(admin_contact_status_label($submission_status)); ?></span></td>
                   <td><?php echo e(($submission['prefecture'] ?? '') !== '' ? $submission['prefecture'] : '-'); ?></td>
                   <td class="admin-contact-table__type"><?php echo e($submission['consultation_type'] ?? ''); ?></td>
                   <td><span class="admin-contact-pill"><?php echo e(admin_contact_recipient_label((string) ($submission['recipient'] ?? ''))); ?></span></td>
                   <td><?php echo e(($submission['master_name'] ?? '') !== '' ? $submission['master_name'] : '-'); ?></td>
                   <td class="admin-contact-table__action">
-                    <a class="admin-action-button admin-action-button--compact" href="admin-contacts.php?inquiry=<?php echo e(rawurlencode((string) ($submission['id'] ?? ''))); ?>#contact-submissions">詳細</a>
+                    <a class="admin-action-button admin-action-button--compact" href="admin-contacts.php?<?php echo $current_view === 'spam' ? 'view=spam&amp;' : ''; ?>inquiry=<?php echo e(rawurlencode((string) ($submission['id'] ?? ''))); ?>#contact-submissions">詳細</a>
                   </td>
                 </tr>
               <?php endforeach; ?>
@@ -178,9 +260,34 @@ include __DIR__ . '/include/head.php';
         <article class="admin-contact-detail">
           <div class="admin-panel__head">
             <h3>問い合わせ詳細</h3>
-            <a class="text-link" href="admin-contacts.php#contact-submissions">閉じる</a>
+            <a class="text-link" href="admin-contacts.php<?php echo $current_view === 'spam' ? '?view=spam' : ''; ?>#contact-submissions">閉じる</a>
+          </div>
+          <div class="admin-contact-detail__actions">
+            <?php if (admin_contact_status($selected_submission) === 'spam') : ?>
+              <form method="post">
+                <input type="hidden" name="csrf_token" value="<?php echo e((string) $_SESSION['admin_contact_csrf']); ?>">
+                <input type="hidden" name="submission_id" value="<?php echo e((string) ($selected_submission['id'] ?? '')); ?>">
+                <input type="hidden" name="return_view" value="spam">
+                <button class="admin-action-button" type="submit" name="contact_status" value="unread">未確認に戻す</button>
+              </form>
+            <?php else : ?>
+              <form method="post">
+                <input type="hidden" name="csrf_token" value="<?php echo e((string) $_SESSION['admin_contact_csrf']); ?>">
+                <input type="hidden" name="submission_id" value="<?php echo e((string) ($selected_submission['id'] ?? '')); ?>">
+                <button class="admin-action-button" type="submit" name="contact_status" value="<?php echo admin_contact_status($selected_submission) === 'unread' ? 'read' : 'unread'; ?>"><?php echo admin_contact_status($selected_submission) === 'unread' ? '確認済みにする' : '未確認に戻す'; ?></button>
+              </form>
+              <form method="post" onsubmit="return confirm('この問い合わせを迷惑メールに移動しますか？');">
+                <input type="hidden" name="csrf_token" value="<?php echo e((string) $_SESSION['admin_contact_csrf']); ?>">
+                <input type="hidden" name="submission_id" value="<?php echo e((string) ($selected_submission['id'] ?? '')); ?>">
+                <button class="admin-action-button admin-action-button--delete" type="submit" name="contact_status" value="spam">迷惑メールにする</button>
+              </form>
+            <?php endif; ?>
           </div>
           <dl class="profile-list">
+            <div>
+              <dt>状態</dt>
+              <dd><?php echo e(admin_contact_status_label(admin_contact_status($selected_submission))); ?></dd>
+            </div>
             <div>
               <dt>日付時間</dt>
               <dd><?php echo e($selected_submission['created_at'] ?? ''); ?></dd>
