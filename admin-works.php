@@ -14,6 +14,7 @@ const ADMIN_WORK_TYPES = [
     'website' => 'Webサイト制作',
     'system' => 'システム導入',
 ];
+const ADMIN_WORK_MEMBER_LIMIT = 5;
 
 if (PHP_SAPI === 'cli') {
     session_save_path(dirname(__DIR__) . '/tmp/sessions');
@@ -257,6 +258,76 @@ function admin_find_master(array $masters, string $slug): ?array
     return null;
 }
 
+function admin_normalize_work_members(array $work, array $masters): array
+{
+    $members = [];
+    $source_members = is_array($work['members'] ?? null) ? $work['members'] : [];
+
+    foreach ($source_members as $member) {
+        if (!is_array($member)) {
+            continue;
+        }
+
+        $master_slug = trim((string) ($member['master_slug'] ?? ''));
+        $master = $master_slug !== '' ? admin_find_master($masters, $master_slug) : null;
+        $name = trim((string) ($master['name'] ?? $member['name'] ?? ''));
+        $role = trim((string) ($member['role'] ?? ''));
+        $note = trim((string) ($member['note'] ?? ''));
+
+        if ($master_slug === '' && $name === '' && $role === '' && $note === '') {
+            continue;
+        }
+
+        $members[] = [
+            'master_slug' => $master_slug,
+            'name' => $name,
+            'role' => $role,
+            'note' => $note,
+        ];
+    }
+
+    if (empty($members) && trim((string) ($work['master_slug'] ?? '')) !== '') {
+        $master_slug = trim((string) ($work['master_slug'] ?? ''));
+        $master = admin_find_master($masters, $master_slug);
+        $members[] = [
+            'master_slug' => $master_slug,
+            'name' => trim((string) ($master['name'] ?? $work['master_name'] ?? '')),
+            'role' => '',
+            'note' => '',
+        ];
+    }
+
+    return array_slice(array_values($members), 0, ADMIN_WORK_MEMBER_LIMIT);
+}
+
+function admin_collect_work_members(array $post, array $masters): array
+{
+    $members = [];
+    $master_slugs = (array) ($post['member_master_slug'] ?? []);
+    $roles = (array) ($post['member_role'] ?? []);
+    $notes = (array) ($post['member_note'] ?? []);
+
+    for ($index = 0; $index < ADMIN_WORK_MEMBER_LIMIT; $index++) {
+        $master_slug = trim((string) ($master_slugs[$index] ?? ''));
+        $role = trim((string) ($roles[$index] ?? ''));
+        $note = trim((string) ($notes[$index] ?? ''));
+
+        if ($master_slug === '' && $role === '' && $note === '') {
+            continue;
+        }
+
+        $master = $master_slug !== '' ? admin_find_master($masters, $master_slug) : null;
+        $members[] = [
+            'master_slug' => $master ? (string) ($master['slug'] ?? '') : '',
+            'name' => $master ? (string) ($master['name'] ?? '') : '',
+            'role' => $role,
+            'note' => $note,
+        ];
+    }
+
+    return $members;
+}
+
 function admin_default_gallery(): array
 {
     return array_fill(0, ADMIN_GALLERY_LIMIT, [
@@ -292,8 +363,8 @@ $default_work = [
     'slug' => '',
     'title' => '',
     'client_name' => '',
-    'master_slug' => '',
-    'master_name' => '',
+    'os_project_id' => '',
+    'members' => [],
     'published_at' => date('Y-m-d'),
     'summary' => '',
     'challenge' => '',
@@ -314,8 +385,6 @@ $default_work = [
 if (($_POST['action'] ?? '') === 'save') {
     $original_slug = trim((string) ($_POST['original_slug'] ?? ''));
     $slug = admin_slugify((string) ($_POST['slug'] ?? ''));
-    $master_slug = trim((string) ($_POST['master_slug'] ?? ''));
-    $selected_master = $master_slug !== '' ? admin_find_master($masters, $master_slug) : null;
     $existing_work = $original_slug !== '' ? admin_find_work($works, $original_slug) : null;
     $existing_screenshots = array_merge(
         ['desktop' => '', 'mobile' => ''],
@@ -329,8 +398,8 @@ if (($_POST['action'] ?? '') === 'save') {
         'slug' => $slug,
         'title' => trim((string) ($_POST['title'] ?? '')),
         'client_name' => trim((string) ($_POST['client_name'] ?? '')),
-        'master_slug' => $selected_master ? (string) ($selected_master['slug'] ?? '') : '',
-        'master_name' => $selected_master ? (string) ($selected_master['name'] ?? '') : '',
+        'os_project_id' => trim((string) ($_POST['os_project_id'] ?? '')),
+        'members' => admin_collect_work_members($_POST, $masters),
         'published_at' => preg_match('/^\d{4}-\d{2}-\d{2}$/', $_POST['published_at'] ?? '') ? $_POST['published_at'] : date('Y-m-d'),
         'summary' => trim((string) ($_POST['summary'] ?? '')),
         'challenge' => trim((string) ($_POST['challenge'] ?? '')),
@@ -443,6 +512,13 @@ if (($_GET['message'] ?? '') === 'saved') {
 $edit_slug = trim((string) ($_GET['edit'] ?? ''));
 $editing_work = $edit_slug !== '' ? admin_find_work($works, $edit_slug) : null;
 $form_work = array_merge($default_work, $editing_work ?? []);
+$form_work['members'] = admin_normalize_work_members($form_work, $masters);
+$form_members = array_pad($form_work['members'], ADMIN_WORK_MEMBER_LIMIT, [
+    'master_slug' => '',
+    'name' => '',
+    'role' => '',
+    'note' => '',
+]);
 $form_gallery = admin_normalize_gallery($form_work['gallery'] ?? []);
 
 usort($masters, function ($a, $b) {
@@ -536,20 +612,45 @@ include __DIR__ . '/include/head.php';
           </div>
 
           <label>
-            <span>担当改善マスター</span>
-            <select name="master_slug">
-              <option value="">指定なし</option>
-              <?php foreach ($masters as $master) : ?>
-                <?php
-                $master_slug = (string) ($master['slug'] ?? '');
-                $master_label = trim((string) ($master['name'] ?? '') . (($master['company_name'] ?? '') !== '' ? ' / ' . (string) $master['company_name'] : ''));
-                ?>
-                <option value="<?php echo e($master_slug); ?>"<?php echo ($form_work['master_slug'] ?? '') === $master_slug ? ' selected' : ''; ?>>
-                  <?php echo e($master_label !== '' ? $master_label : $master_slug); ?>
-                </option>
-              <?php endforeach; ?>
-            </select>
+            <span>RISE GATE OS プロジェクトID</span>
+            <input type="text" name="os_project_id" value="<?php echo e($form_work['os_project_id'] ?? ''); ?>" placeholder="project-xxxx">
           </label>
+
+          <section class="admin-member-fields">
+            <div class="admin-subheading">
+              <h3>担当メンバー</h3>
+              <p>改善マスターごとに、この実績での役割を登録します。最大<?php echo e((string) ADMIN_WORK_MEMBER_LIMIT); ?>名まで設定できます。</p>
+            </div>
+
+            <?php foreach ($form_members as $index => $member) : ?>
+              <div class="admin-member-field">
+                <p class="admin-gallery-field__number">担当 <?php echo e((string) ($index + 1)); ?></p>
+                <label>
+                  <span>改善マスター</span>
+                  <select name="member_master_slug[<?php echo e((string) $index); ?>]">
+                    <option value="">指定なし</option>
+                    <?php foreach ($masters as $master) : ?>
+                      <?php
+                      $master_slug = (string) ($master['slug'] ?? '');
+                      $master_label = trim((string) ($master['name'] ?? '') . (($master['company_name'] ?? '') !== '' ? ' / ' . (string) $master['company_name'] : ''));
+                      ?>
+                      <option value="<?php echo e($master_slug); ?>"<?php echo ($member['master_slug'] ?? '') === $master_slug ? ' selected' : ''; ?>>
+                        <?php echo e($master_label !== '' ? $master_label : $master_slug); ?>
+                      </option>
+                    <?php endforeach; ?>
+                  </select>
+                </label>
+                <label>
+                  <span>役割</span>
+                  <input type="text" name="member_role[<?php echo e((string) $index); ?>]" value="<?php echo e($member['role'] ?? ''); ?>" placeholder="改善設計 / 実装 / 取材 / デザイン">
+                </label>
+                <label>
+                  <span>補足</span>
+                  <textarea name="member_note[<?php echo e((string) $index); ?>]" rows="2" placeholder="この実績で担当したことを短く書きます。"><?php echo e($member['note'] ?? ''); ?></textarea>
+                </label>
+              </div>
+            <?php endforeach; ?>
+          </section>
 
           <label>
             <span>概要</span>
@@ -705,8 +806,15 @@ include __DIR__ . '/include/head.php';
               <div>
                 <p class="admin-work-item__meta"><?php echo e($work['status'] === 'published' ? '公開' : '下書き'); ?> / <?php echo e($work['published_at']); ?> / <?php echo e($work['type_label'] ?? admin_work_type_label((string) ($work['type'] ?? 'website'))); ?></p>
                 <h3><?php echo e($work['title']); ?></h3>
-                <?php if (($work['master_name'] ?? '') !== '') : ?>
-                  <p class="admin-work-item__meta">担当改善マスター：<?php echo e($work['master_name']); ?></p>
+                <?php $work_members = admin_normalize_work_members($work, $masters); ?>
+                <?php if (!empty($work_members)) : ?>
+                  <p class="admin-work-item__meta">
+                    担当：<?php echo e(implode(' / ', array_map(function ($member) {
+                        $name = (string) ($member['name'] ?? '');
+                        $role = (string) ($member['role'] ?? '');
+                        return $role !== '' ? $name . '（' . $role . '）' : $name;
+                    }, $work_members))); ?>
+                  </p>
                 <?php endif; ?>
                 <p><?php echo e($work['summary']); ?></p>
               </div>

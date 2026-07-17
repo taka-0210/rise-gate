@@ -16,6 +16,61 @@ function work_detail_find_master(array $masters, string $slug): ?array
     return null;
 }
 
+function work_detail_members(array $work, array $masters): array
+{
+    $members = [];
+    $source_members = is_array($work['members'] ?? null) ? $work['members'] : [];
+
+    foreach ($source_members as $member) {
+        if (!is_array($member)) {
+            continue;
+        }
+
+        $master_slug = trim((string) ($member['master_slug'] ?? ''));
+        $master = $master_slug !== '' ? work_detail_find_master($masters, $master_slug) : null;
+        $name = trim((string) ($master['name'] ?? $member['name'] ?? ''));
+        $role = trim((string) ($member['role'] ?? ''));
+        $note = trim((string) ($member['note'] ?? ''));
+
+        if ($name === '' && $role === '' && $note === '') {
+            continue;
+        }
+
+        $members[] = [
+            'name' => $name,
+            'role' => $role,
+            'note' => $note,
+            'company_name' => trim((string) ($master['company_name'] ?? '')),
+            'profile_image' => trim((string) ($master['profile_image'] ?? '')),
+        ];
+    }
+
+    if (empty($members) && trim((string) ($work['master_name'] ?? '')) !== '') {
+        $master = work_detail_find_master($masters, (string) ($work['master_slug'] ?? ''));
+        $members[] = [
+            'name' => trim((string) ($master['name'] ?? $work['master_name'] ?? '')),
+            'role' => '',
+            'note' => '',
+            'company_name' => trim((string) ($master['company_name'] ?? '')),
+            'profile_image' => trim((string) ($master['profile_image'] ?? '')),
+        ];
+    }
+
+    return $members;
+}
+
+function work_detail_members_label(array $members): string
+{
+    $labels = array_map(function ($member) {
+        $name = (string) ($member['name'] ?? '');
+        $role = (string) ($member['role'] ?? '');
+
+        return $role !== '' && $name !== '' ? $name . '（' . $role . '）' : ($name !== '' ? $name : $role);
+    }, $members);
+
+    return implode(' / ', array_values(array_filter($labels)));
+}
+
 $slug = $_GET['slug'] ?? '';
 $work = null;
 foreach ($works as $item) {
@@ -38,8 +93,8 @@ if ($work === null) {
         'result' => '',
         'role' => '',
         'site_url' => '',
-        'master_slug' => '',
-        'master_name' => '',
+        'os_project_id' => '',
+        'members' => [],
         'screenshots' => [
             'desktop' => '',
             'mobile' => '',
@@ -60,11 +115,8 @@ $work_types = [
 $work_type = (string) ($work['type'] ?? 'website');
 $work_type_label = (string) ($work['type_label'] ?? $work_types[$work_type] ?? '改善実績');
 $external_link_label = $work_type === 'website' ? 'サイトを見る' : '取り組みを見る';
-$work_master_label = trim((string) ($work['master_name'] ?? ''));
-$work_master = work_detail_find_master($improvement_masters, (string) ($work['master_slug'] ?? ''));
-$work_master_name = trim((string) ($work_master['name'] ?? $work_master_label));
-$work_master_company = trim((string) ($work_master['company_name'] ?? ''));
-$work_master_image = trim((string) ($work_master['profile_image'] ?? ''));
+$work_members = work_detail_members($work, $improvement_masters);
+$work_members_label = work_detail_members_label($work_members);
 
 $current_page = 'works';
 $page_title = $work['title'];
@@ -85,8 +137,8 @@ include __DIR__ . '/include/header.php';
           <?php if (($work['client_name'] ?? '') !== '') : ?>
             <?php echo e($work['client_name']); ?> /
           <?php endif; ?>
-          <?php if ($work_master_label !== '') : ?>
-            担当改善マスター：<?php echo e($work_master_label); ?> /
+          <?php if ($work_members_label !== '') : ?>
+            担当：<?php echo e($work_members_label); ?> /
           <?php endif; ?>
           公開日 <?php echo e(str_replace('-', '.', $work['published_at'])); ?>
         </p>
@@ -211,25 +263,37 @@ include __DIR__ . '/include/header.php';
           </section>
         <?php endif; ?>
 
-        <?php if (($work['role'] ?? '') !== '') : ?>
+        <?php if (($work['role'] ?? '') !== '' || !empty($work_members)) : ?>
           <section class="work-detail-text-block">
             <p class="section-label">Role</p>
             <h2>担当したこと</h2>
-            <?php if ($work_master_name !== '') : ?>
-              <div class="work-role-master">
-                <?php if ($work_master_image !== '') : ?>
-                  <img src="<?php echo e($work_master_image); ?>" alt="<?php echo e($work_master_name); ?>の写真" loading="lazy">
-                <?php endif; ?>
-                <div>
-                  <span>担当改善マスター</span>
-                  <strong><?php echo e($work_master_name); ?></strong>
-                  <?php if ($work_master_company !== '') : ?>
-                    <p><?php echo e($work_master_company); ?></p>
-                  <?php endif; ?>
-                </div>
+            <?php if (!empty($work_members)) : ?>
+              <div class="work-role-members">
+                <?php foreach ($work_members as $member) : ?>
+                  <article class="work-role-master">
+                    <?php if (($member['profile_image'] ?? '') !== '') : ?>
+                      <img src="<?php echo e($member['profile_image']); ?>" alt="<?php echo e(($member['name'] ?? '') . 'の写真'); ?>" loading="lazy">
+                    <?php endif; ?>
+                    <div>
+                      <span>担当改善マスター</span>
+                      <strong><?php echo e($member['name'] ?? ''); ?></strong>
+                      <?php if (($member['role'] ?? '') !== '') : ?>
+                        <p class="work-role-master__role"><?php echo e($member['role']); ?></p>
+                      <?php endif; ?>
+                      <?php if (($member['company_name'] ?? '') !== '') : ?>
+                        <p><?php echo e($member['company_name']); ?></p>
+                      <?php endif; ?>
+                      <?php if (($member['note'] ?? '') !== '') : ?>
+                        <p><?php echo e($member['note']); ?></p>
+                      <?php endif; ?>
+                    </div>
+                  </article>
+                <?php endforeach; ?>
               </div>
             <?php endif; ?>
-            <p><?php echo e($work['role']); ?></p>
+            <?php if (($work['role'] ?? '') !== '') : ?>
+              <p><?php echo e($work['role']); ?></p>
+            <?php endif; ?>
           </section>
         <?php endif; ?>
 
