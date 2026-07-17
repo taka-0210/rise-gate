@@ -3,7 +3,9 @@ $site = require __DIR__ . '/data/site.php';
 require __DIR__ . '/include/functions.php';
 
 $data_file = __DIR__ . '/data/works.php';
+$masters_file = __DIR__ . '/data/improvement_masters.php';
 $works = file_exists($data_file) ? require $data_file : [];
+$masters = file_exists($masters_file) ? require $masters_file : [];
 $admin_password = getenv('RISEGATE_ADMIN_PASSWORD') ?: '';
 $errors = [];
 $message = '';
@@ -244,6 +246,17 @@ function admin_find_work(array $works, string $slug): ?array
     return null;
 }
 
+function admin_find_master(array $masters, string $slug): ?array
+{
+    foreach ($masters as $master) {
+        if (($master['slug'] ?? '') === $slug) {
+            return $master;
+        }
+    }
+
+    return null;
+}
+
 function admin_default_gallery(): array
 {
     return array_fill(0, ADMIN_GALLERY_LIMIT, [
@@ -279,6 +292,8 @@ $default_work = [
     'slug' => '',
     'title' => '',
     'client_name' => '',
+    'master_slug' => '',
+    'master_name' => '',
     'published_at' => date('Y-m-d'),
     'summary' => '',
     'challenge' => '',
@@ -299,6 +314,8 @@ $default_work = [
 if (($_POST['action'] ?? '') === 'save') {
     $original_slug = trim((string) ($_POST['original_slug'] ?? ''));
     $slug = admin_slugify((string) ($_POST['slug'] ?? ''));
+    $master_slug = trim((string) ($_POST['master_slug'] ?? ''));
+    $selected_master = $master_slug !== '' ? admin_find_master($masters, $master_slug) : null;
     $existing_work = $original_slug !== '' ? admin_find_work($works, $original_slug) : null;
     $existing_screenshots = array_merge(
         ['desktop' => '', 'mobile' => ''],
@@ -312,6 +329,8 @@ if (($_POST['action'] ?? '') === 'save') {
         'slug' => $slug,
         'title' => trim((string) ($_POST['title'] ?? '')),
         'client_name' => trim((string) ($_POST['client_name'] ?? '')),
+        'master_slug' => $selected_master ? (string) ($selected_master['slug'] ?? '') : '',
+        'master_name' => $selected_master ? (string) ($selected_master['name'] ?? '') : '',
         'published_at' => preg_match('/^\d{4}-\d{2}-\d{2}$/', $_POST['published_at'] ?? '') ? $_POST['published_at'] : date('Y-m-d'),
         'summary' => trim((string) ($_POST['summary'] ?? '')),
         'challenge' => trim((string) ($_POST['challenge'] ?? '')),
@@ -426,6 +445,10 @@ $editing_work = $edit_slug !== '' ? admin_find_work($works, $edit_slug) : null;
 $form_work = array_merge($default_work, $editing_work ?? []);
 $form_gallery = admin_normalize_gallery($form_work['gallery'] ?? []);
 
+usort($masters, function ($a, $b) {
+    return strcmp($a['name'] ?? '', $b['name'] ?? '');
+});
+
 usort($works, function ($a, $b) {
     return strcmp($b['published_at'] ?? '', $a['published_at'] ?? '');
 });
@@ -511,6 +534,22 @@ include __DIR__ . '/include/head.php';
               <input type="text" name="client_name" value="<?php echo e($form_work['client_name']); ?>">
             </label>
           </div>
+
+          <label>
+            <span>担当改善マスター</span>
+            <select name="master_slug">
+              <option value="">指定なし</option>
+              <?php foreach ($masters as $master) : ?>
+                <?php
+                $master_slug = (string) ($master['slug'] ?? '');
+                $master_label = trim((string) ($master['name'] ?? '') . (($master['company_name'] ?? '') !== '' ? ' / ' . (string) $master['company_name'] : ''));
+                ?>
+                <option value="<?php echo e($master_slug); ?>"<?php echo ($form_work['master_slug'] ?? '') === $master_slug ? ' selected' : ''; ?>>
+                  <?php echo e($master_label !== '' ? $master_label : $master_slug); ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
+          </label>
 
           <label>
             <span>概要</span>
@@ -666,6 +705,9 @@ include __DIR__ . '/include/head.php';
               <div>
                 <p class="admin-work-item__meta"><?php echo e($work['status'] === 'published' ? '公開' : '下書き'); ?> / <?php echo e($work['published_at']); ?> / <?php echo e($work['type_label'] ?? admin_work_type_label((string) ($work['type'] ?? 'website'))); ?></p>
                 <h3><?php echo e($work['title']); ?></h3>
+                <?php if (($work['master_name'] ?? '') !== '') : ?>
+                  <p class="admin-work-item__meta">担当改善マスター：<?php echo e($work['master_name']); ?></p>
+                <?php endif; ?>
                 <p><?php echo e($work['summary']); ?></p>
               </div>
               <div class="admin-work-item__actions">

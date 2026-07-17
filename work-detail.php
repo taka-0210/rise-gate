@@ -2,7 +2,19 @@
 $site = require __DIR__ . '/data/site.php';
 $navigation = require __DIR__ . '/data/navigation.php';
 $works = require __DIR__ . '/data/works.php';
+$improvement_masters = file_exists(__DIR__ . '/data/improvement_masters.php') ? require __DIR__ . '/data/improvement_masters.php' : [];
 require __DIR__ . '/include/functions.php';
+
+function work_detail_find_master(array $masters, string $slug): ?array
+{
+    foreach ($masters as $master) {
+        if (($master['slug'] ?? '') === $slug) {
+            return $master;
+        }
+    }
+
+    return null;
+}
 
 $slug = $_GET['slug'] ?? '';
 $work = null;
@@ -26,6 +38,8 @@ if ($work === null) {
         'result' => '',
         'role' => '',
         'site_url' => '',
+        'master_slug' => '',
+        'master_name' => '',
         'screenshots' => [
             'desktop' => '',
             'mobile' => '',
@@ -46,6 +60,11 @@ $work_types = [
 $work_type = (string) ($work['type'] ?? 'website');
 $work_type_label = (string) ($work['type_label'] ?? $work_types[$work_type] ?? '改善実績');
 $external_link_label = $work_type === 'website' ? 'サイトを見る' : '取り組みを見る';
+$work_master_label = trim((string) ($work['master_name'] ?? ''));
+$work_master = work_detail_find_master($improvement_masters, (string) ($work['master_slug'] ?? ''));
+$work_master_name = trim((string) ($work_master['name'] ?? $work_master_label));
+$work_master_company = trim((string) ($work_master['company_name'] ?? ''));
+$work_master_image = trim((string) ($work_master['profile_image'] ?? ''));
 
 $current_page = 'works';
 $page_title = $work['title'];
@@ -65,6 +84,9 @@ include __DIR__ . '/include/header.php';
         <p class="detail-date">
           <?php if (($work['client_name'] ?? '') !== '') : ?>
             <?php echo e($work['client_name']); ?> /
+          <?php endif; ?>
+          <?php if ($work_master_label !== '') : ?>
+            担当改善マスター：<?php echo e($work_master_label); ?> /
           <?php endif; ?>
           公開日 <?php echo e(str_replace('-', '.', $work['published_at'])); ?>
         </p>
@@ -193,6 +215,20 @@ include __DIR__ . '/include/header.php';
           <section class="work-detail-text-block">
             <p class="section-label">Role</p>
             <h2>担当したこと</h2>
+            <?php if ($work_master_name !== '') : ?>
+              <div class="work-role-master">
+                <?php if ($work_master_image !== '') : ?>
+                  <img src="<?php echo e($work_master_image); ?>" alt="<?php echo e($work_master_name); ?>の写真" loading="lazy">
+                <?php endif; ?>
+                <div>
+                  <span>担当改善マスター</span>
+                  <strong><?php echo e($work_master_name); ?></strong>
+                  <?php if ($work_master_company !== '') : ?>
+                    <p><?php echo e($work_master_company); ?></p>
+                  <?php endif; ?>
+                </div>
+              </div>
+            <?php endif; ?>
             <p><?php echo e($work['role']); ?></p>
           </section>
         <?php endif; ?>

@@ -56,6 +56,11 @@ function work_card_excerpt(array $work, string $key): string
   return rtrim($excerpt, " \t\n\r\0\x0B…") . '…';
 }
 
+function work_master_label(array $work): string
+{
+  return trim((string) ($work['master_name'] ?? ''));
+}
+
 $current_page = 'works';
 $page_title = $works_page['meta']['title'];
 $page_description = $works_page['meta']['description'];
@@ -146,6 +151,9 @@ include __DIR__ . '/include/header.php';
               <span><?php echo e(work_type_label($work, $work_types)); ?></span>
               <?php if (($work['client_name'] ?? '') !== '') : ?>
                 <span><?php echo e($work['client_name']); ?></span>
+              <?php endif; ?>
+              <?php if (work_master_label($work) !== '') : ?>
+                <span>担当改善マスター：<?php echo e(work_master_label($work)); ?></span>
               <?php endif; ?>
             </div>
             <h3><?php echo e($work['title']); ?></h3>
