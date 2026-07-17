@@ -2855,6 +2855,19 @@ h3 {
   resize: vertical;
 }
 
+.admin-form .admin-inline-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-sub);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.admin-form .admin-inline-check input {
+  width: auto;
+}
+
 .admin-subheading {
   display: grid;
   gap: 6px;

@@ -306,8 +306,13 @@ function admin_collect_work_members(array $post, array $masters): array
     $master_slugs = (array) ($post['member_master_slug'] ?? []);
     $roles = (array) ($post['member_role'] ?? []);
     $notes = (array) ($post['member_note'] ?? []);
+    $delete_members = (array) ($post['delete_member'] ?? []);
 
     for ($index = 0; $index < ADMIN_WORK_MEMBER_LIMIT; $index++) {
+        if (isset($delete_members[$index])) {
+            continue;
+        }
+
         $master_slug = trim((string) ($master_slugs[$index] ?? ''));
         $role = trim((string) ($roles[$index] ?? ''));
         $note = trim((string) ($notes[$index] ?? ''));
@@ -648,6 +653,12 @@ include __DIR__ . '/include/head.php';
                   <span>補足</span>
                   <textarea name="member_note[<?php echo e((string) $index); ?>]" rows="2" placeholder="この実績で担当したことを短く書きます。"><?php echo e($member['note'] ?? ''); ?></textarea>
                 </label>
+                <?php if (($member['master_slug'] ?? '') !== '' || ($member['role'] ?? '') !== '' || ($member['note'] ?? '') !== '') : ?>
+                  <label class="admin-inline-check">
+                    <input type="checkbox" name="delete_member[<?php echo e((string) $index); ?>]" value="1">
+                    <span>この担当を削除する</span>
+                  </label>
+                <?php endif; ?>
               </div>
             <?php endforeach; ?>
           </section>
