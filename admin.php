@@ -42,8 +42,10 @@ if ($admin_password === '' || empty($_SESSION['risegate_admin'])) {
     <body class="admin-body">
       <main class="admin-shell admin-shell--login">
         <section class="admin-panel">
+          <div class="admin-login__brand" aria-hidden="true">RG</div>
           <p class="section-label">Rise Gate Admin</p>
-          <h1>管理画面</h1>
+          <h1>おかえりなさい</h1>
+          <p class="admin-login__lead">管理画面にログインしてください。</p>
           <?php foreach ($errors as $error) : ?>
             <p class="admin-alert admin-alert--error"><?php echo e($error); ?></p>
           <?php endforeach; ?>
@@ -51,7 +53,7 @@ if ($admin_password === '' || empty($_SESSION['risegate_admin'])) {
             <form method="post" class="admin-form">
               <label>
                 <span>パスワード</span>
-                <input type="password" name="admin_password" required>
+                <input type="password" name="admin_password" autocomplete="current-password" placeholder="パスワードを入力" required autofocus>
               </label>
               <button class="button button--primary" type="submit">ログイン</button>
             </form>
