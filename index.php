@@ -19,7 +19,7 @@ include __DIR__ . '/include/header.php';
         <p class="section-label"><?php echo e($home['hero']['label']); ?></p>
         <h1><?php echo responsive_text($home['hero'], 'title'); ?></h1>
         <p class="hero-subcopy"><?php echo responsive_text($home['hero'], 'subtitle'); ?></p>
-        <p class="section-lead"><?php echo e($home['hero']['lead']); ?></p>
+        <p class="section-lead"><?php echo responsive_text($home['hero'], 'lead'); ?></p>
         <div class="button-group">
           <a class="button button--primary" href="<?php echo e($home['hero']['primary_cta']['url']); ?>">
             <?php echo e($home['hero']['primary_cta']['label']); ?>

@@ -26,7 +26,7 @@ if (($philosophy_cta['label'] ?? '') === 'Method') {
       <p class="section-label"><?php echo e($philosophy['hero']['label']); ?></p>
       <h1><?php echo responsive_text($philosophy['hero'], 'title'); ?></h1>
       <p class="hero-subcopy"><?php echo responsive_text($philosophy['hero'], 'subtitle'); ?></p>
-      <p class="section-lead"><?php echo e($philosophy['hero']['lead']); ?></p>
+      <p class="section-lead"><?php echo responsive_text($philosophy['hero'], 'lead'); ?></p>
     </div>
   </section>
 

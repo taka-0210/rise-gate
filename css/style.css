@@ -965,6 +965,10 @@ main>section {
     radial-gradient(ellipse at 18% 18%, rgba(61, 117, 111, 0.08) 0 16%, transparent 38%);
 }
 
+.hero-scene--rise-os .section-lead {
+  max-width: 720px;
+}
+
 .page-hero.hero-scene--rise-os::before {
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.99) 0%, rgba(255, 255, 255, 0.72) 50%, rgba(255, 255, 255, 0.38) 100%),

@@ -1,6 +1,7 @@
 <?php
 $site = require __DIR__ . '/data/site.php';
 $navigation = require __DIR__ . '/data/navigation.php';
+$works_page = require __DIR__ . '/data/works-page.php';
 $works = require __DIR__ . '/data/works.php';
 require __DIR__ . '/include/functions.php';
 
@@ -56,8 +57,8 @@ function work_card_excerpt(array $work, string $key): string
 }
 
 $current_page = 'works';
-$page_title = '実績';
-$page_description = 'Webサイト制作とシステム導入を、なぜ変えたのか、どう良くなったのかが伝わる改善実績として紹介します。';
+$page_title = $works_page['meta']['title'];
+$page_description = $works_page['meta']['description'];
 
 include __DIR__ . '/include/head.php';
 include __DIR__ . '/include/header.php';
@@ -66,13 +67,9 @@ include __DIR__ . '/include/header.php';
 <main>
   <section class="page-hero hero-scene hero-scene--works">
     <div class="section-inner section-inner--narrow">
-      <p class="section-label">06 / Works</p>
-      <h1><?php echo responsive_lines([
-        'desktop' => ['実績を、改善の記録として残す。'],
-        'tablet' => ['実績を、改善の記録として残す。'],
-        'mobile' => ['実績を、', '改善の記録として残す。'],
-      ]); ?></h1>
-      <p class="section-lead">何を作ったかだけでなく、なぜ変えたのか、どう良くなったのか。「課題」と「改善」をセットで残します。</p>
+      <p class="section-label"><?php echo e($works_page['hero']['label']); ?></p>
+      <h1><?php echo responsive_text($works_page['hero'], 'title'); ?></h1>
+      <p class="section-lead"><?php echo responsive_text($works_page['hero'], 'lead'); ?></p>
     </div>
   </section>
 

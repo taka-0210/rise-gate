@@ -40,7 +40,7 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($future['hero']['label']); ?></p>
       <h1><?php echo responsive_text($future['hero'], 'title'); ?></h1>
-      <p class="section-lead"><?php echo e($future['hero']['lead']); ?></p>
+      <p class="section-lead"><?php echo responsive_text($future['hero'], 'lead'); ?></p>
     </div>
   </section>
 
