@@ -1,11 +1,12 @@
 <?php
 $site = require __DIR__ . '/data/site.php';
 $navigation = require __DIR__ . '/data/navigation.php';
+$rise_os_page = require __DIR__ . '/data/rise-gate-os.php';
 require __DIR__ . '/include/functions.php';
 
 $current_page = 'rise-gate-os';
-$page_title = 'RISE GATE OS';
-$page_description = 'RISE GATE OSは、ライズゲートとクライアントが同じ情報を見ながら、進捗、改善提案、改善履歴を積み重ねていくためのプラットフォームです。';
+$page_title = $rise_os_page['meta']['title'];
+$page_description = $rise_os_page['meta']['description'];
 $platform_image_path = __DIR__ . '/image/scene/rise-gate-os-platform.png';
 $platform_image_version = file_exists($platform_image_path) ? (string) filemtime($platform_image_path) : '1';
 
@@ -48,13 +49,9 @@ include __DIR__ . '/include/header.php';
 <main>
   <section class="page-hero hero-scene hero-scene--rise-os">
     <div class="section-inner section-inner--narrow">
-      <p class="section-label">04 / RISE GATE OS</p>
-      <h1><?php echo responsive_lines([
-        'desktop' => ['クライアントの改善文化を支える。'],
-        'tablet' => ['クライアントの改善文化を支える。'],
-        'mobile' => ['クライアントの', '改善文化を支える。'],
-      ]); ?></h1>
-      <p class="section-lead">RISE GATE OSは、ライズゲートとクライアントが一緒に改善を積み重ねていくためのプラットフォームです。</p>
+      <p class="section-label"><?php echo e($rise_os_page['hero']['label']); ?></p>
+      <h1><?php echo responsive_text($rise_os_page['hero'], 'title'); ?></h1>
+      <p class="section-lead"><?php echo responsive_text($rise_os_page['hero'], 'lead'); ?></p>
     </div>
   </section>
 
@@ -85,9 +82,9 @@ include __DIR__ . '/include/header.php';
       <div class="os-intro-heading">
         <p class="section-label">Concept</p>
         <h2><?php echo responsive_lines([
-          'desktop' => ['公開したら終わり。', '導入したら終わり。', 'ではありません。'],
-          'tablet' => ['公開したら終わり。', '導入したら終わり。', 'ではありません。'],
-          'mobile' => ['公開したら終わり。', '導入したら終わり。', 'ではありません。'],
+          'desktop' => ['公開したら', '終わり。', '導入したら', '終わり。', 'ではありません。'],
+          'tablet' => ['公開したら', '終わり。', '導入したら', '終わり。', 'ではありません。'],
+          'mobile' => ['公開したら', '終わり。', '導入したら', '終わり。', 'ではありません。'],
         ]); ?></h2>
       </div>
       <div class="os-intro-body">
