@@ -21,30 +21,54 @@ include __DIR__ . '/include/header.php';
     </div>
   </section>
 
-  <section class="service-tools-section">
-    <div class="section-inner service-tools__layout">
-      <div>
-        <p class="section-label"><?php echo e($service['services']['label']); ?></p>
-        <h2><?php echo responsive_text($service['services'], 'title'); ?></h2>
-      </div>
-      <div class="service-tools__items">
-        <?php foreach ($service['services']['items'] as $item) : ?>
-          <article class="service-tool-card">
-            <p class="section-label"><?php echo e($item['label']); ?></p>
-            <h3><?php echo e($item['title']); ?></h3>
-            <p><?php echo e($item['body']); ?></p>
-            <ul>
-              <?php foreach ($item['examples'] as $example) : ?>
-                <li><?php echo e($example); ?></li>
+  <?php foreach ($service['services']['items'] as $index => $item) : ?>
+    <?php
+    $feature = $service['features']['items'][$index] ?? [];
+    $section_id = $index === 0 ? 'website' : 'business-system';
+    $section_number = str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT);
+    ?>
+    <section class="service-offering-section service-offering-section--<?php echo e($section_id); ?>" id="<?php echo e($section_id); ?>">
+      <div class="section-inner service-offering__layout">
+        <div class="service-offering__summary">
+          <p class="section-label"><?php echo e($section_number); ?> / <?php echo e($item['label']); ?></p>
+          <h2><?php echo e($item['title']); ?></h2>
+          <p class="service-offering__lead"><?php echo e($item['body']); ?></p>
+          <ul class="service-offering__examples">
+            <?php foreach ($item['examples'] as $example) : ?>
+              <li><?php echo e($example); ?></li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+
+        <article class="service-feature-card service-offering__feature">
+          <p class="section-label"><?php echo e($feature['label'] ?? ''); ?></p>
+          <h3><?php echo e($feature['title'] ?? ''); ?></h3>
+          <p><?php echo e($feature['body'] ?? ''); ?></p>
+
+          <?php if (!empty($feature['points'])) : ?>
+            <ul class="service-feature-list">
+              <?php foreach ($feature['points'] as $point) : ?>
+                <li><?php echo e($point); ?></li>
               <?php endforeach; ?>
             </ul>
-          </article>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  </section>
+          <?php endif; ?>
 
-  <?php include __DIR__ . '/include/service-features.php'; ?>
+          <?php if (!empty($feature['methods'])) : ?>
+            <div class="service-feature-methods">
+              <?php foreach ($feature['methods'] as $method) : ?>
+                <div>
+                  <h4><?php echo e($method['title']); ?></h4>
+                  <p><?php echo e($method['body']); ?></p>
+                </div>
+              <?php endforeach; ?>
+            </div>
+          <?php endif; ?>
+
+          <p class="service-feature-note"><?php echo e($feature['note'] ?? ''); ?></p>
+        </article>
+      </div>
+    </section>
+  <?php endforeach; ?>
 
   <section class="service-team-section">
     <div class="section-inner">

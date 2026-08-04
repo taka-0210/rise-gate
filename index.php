@@ -41,18 +41,12 @@ include __DIR__ . '/include/header.php';
       </div>
       <div class="content-grid content-grid--two">
         <?php foreach ($home['service_teaser']['items'] as $index => $item) : ?>
-          <article class="content-card">
+          <a class="content-card service-teaser__card-link" href="<?php echo e($item['url']); ?>">
             <span class="service-teaser__number"><?php echo e(str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT)); ?></span>
             <h3><?php echo e($item['title']); ?></h3>
             <p class="service-teaser__catch"><?php echo e($item['catch']); ?></p>
             <p><?php echo e($item['body']); ?></p>
-          </article>
-        <?php endforeach; ?>
-      </div>
-      <div class="text-link-group">
-        <?php foreach ($home['service_teaser']['links'] as $link) : ?>
-          <a class="text-link" href="<?php echo e($link['url']); ?>">
-            <?php echo e($link['label']); ?>
+            <span class="service-teaser__card-action">詳しく見る</span>
           </a>
         <?php endforeach; ?>
       </div>
