@@ -3817,6 +3817,11 @@ h3 {
   gap: 20px;
 }
 
+.contact-form__grid > label {
+  align-self: start;
+  align-content: start;
+}
+
 .contact-form label {
   display: grid;
   gap: 9px;
