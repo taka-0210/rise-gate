@@ -16,7 +16,6 @@ include __DIR__ . '/include/header.php';
   <section class="home-hero hero-scene hero-scene--home">
     <div class="section-inner hero-layout">
       <div class="hero-copy">
-        <p class="section-label"><?php echo e($home['hero']['label']); ?></p>
         <h1><?php echo responsive_text($home['hero'], 'title'); ?></h1>
         <p class="hero-subcopy"><?php echo responsive_text($home['hero'], 'subtitle'); ?></p>
         <p class="section-lead"><?php echo responsive_text($home['hero'], 'lead'); ?></p>
