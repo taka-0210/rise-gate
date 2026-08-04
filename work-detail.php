@@ -46,6 +46,8 @@ $work_types = [
 $work_type = (string) ($work['type'] ?? 'website');
 $work_type_label = (string) ($work['type_label'] ?? $work_types[$work_type] ?? '改善実績');
 $external_link_label = $work_type === 'website' ? 'サイトを見る' : '取り組みを見る';
+$challenge_heading = $work_type === 'website' ? '制作前の課題' : '導入前の課題';
+$result_heading = $work_type === 'website' ? '公開後の変化' : '導入後の変化';
 
 $current_page = 'works';
 $page_title = $work['title'];
@@ -76,8 +78,8 @@ include __DIR__ . '/include/header.php';
         <div class="section-inner">
           <div class="section-heading">
             <p class="section-label">Screenshots</p>
-            <h2>画面で見る。</h2>
-            <p>どこを変え、どう整えたのか。課題と改善の流れを、実際の画面や導入後の状態とあわせて紹介します。</p>
+            <h2>実際の画面</h2>
+            <p>制作したホームページや業務システムの画面をご紹介します。デザイン、操作画面、主な機能を実際の画面でご覧いただけます。</p>
           </div>
 
           <figure class="work-device-showcase">
@@ -138,7 +140,7 @@ include __DIR__ . '/include/header.php';
         <div class="before-after-detail before-after-detail--single before-after-detail--challenge">
           <section>
             <p class="section-label">Challenge</p>
-            <h2>何を変えたかったか</h2>
+            <h2><?php echo e($challenge_heading); ?></h2>
             <p><?php echo e($work['challenge']); ?></p>
           </section>
         </div>
@@ -175,8 +177,8 @@ include __DIR__ . '/include/header.php';
 
         <div class="before-after-detail before-after-detail--single before-after-detail--improvement">
           <section>
-            <p class="section-label">Improvement</p>
-            <h2>どのような視点で整えたか</h2>
+            <p class="section-label">Solution</p>
+            <h2>対応内容</h2>
             <p><?php echo e($work['improvement']); ?></p>
           </section>
         </div>
@@ -184,15 +186,15 @@ include __DIR__ . '/include/header.php';
         <?php if (($work['result'] ?? '') !== '') : ?>
           <section class="work-detail-text-block">
             <p class="section-label">Result</p>
-            <h2>改善の結果</h2>
+            <h2><?php echo e($result_heading); ?></h2>
             <p><?php echo e($work['result']); ?></p>
           </section>
         <?php endif; ?>
 
         <?php if (($work['role'] ?? '') !== '') : ?>
           <section class="work-detail-text-block">
-            <p class="section-label">Role</p>
-            <h2>担当したこと</h2>
+            <p class="section-label">Scope</p>
+            <h2>制作・開発内容</h2>
             <p><?php echo e($work['role']); ?></p>
           </section>
         <?php endif; ?>
