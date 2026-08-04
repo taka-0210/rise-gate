@@ -2,17 +2,7 @@
 $site = require __DIR__ . '/data/site.php';
 $navigation = require __DIR__ . '/data/navigation.php';
 $home = require __DIR__ . '/data/home.php';
-$service = require __DIR__ . '/data/service.php';
-$works = require __DIR__ . '/data/works.php';
 require __DIR__ . '/include/functions.php';
-
-$featured_works = array_values(array_filter($works, function ($work) {
-  return ($work['status'] ?? 'published') === 'published';
-}));
-usort($featured_works, function ($a, $b) {
-  return strcmp($b['published_at'] ?? '', $a['published_at'] ?? '');
-});
-$featured_works = array_slice($featured_works, 0, 3);
 
 $current_page = 'home';
 $page_title = $site['name'];
@@ -67,31 +57,6 @@ include __DIR__ . '/include/header.php';
           </a>
         <?php endforeach; ?>
       </div>
-    </div>
-  </section>
-
-  <?php include __DIR__ . '/include/service-features.php'; ?>
-
-  <section class="home-works-section">
-    <div class="section-inner">
-      <div class="section-heading">
-        <p class="section-label"><?php echo e($home['works_teaser']['label']); ?></p>
-        <h2><?php echo responsive_text($home['works_teaser'], 'title'); ?></h2>
-        <p><?php echo e($home['works_teaser']['lead']); ?></p>
-      </div>
-      <?php if (!empty($featured_works)) : ?>
-        <div class="content-grid content-grid--three">
-          <?php foreach ($featured_works as $work) : ?>
-            <article class="content-card home-work-card">
-              <p class="section-label"><?php echo e($work['type_label'] ?? 'Works'); ?></p>
-              <h3><?php echo e($work['title'] ?? ''); ?></h3>
-              <p><?php echo e($work['summary'] ?? ''); ?></p>
-              <a class="text-link" href="work-detail.php?slug=<?php echo e(rawurlencode($work['slug'] ?? '')); ?>">詳しく見る</a>
-            </article>
-          <?php endforeach; ?>
-        </div>
-      <?php endif; ?>
-      <a class="text-link home-section-link" href="<?php echo e($home['works_teaser']['link']['url']); ?>"><?php echo e($home['works_teaser']['link']['label']); ?></a>
     </div>
   </section>
 
