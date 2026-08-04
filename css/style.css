@@ -4384,6 +4384,106 @@ h3 {
   background: var(--color-white);
 }
 
+.service-overview-section {
+  background: var(--color-bg-soft);
+}
+
+.service-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: clamp(42px, 6vw, 72px);
+}
+
+.service-overview-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: clamp(30px, 4vw, 48px);
+  border: 1px solid rgba(16, 42, 86, 0.16);
+  border-radius: var(--radius);
+  background: var(--color-white);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.service-overview-card:hover,
+.service-overview-card:focus-visible {
+  border-color: rgba(61, 117, 111, 0.58);
+  box-shadow: 0 20px 48px rgba(16, 42, 86, 0.1);
+  transform: translateY(-3px);
+}
+
+.service-overview-card__number {
+  margin-bottom: 34px;
+  color: rgba(16, 42, 86, 0.24);
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.service-overview-card h3 {
+  margin: 12px 0 18px;
+  color: var(--color-brand-deep);
+  font-size: clamp(28px, 3vw, 42px);
+}
+
+.service-overview-card > p:not(.section-label) {
+  color: var(--color-sub);
+  line-height: 1.9;
+}
+
+.service-overview-card ul {
+  display: grid;
+  gap: 8px;
+  margin: 26px 0 34px;
+  padding: 0;
+  list-style: none;
+}
+
+.service-overview-card li::before {
+  margin-right: 10px;
+  color: var(--color-accent);
+  content: "—";
+}
+
+.service-overview-card .text-link {
+  margin-top: auto;
+}
+
+.service-related {
+  padding-top: 0;
+  background: var(--color-white);
+}
+
+.service-related__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 18px;
+  padding: clamp(24px, 4vw, 38px);
+  border: 1px solid rgba(16, 42, 86, 0.16);
+  border-radius: var(--radius);
+  color: var(--color-brand-deep);
+  text-decoration: none;
+}
+
+.service-related__link span {
+  color: var(--color-sub);
+}
+
+.service-related__link strong {
+  font-size: clamp(18px, 2vw, 24px);
+}
+
+.service-related__link strong::after {
+  margin-left: 14px;
+  color: var(--color-accent);
+  content: "→";
+}
+
 .service-offering-section--business-system {
   background:
     linear-gradient(90deg, rgba(16, 42, 86, 0.018) 1px, transparent 1px),
@@ -6191,6 +6291,20 @@ h3 {
   .service-team-diagram__roles,
   .service-project-flow {
     grid-template-columns: 1fr;
+  }
+
+  .service-overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-overview-card {
+    padding: 28px 22px;
+  }
+
+  .service-related__link {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .service-agile {
