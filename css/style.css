@@ -5871,6 +5871,18 @@ h3 {
     grid-template-columns: 1fr;
   }
 
+  .works-type-list--filters li {
+    display: flex;
+  }
+
+  .works-type-list--filters a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 72px;
+  }
+
   .home-consultation-card__visual {
     min-height: 180px;
     padding: 12px 20px;
