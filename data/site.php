@@ -4,7 +4,7 @@ return [
     'short_name' => 'Rise Gate',
     'brand_statement' => 'ホームページ制作と業務システム開発。',
     'tagline' => 'ホームページ制作とシステム開発の会社。',
-    'description' => '株式会社ライズゲートは、中小企業のホームページ制作と業務システム開発を行う会社です。企画・設計から制作・開発、公開後の運用まで対応します。',
+    'description' => '株式会社ライズゲートは、ホームページ制作と業務システム開発を行う会社です。企画・設計から制作・開発、公開後の運用まで対応します。',
     'base_url' => '',
     'contact_email' => 'info@example.com',
     'copyright_name' => 'Rise Gate Inc.',
