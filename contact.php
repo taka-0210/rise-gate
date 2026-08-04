@@ -412,16 +412,6 @@ include __DIR__ . '/include/header.php';
     </div>
   </section>
 
-  <section class="company-link">
-    <div class="section-inner section-inner--narrow">
-      <p class="section-label"><?php echo e($contact['company_link']['label']); ?></p>
-      <h2><?php echo responsive_text($contact['company_link'], 'title'); ?></h2>
-      <p><?php echo e($contact['company_link']['body']); ?></p>
-      <a class="text-link" href="<?php echo e($contact['company_link']['link']['url']); ?>">
-        <?php echo e($contact['company_link']['link']['label']); ?>
-      </a>
-    </div>
-  </section>
 </main>
 
 <?php include __DIR__ . '/include/footer.php'; ?>
