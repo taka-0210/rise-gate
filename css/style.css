@@ -5605,6 +5605,7 @@ h3 {
 
   .responsive-lines--mobile {
     display: inline;
+    white-space: nowrap;
   }
 
   .work-gallery-compact {
