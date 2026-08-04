@@ -30,40 +30,13 @@ include __DIR__ . '/include/header.php';
         <h2><?php echo responsive_text($company['message'], 'title'); ?></h2>
       </div>
       <div class="company-message__body">
-        <?php foreach ($company['message']['body'] as $index => $paragraph) : ?>
-          <?php if ($index === 3) : ?>
-            <p class="company-message__highlight"><?php echo e($company['message']['highlight']); ?></p>
-          <?php endif; ?>
+        <?php foreach ($company['message']['body'] as $paragraph) : ?>
           <p><?php echo e($paragraph); ?></p>
         <?php endforeach; ?>
         <p class="message-signature">
           <span><?php echo e($company['message']['signature_role']); ?></span>
           <strong><?php echo e($company['message']['signature_name']); ?></strong>
         </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="company-logo-meaning">
-    <div class="section-inner company-logo-meaning__layout">
-      <div class="company-logo-meaning__visual">
-        <img src="<?php echo e($company['logo_meaning']['image']); ?>" alt="<?php echo e($company['logo_meaning']['image_alt']); ?>" loading="lazy">
-        <div class="company-logo-meaning__words" aria-label="RISE GATEの意味">
-          <?php foreach ($company['logo_meaning']['words'] as $item) : ?>
-            <div>
-              <strong><?php echo e($item['word']); ?></strong>
-              <span><?php echo e($item['meaning']); ?></span>
-            </div>
-          <?php endforeach; ?>
-        </div>
-      </div>
-      <div class="company-logo-meaning__copy">
-        <p class="section-label"><?php echo e($company['logo_meaning']['label']); ?></p>
-        <h2><?php echo responsive_text($company['logo_meaning'], 'title'); ?></h2>
-        <p class="section-lead"><?php echo e($company['logo_meaning']['lead']); ?></p>
-        <?php foreach ($company['logo_meaning']['body'] as $paragraph) : ?>
-          <p><?php echo e($paragraph); ?></p>
-        <?php endforeach; ?>
       </div>
     </div>
   </section>
@@ -108,6 +81,30 @@ include __DIR__ . '/include/header.php';
             <?php endforeach; ?>
           </dl>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="company-logo-meaning">
+    <div class="section-inner company-logo-meaning__layout">
+      <div class="company-logo-meaning__visual">
+        <img src="<?php echo e($company['logo_meaning']['image']); ?>" alt="<?php echo e($company['logo_meaning']['image_alt']); ?>" loading="lazy">
+        <div class="company-logo-meaning__words" aria-label="RISE GATEの意味">
+          <?php foreach ($company['logo_meaning']['words'] as $item) : ?>
+            <div>
+              <strong><?php echo e($item['word']); ?></strong>
+              <span><?php echo e($item['meaning']); ?></span>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+      <div class="company-logo-meaning__copy">
+        <p class="section-label"><?php echo e($company['logo_meaning']['label']); ?></p>
+        <h2><?php echo responsive_text($company['logo_meaning'], 'title'); ?></h2>
+        <p class="section-lead"><?php echo e($company['logo_meaning']['lead']); ?></p>
+        <?php foreach ($company['logo_meaning']['body'] as $paragraph) : ?>
+          <p><?php echo e($paragraph); ?></p>
+        <?php endforeach; ?>
       </div>
     </div>
   </section>
