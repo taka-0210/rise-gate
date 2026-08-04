@@ -4464,85 +4464,46 @@ h3 {
   border: 1px solid rgba(16, 42, 86, 0.12);
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.88);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.home-consultation-card:hover,
-.home-consultation-card[open] {
-  border-color: rgba(16, 42, 86, 0.24);
-  box-shadow: var(--shadow-card-hover);
-}
-
-.home-consultation-card summary {
-  position: relative;
+.home-consultation-card__visual {
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr) 32px;
-  gap: 18px;
-  align-items: center;
-  min-height: 170px;
-  padding: 30px 32px;
-  cursor: pointer;
-  list-style: none;
+  place-items: center;
+  min-height: 210px;
+  margin: 0;
+  padding: 18px 28px;
+  border-bottom: 1px solid rgba(16, 42, 86, 0.08);
+  background: linear-gradient(135deg, #f8fbfa, #f3f6f9);
 }
 
-.home-consultation-card summary::-webkit-details-marker {
-  display: none;
-}
-
-.home-consultation-card summary:focus-visible {
-  outline: 3px solid rgba(31, 112, 104, 0.3);
-  outline-offset: -3px;
+.home-consultation-card__visual img {
+  display: block;
+  width: min(100%, 320px);
+  height: 180px;
 }
 
 .home-consultation-card__number {
+  display: block;
+  margin-bottom: 14px;
   color: rgba(16, 42, 86, 0.3);
   font-size: 14px;
   font-weight: 900;
   letter-spacing: 0.12em;
 }
 
-.home-consultation-card__title {
-  display: block;
+.home-consultation-card__content {
+  padding: 30px 32px 34px;
+}
+
+.home-consultation-card h3 {
   max-width: 520px;
+  margin-bottom: 18px;
   font-size: clamp(20px, 2vw, 27px);
   font-weight: 800;
   line-height: 1.55;
 }
 
-.home-consultation-card__toggle {
-  position: relative;
-  width: 28px;
-  height: 28px;
-  border: 1px solid rgba(16, 42, 86, 0.2);
-  border-radius: 50%;
-}
-
-.home-consultation-card__toggle::before,
-.home-consultation-card__toggle::after {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 12px;
-  height: 2px;
-  background: var(--color-accent);
-  content: "";
-  transform: translate(-50%, -50%);
-  transition: transform 0.2s ease;
-}
-
-.home-consultation-card__toggle::after {
-  transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.home-consultation-card[open] .home-consultation-card__toggle::after {
-  transform: translate(-50%, -50%) rotate(0deg);
-}
-
-.home-consultation-card__body {
-  padding: 0 32px 32px 92px;
-}
-
-.home-consultation-card__body p {
+.home-consultation-card__content p {
   margin: 0;
   color: var(--color-sub);
   line-height: 2;
@@ -5810,15 +5771,17 @@ h3 {
     grid-template-columns: 1fr;
   }
 
-  .home-consultation-card summary {
-    grid-template-columns: 32px minmax(0, 1fr) 28px;
-    gap: 12px;
-    min-height: 0;
-    padding: 24px 20px;
+  .home-consultation-card__visual {
+    min-height: 180px;
+    padding: 12px 20px;
   }
 
-  .home-consultation-card__body {
-    padding: 0 20px 24px 64px;
+  .home-consultation-card__visual img {
+    height: 160px;
+  }
+
+  .home-consultation-card__content {
+    padding: 24px 20px 28px;
   }
 
   .home-consultation-section__lead {

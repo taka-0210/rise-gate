@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-labelledby="title desc">
+  <title id="title">商品やサービスの魅力を伝えるイラスト</title>
+  <desc id="desc">商品カードとメッセージが並ぶホームページ</desc>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+    <rect x="42" y="30" width="236" height="128" rx="12" fill="#f7faf9" stroke="#102a56"/>
+    <path d="M42 58h236" stroke="#102a56"/>
+    <circle cx="61" cy="44" r="3" fill="#3d756f" stroke="none"/>
+    <rect x="65" y="78" width="72" height="54" rx="7" fill="#fff" stroke="#102a56"/>
+    <path d="m82 116 14-15 10 10 10-12 10 17" stroke="#3d756f"/>
+    <circle cx="116" cy="91" r="5" stroke="#3d756f"/>
+    <path d="M158 82h65M158 95h49M158 108h58" stroke="#102a56" opacity=".72"/>
+    <path d="M158 122h35" stroke="#3d756f"/>
+    <path d="M247 68v-14M240 61h14M255 80l8-8M239 80l-8-8" stroke="#3d756f"/>
+    <path d="M185 137h54a8 8 0 0 0 8-8v-5l9 7v-25a8 8 0 0 0-8-8h-11" stroke="#102a56"/>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-labelledby="title desc">
+  <title id="title">管理業務を整理するイラスト</title>
+  <desc id="desc">紙や表の情報が一つの管理画面へまとまる様子</desc>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+    <rect x="35" y="45" width="61" height="82" rx="7" fill="#fff" stroke="#102a56" transform="rotate(-7 65 86)"/>
+    <path d="M52 67h27M50 79h31M49 91h22" stroke="#102a56" opacity=".65"/>
+    <rect x="63" y="58" width="65" height="83" rx="7" fill="#f7faf9" stroke="#3d756f"/>
+    <path d="M75 79h41M75 92h41M75 105h41M88 73v44M102 73v44" stroke="#3d756f" opacity=".75"/>
+    <path d="M143 96h35M166 84l12 12-12 12" stroke="#3d756f"/>
+    <rect x="193" y="36" width="92" height="112" rx="10" fill="#f7faf9" stroke="#102a56"/>
+    <path d="M193 61h92" stroke="#102a56"/>
+    <rect x="208" y="77" width="62" height="16" rx="4" fill="#fff" stroke="#3d756f"/>
+    <rect x="208" y="104" width="27" height="26" rx="4" fill="#fff" stroke="#102a56"/>
+    <rect x="243" y="104" width="27" height="26" rx="4" fill="#fff" stroke="#102a56"/>
+    <path d="m214 85 5 5 9-10" stroke="#3d756f"/>
+  </g>
+</svg>

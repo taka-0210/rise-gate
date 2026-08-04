@@ -68,16 +68,16 @@ include __DIR__ . '/include/header.php';
       </div>
       <div class="content-grid content-grid--two home-consultation-grid">
         <?php foreach ($home['consultation']['items'] as $index => $item) : ?>
-          <details class="home-consultation-card" name="home-consultation">
-            <summary>
+          <article class="home-consultation-card">
+            <figure class="home-consultation-card__visual">
+              <img src="<?php echo e($item['image']); ?>" alt="<?php echo e($item['image_alt']); ?>" loading="lazy">
+            </figure>
+            <div class="home-consultation-card__content">
               <span class="home-consultation-card__number"><?php echo e(str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT)); ?></span>
-              <span class="home-consultation-card__title"><?php echo e($item['title']); ?></span>
-              <span class="home-consultation-card__toggle" aria-hidden="true"></span>
-            </summary>
-            <div class="home-consultation-card__body">
+              <h3><?php echo e($item['title']); ?></h3>
               <p><?php echo e($item['body']); ?></p>
             </div>
-          </details>
+          </article>
         <?php endforeach; ?>
       </div>
       <p class="home-consultation-section__lead"><?php echo e($home['consultation']['lead']); ?></p>
