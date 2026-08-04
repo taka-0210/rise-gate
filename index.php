@@ -60,6 +60,24 @@ include __DIR__ . '/include/header.php';
     </div>
   </section>
 
+  <section class="home-consultation-section">
+    <div class="section-inner">
+      <div class="section-heading">
+        <p class="section-label"><?php echo e($home['consultation']['label']); ?></p>
+        <h2><?php echo responsive_text($home['consultation'], 'title'); ?></h2>
+      </div>
+      <div class="content-grid content-grid--two home-consultation-grid">
+        <?php foreach ($home['consultation']['items'] as $index => $item) : ?>
+          <article class="content-card home-consultation-card">
+            <span><?php echo e(str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT)); ?></span>
+            <h3><?php echo e($item); ?></h3>
+          </article>
+        <?php endforeach; ?>
+      </div>
+      <p class="home-consultation-section__lead"><?php echo e($home['consultation']['lead']); ?></p>
+    </div>
+  </section>
+
   <section class="home-company-section">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($home['company_teaser']['label']); ?></p>

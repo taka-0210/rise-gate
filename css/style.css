@@ -4455,8 +4455,49 @@ h3 {
   margin-top: 34px;
 }
 
-.home-company-section {
+.home-consultation-section {
   background: var(--color-white);
+}
+
+.home-consultation-card {
+  min-height: 170px;
+}
+
+.home-consultation-card::before {
+  background: var(--color-accent);
+}
+
+.home-consultation-card > span {
+  display: block;
+  margin-bottom: 16px;
+  color: rgba(16, 42, 86, 0.3);
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.home-consultation-card h3 {
+  max-width: 520px;
+  margin-bottom: 0;
+  font-size: clamp(20px, 2vw, 27px);
+  line-height: 1.55;
+}
+
+.home-consultation-section__lead {
+  max-width: 860px;
+  margin: 40px 0 0;
+  padding: 24px 28px;
+  border-left: 3px solid var(--color-accent);
+  background: var(--color-bg-soft);
+  color: var(--color-sub);
+  line-height: 2;
+}
+
+.home-company-section {
+  background:
+    linear-gradient(90deg, rgba(16, 42, 86, 0.018) 1px, transparent 1px),
+    linear-gradient(180deg, var(--color-bg-soft), var(--color-white));
+  background-size: 112px 100%, auto;
 }
 
 .home-company-section h2 {
