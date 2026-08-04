@@ -11,8 +11,8 @@ $errors = [];
 $message = '';
 const ADMIN_GALLERY_LIMIT = 10;
 const ADMIN_WORK_TYPES = [
-    'website' => 'Webサイト制作',
-    'system' => 'システム導入',
+    'website' => 'ホームページ制作',
+    'system' => '業務システム開発',
 ];
 const ADMIN_WORK_MEMBER_LIMIT = 5;
 
@@ -544,7 +544,7 @@ include __DIR__ . '/include/head.php';
       <div>
         <p class="section-label">Rise Gate Admin</p>
         <h1>実績管理</h1>
-        <p>Webサイト制作とシステム導入の改善実績を登録します。実績は「課題」と「改善」が伝わる形で公開されます。</p>
+        <p>ホームページ制作と業務システム開発の実績を登録します。</p>
       </div>
       <div class="admin-header__links">
         <a class="button button--secondary" href="admin.php">管理トップ</a>

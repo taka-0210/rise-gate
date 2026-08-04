@@ -330,7 +330,6 @@ include __DIR__ . '/include/head.php';
       </div>
       <div class="admin-header__links">
         <a class="button button--secondary" href="admin.php">管理トップ</a>
-        <a class="button button--secondary" href="future.php">Futureページ</a>
         <form method="post">
           <button class="button button--secondary" type="submit" name="admin_logout" value="1">ログアウト</button>
         </form>

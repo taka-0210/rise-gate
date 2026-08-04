@@ -927,7 +927,7 @@ main>section {
 }
 
 .hero-scene--works {
-  --scene-photo: url("../image/scene/works-mountain-v2.png");
+  --scene-photo: url("../image/scene/method-road-high-v3.png");
   --scene-photo-position: 100% center;
   --scene-photo-size: 116% auto;
   --scene-image:
@@ -947,7 +947,7 @@ main>section {
 }
 
 .hero-scene--service {
-  --scene-photo: url("../image/scene/service-growth-blur-v5.png");
+  --scene-photo: url("../image/scene/service-river-v6.png");
   --scene-photo-position: 82% center;
   --scene-image:
     radial-gradient(ellipse at 86% 78%, rgba(61, 117, 111, 0.14) 0 18%, transparent 44%),
@@ -4347,6 +4347,86 @@ h3 {
 
 .service-tool-card .text-link {
   margin-top: 18px;
+}
+
+.service-feature-section {
+  background: var(--color-white);
+}
+
+.service-feature-card {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(28px, 4vw, 44px);
+}
+
+.service-feature-card h3 {
+  margin: 10px 0 0;
+  font-size: clamp(24px, 2.4vw, 34px);
+}
+
+.service-feature-card > p:not(.section-label) {
+  margin: 18px 0 0;
+  color: var(--color-sub);
+}
+
+.service-feature-list {
+  display: grid;
+  gap: 10px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.service-feature-list li {
+  position: relative;
+  padding-left: 20px;
+  color: var(--color-brand-deep);
+  font-weight: 700;
+}
+
+.service-feature-list li::before {
+  position: absolute;
+  top: 0.72em;
+  left: 0;
+  width: 8px;
+  height: 1px;
+  background: var(--color-accent);
+  content: "";
+}
+
+.service-feature-methods {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.service-feature-methods > div {
+  padding: 20px;
+  border-left: 3px solid var(--color-accent);
+  background: rgba(61, 117, 111, 0.06);
+}
+
+.service-feature-methods h4,
+.service-feature-methods p {
+  margin: 0;
+}
+
+.service-feature-methods h4 {
+  color: var(--color-brand-deep);
+  font-size: 17px;
+}
+
+.service-feature-methods p {
+  margin-top: 8px;
+  color: var(--color-sub);
+  font-size: 14px;
+}
+
+.service-feature-note {
+  margin-top: auto !important;
+  padding-top: 24px;
+  color: var(--color-brand-deep) !important;
+  font-weight: 800;
 }
 
 .os-intro-section {

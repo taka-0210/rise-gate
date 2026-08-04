@@ -277,7 +277,7 @@ WordPressなどの既存CMSに合わせるのではなく、協会の運用に�
   array (
     'status' => 'published',
     'type' => 'system',
-    'type_label' => 'システム導入',
+    'type_label' => '業務システム開発',
     'slug' => 'corporate-portal-site',
     'title' => '企業ポータルサイト',
     'client_name' => '',
@@ -346,7 +346,7 @@ WordPressなどの既存CMSに合わせるのではなく、協会の運用に�
       0 => '社内ポータル',
       1 => '情報共有',
       2 => '総務業務',
-      3 => 'システム導入',
+      3 => '業務システム開発',
     ),
   ),
 );

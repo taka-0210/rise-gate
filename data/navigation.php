@@ -2,29 +2,9 @@
 return [
     'main' => [
         [
-            'key' => 'philosophy',
-            'label' => 'Philosophy',
-            'url' => 'philosophy.php',
-        ],
-        [
-            'key' => 'method',
-            'label' => 'Method',
-            'url' => 'method.php',
-        ],
-        [
             'key' => 'service',
             'label' => 'Service',
             'url' => 'service.php',
-        ],
-        [
-            'key' => 'rise-gate-os',
-            'label' => 'RISE GATE OS',
-            'url' => 'rise-gate-os.php',
-        ],
-        [
-            'key' => 'master',
-            'label' => 'Master',
-            'url' => 'master.php',
         ],
         [
             'key' => 'works',
@@ -32,19 +12,9 @@ return [
             'url' => 'works.php',
         ],
         [
-            'key' => 'future',
-            'label' => 'Future',
-            'url' => 'future.php',
-        ],
-        [
             'key' => 'company',
             'label' => 'Company',
             'url' => 'company.php',
-        ],
-        [
-            'key' => 'improvement-log',
-            'label' => '改善ログ',
-            'url' => 'improvement-log.php',
         ],
     ],
     'primary_cta' => [
@@ -59,29 +29,9 @@ return [
             'url' => 'index.php',
         ],
         [
-            'key' => 'philosophy',
-            'label' => 'Philosophy',
-            'url' => 'philosophy.php',
-        ],
-        [
-            'key' => 'method',
-            'label' => 'Method',
-            'url' => 'method.php',
-        ],
-        [
             'key' => 'service',
             'label' => 'Service',
             'url' => 'service.php',
-        ],
-        [
-            'key' => 'rise-gate-os',
-            'label' => 'RISE GATE OS',
-            'url' => 'rise-gate-os.php',
-        ],
-        [
-            'key' => 'master',
-            'label' => 'Master',
-            'url' => 'master.php',
         ],
         [
             'key' => 'works',
@@ -89,19 +39,9 @@ return [
             'url' => 'works.php',
         ],
         [
-            'key' => 'future',
-            'label' => 'Future',
-            'url' => 'future.php',
-        ],
-        [
             'key' => 'company',
             'label' => 'Company',
             'url' => 'company.php',
-        ],
-        [
-            'key' => 'improvement-log',
-            'label' => '改善ログ',
-            'url' => 'improvement-log.php',
         ],
         [
             'key' => 'contact',

@@ -10,8 +10,8 @@ $works = array_values(array_filter($works, function ($work) {
 }));
 
 $work_types = [
-  'website' => 'Webサイト制作',
-  'system' => 'システム導入',
+  'website' => 'ホームページ制作',
+  'system' => '業務システム開発',
 ];
 $selected_work_type = (string) ($_GET['type'] ?? '');
 if (!array_key_exists($selected_work_type, $work_types)) {
@@ -34,7 +34,7 @@ function work_type_label(array $work, array $work_types): string
 {
   $type = (string) ($work['type'] ?? 'website');
 
-  return (string) ($work['type_label'] ?? $work_types[$type] ?? '改善実績');
+  return (string) ($work['type_label'] ?? $work_types[$type] ?? '制作・開発実績');
 }
 
 function work_card_excerpt(array $work, string $key): string
@@ -108,13 +108,13 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner">
       <div class="works-scope">
         <div>
-          <p class="section-label">Improvement Works</p>
+          <p class="section-label">Our Works</p>
           <h2><?php echo responsive_lines([
-            'desktop' => ['Webサイト制作から、システム導入まで。'],
-            'tablet' => ['Webサイト制作から、', 'システム導入まで。'],
-            'mobile' => ['Webサイト制作から、', 'システム導入まで。'],
+            'desktop' => ['ホームページ制作と、業務システム開発。'],
+            'tablet' => ['ホームページ制作と、', '業務システム開発。'],
+            'mobile' => ['ホームページ制作と、', '業務システム開発。'],
           ]); ?></h2>
-          <p>ライズゲートの実績は、完成した画面を並べるだけではなく、会社の発信や業務がどう改善されたかを見る場所です。</p>
+          <p>制作したホームページと、開発した業務システムをご紹介します。</p>
         </div>
       </div>
     </div>
@@ -125,11 +125,11 @@ include __DIR__ . '/include/header.php';
       <div class="section-heading">
         <p class="section-label">Works</p>
         <h2><?php echo responsive_lines([
-          'desktop' => ['改善実績。'],
-          'tablet' => ['改善実績。'],
-          'mobile' => ['改善実績。'],
+          'desktop' => ['実績一覧'],
+          'tablet' => ['実績一覧'],
+          'mobile' => ['実績一覧'],
         ]); ?></h2>
-        <p>Webサイトと業務システムを入口に、会社の改善につながった取り組みを掲載していきます。</p>
+        <p>ホームページ制作と業務システム開発の事例を掲載しています。</p>
       </div>
 
       <ul class="works-type-list works-type-list--filters">
@@ -190,7 +190,7 @@ include __DIR__ . '/include/header.php';
                 <dd><?php echo e(work_card_excerpt($work, 'challenge')); ?></dd>
               </div>
               <div>
-                <dt>改善</dt>
+                <dt>対応内容</dt>
                 <dd><?php echo e(work_card_excerpt($work, 'improvement')); ?></dd>
               </div>
             </dl>
@@ -210,7 +210,7 @@ include __DIR__ . '/include/header.php';
         'mobile' => ['あなたの会社では、', '何を変えたいですか。'],
       ]); ?></h2>
       <p>Webサイトか、システムか。決める前に、まずは今止まっていること、変えたいことを一緒に整理します。</p>
-      <a class="button button--primary" href="contact.php">改善について相談する</a>
+      <a class="button button--primary" href="contact.php">制作・開発について相談する</a>
     </div>
   </section>
 </main>

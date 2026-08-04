@@ -337,16 +337,6 @@ include __DIR__ . '/include/header.php';
     </div>
   </section>
 
-  <section class="contact-stance">
-    <div class="section-inner section-inner--narrow">
-      <p class="section-label"><?php echo e($contact['stance']['label']); ?></p>
-      <h2><?php echo responsive_text($contact['stance'], 'title'); ?></h2>
-      <?php foreach ($contact['stance']['body'] as $paragraph) : ?>
-        <p><?php echo e($paragraph); ?></p>
-      <?php endforeach; ?>
-    </div>
-  </section>
-
   <section class="contact-pricing">
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($contact['pricing']['label']); ?></p>

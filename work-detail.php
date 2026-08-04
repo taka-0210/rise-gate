@@ -109,8 +109,8 @@ $work_gallery = array_values(array_filter($work['gallery'] ?? [], function ($ite
 }));
 
 $work_types = [
-    'website' => 'Webサイト制作',
-    'system' => 'システム導入',
+    'website' => 'ホームページ制作',
+    'system' => '業務システム開発',
 ];
 $work_type = (string) ($work['type'] ?? 'website');
 $work_type_label = (string) ($work['type_label'] ?? $work_types[$work_type] ?? '改善実績');
