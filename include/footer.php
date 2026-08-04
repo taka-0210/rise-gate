@@ -11,7 +11,6 @@ $logo_version = file_exists($logo_path) ? (string) filemtime($logo_path) : '1';
           <img src="image/logo/risegate-logo.png?v=<?php echo htmlspecialchars($logo_version, ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($site['short_name'], ENT_QUOTES, 'UTF-8'); ?>">
         </a>
         <p><?php echo htmlspecialchars($site['brand_statement'], ENT_QUOTES, 'UTF-8'); ?></p>
-        <p><?php echo htmlspecialchars($site['tagline'], ENT_QUOTES, 'UTF-8'); ?></p>
       </div>
 
       <nav class="site-footer__nav" aria-label="フッターナビゲーション">

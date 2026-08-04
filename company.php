@@ -36,10 +36,10 @@ include __DIR__ . '/include/header.php';
           <?php endif; ?>
           <p><?php echo e($paragraph); ?></p>
         <?php endforeach; ?>
-        <div class="message-signature">
+        <p class="message-signature">
           <span><?php echo e($company['message']['signature_role']); ?></span>
           <strong><?php echo e($company['message']['signature_name']); ?></strong>
-        </div>
+        </p>
       </div>
     </div>
   </section>

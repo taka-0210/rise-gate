@@ -3561,8 +3561,9 @@ h3 {
 }
 
 .message-signature {
-  display: inline-grid;
-  gap: 8px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
   margin-top: 34px;
   color: var(--color-brand);
   font-weight: 800;
@@ -3575,7 +3576,6 @@ h3 {
 }
 
 .message-signature strong {
-  display: block;
   color: var(--color-brand-deep);
   font-size: 18px;
   font-weight: 800;
