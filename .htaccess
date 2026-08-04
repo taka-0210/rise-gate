@@ -1,5 +1,3 @@
-SetEnv RISEGATE_ADMIN_PASSWORD "RiseGate-Admin-2026-Q7mP9vT2xL4s"
-
-<FilesMatch "^contact_submissions\.php$">
-  Require all denied
-</FilesMatch>
+# Server-specific environment settings belong only on the server.
+# Configure RISEGATE_ADMIN_PASSWORD in the hosting control panel or in a
+# server-owned .htaccess file that is excluded from deployment.

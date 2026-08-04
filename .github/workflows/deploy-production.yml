@@ -1,0 +1,89 @@
+name: 本番へデプロイ
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rise-gate-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: FTPSで本番へ反映
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ vars.PRODUCTION_URL }}
+
+    steps:
+      - name: ソースを取得
+        uses: actions/checkout@v6
+
+      - name: PHP構文を検査
+        run: |
+          set -euo pipefail
+          find . -type f -name '*.php' -not -path './_backup/*' -print0 \
+            | xargs -0 -n1 php -l
+
+      - name: デプロイ対象を準備
+        run: |
+          set -euo pipefail
+          mkdir -p deploy
+          rsync -a \
+            --exclude='/.git/' \
+            --exclude='/.github/' \
+            --exclude='/.vscode/' \
+            --exclude='/_backup/' \
+            --exclude='/deploy/' \
+            --exclude='/.gitignore' \
+            --exclude='/.gitattributes' \
+            --exclude='/.htaccess' \
+            --exclude='/AGENTS.md' \
+            --exclude='/data/contact_submissions.php' \
+            --exclude='/data/works.php' \
+            --exclude='/data/improvement_masters.php' \
+            ./ deploy/
+
+      - name: FTPSクライアントを準備
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: 本番サーバーへ差分反映
+        env:
+          FTPS_HOST: ${{ secrets.FTPS_HOST }}
+          FTPS_USERNAME: ${{ secrets.FTPS_USERNAME }}
+          FTPS_PASSWORD: ${{ secrets.FTPS_PASSWORD }}
+          FTPS_SERVER_DIR: ${{ secrets.FTPS_SERVER_DIR }}
+        run: |
+          set -euo pipefail
+          test -n "$FTPS_HOST"
+          test -n "$FTPS_USERNAME"
+          test -n "$FTPS_PASSWORD"
+          test -n "$FTPS_SERVER_DIR"
+
+          lftp <<LFTP
+          set cmd:fail-exit yes
+          set ftp:ssl-force yes
+          set ftp:ssl-protect-data yes
+          set ssl:verify-certificate yes
+          set net:max-retries 2
+          set net:timeout 20
+          open "ftp://${FTPS_HOST}"
+          user "${FTPS_USERNAME}" "${FTPS_PASSWORD}"
+          cd "${FTPS_SERVER_DIR}"
+          lcd deploy
+          mirror --reverse --verbose --parallel=4 . .
+          bye
+          LFTP
+
+      - name: 公開URLを確認
+        env:
+          PRODUCTION_URL: ${{ vars.PRODUCTION_URL }}
+        run: |
+          set -euo pipefail
+          test -n "$PRODUCTION_URL"
+          curl --fail --silent --show-error --location \
+            --retry 3 --retry-delay 5 \
+            "$PRODUCTION_URL" > /dev/null
