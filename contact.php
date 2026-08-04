@@ -7,8 +7,6 @@ session_start();
 $site = require __DIR__ . '/data/site.php';
 $navigation = require __DIR__ . '/data/navigation.php';
 $contact = require __DIR__ . '/data/contact.php';
-$improvement_masters_file = __DIR__ . '/data/improvement_masters.php';
-$improvement_masters = file_exists($improvement_masters_file) ? require $improvement_masters_file : [];
 $contact_submissions_file = __DIR__ . '/data/contact_submissions.php';
 require __DIR__ . '/include/functions.php';
 
@@ -26,7 +24,6 @@ $form_fields = [
     'message' => '',
     'privacy' => '',
     'website' => '',
-    'master_slug' => '',
 ];
 $form = $form_fields;
 $errors = [];
@@ -158,17 +155,6 @@ function contact_mail_headers(string $from_email, string $from_name, string $rep
     return implode("\r\n", $headers);
 }
 
-function contact_find_master(array $masters, string $slug): ?array
-{
-    foreach ($masters as $master) {
-        if (($master['slug'] ?? '') === $slug) {
-            return $master;
-        }
-    }
-
-    return null;
-}
-
 function contact_save_submission(string $data_file, array $submission): bool
 {
     $submissions = file_exists($data_file) ? require $data_file : [];
@@ -181,14 +167,6 @@ function contact_save_submission(string $data_file, array $submission): bool
     $content = "<?php\nreturn " . $export . ";\n";
 
     return file_put_contents($data_file, $content, LOCK_EX) !== false;
-}
-
-if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
-    $form['master_slug'] = trim((string) ($_GET['master'] ?? ''));
-    $initial_master = contact_find_master($improvement_masters, $form['master_slug']);
-    if ($initial_master && $form['prefecture'] === '') {
-        $form['prefecture'] = (string) ($initial_master['prefecture'] ?? '');
-    }
 }
 
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
@@ -264,16 +242,13 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             );
         }
 
-        $selected_master = contact_find_master($improvement_masters, $form['master_slug']);
         $submission = [
             'id' => date('YmdHis') . '-' . bin2hex(random_bytes(4)),
             'created_at' => date('Y-m-d H:i:s'),
             'status' => 'unread',
             'prefecture' => $form['prefecture'],
             'consultation_type' => $form['type'],
-            'recipient' => $selected_master ? 'master' : 'headquarters',
-            'master_slug' => (string) ($selected_master['slug'] ?? ''),
-            'master_name' => (string) ($selected_master['name'] ?? ''),
+            'recipient' => 'headquarters',
             'name' => $form['name'],
             'company' => $form['company'],
             'email' => $form['email'],
@@ -297,8 +272,6 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
 }
 
 $contact_token = (string) ($_SESSION['contact_token'] ?? '');
-$selected_master = contact_find_master($improvement_masters, $form['master_slug']);
-
 include __DIR__ . '/include/head.php';
 include __DIR__ . '/include/header.php';
 ?>
@@ -368,7 +341,6 @@ include __DIR__ . '/include/header.php';
 
         <form class="contact-form" method="post" action="contact.php#contact-form" id="contact-form" novalidate>
           <input type="hidden" name="contact_token" value="<?php echo e($contact_token); ?>">
-          <input type="hidden" name="master_slug" value="<?php echo e($form['master_slug']); ?>">
           <div class="contact-form__trap" aria-hidden="true">
             <label>
               Webサイト

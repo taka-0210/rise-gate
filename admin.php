@@ -3,7 +3,6 @@ $site = require __DIR__ . '/data/site.php';
 require __DIR__ . '/include/functions.php';
 
 $works = file_exists(__DIR__ . '/data/works.php') ? require __DIR__ . '/data/works.php' : [];
-$masters = file_exists(__DIR__ . '/data/improvement_masters.php') ? require __DIR__ . '/data/improvement_masters.php' : [];
 $contact_submissions = file_exists(__DIR__ . '/data/contact_submissions.php') ? require __DIR__ . '/data/contact_submissions.php' : [];
 $admin_password = getenv('RISEGATE_ADMIN_PASSWORD') ?: '';
 $errors = [];
@@ -70,20 +69,12 @@ if (!is_array($works)) {
     $works = [];
 }
 
-if (!is_array($masters)) {
-    $masters = [];
-}
-
 if (!is_array($contact_submissions)) {
     $contact_submissions = [];
 }
 
 $published_works_count = count(array_filter($works, function ($work) {
     return ($work['status'] ?? '') === 'published';
-}));
-
-$published_masters_count = count(array_filter($masters, function ($master) {
-    return ($master['status'] ?? '') === 'published';
 }));
 
 usort($contact_submissions, function ($a, $b) {
@@ -134,11 +125,6 @@ include __DIR__ . '/include/head.php';
         <span><?php echo e((string) count($works)); ?>件 / 公開 <?php echo e((string) $published_works_count); ?>件</span>
       </a>
 
-      <a class="admin-dashboard-card" href="admin-masters.php">
-        <span class="section-label">Improvement Masters</span>
-        <strong>改善マスター管理</strong>
-        <span><?php echo e((string) count($masters)); ?>人 / 公開 <?php echo e((string) $published_masters_count); ?>人</span>
-      </a>
     </section>
   </main>
 </body>

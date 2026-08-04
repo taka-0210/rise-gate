@@ -74,15 +74,6 @@ function admin_contact_find_submission(array $submissions, string $id): ?array
     return null;
 }
 
-function admin_contact_recipient_label(string $recipient): string
-{
-    return match ($recipient) {
-        'master' => '改善マスター',
-        'headquarters' => '本部',
-        default => $recipient !== '' ? $recipient : '-',
-    };
-}
-
 function admin_contact_mail_status_label($value): string
 {
     if ($value === true) {
@@ -231,8 +222,6 @@ include __DIR__ . '/include/head.php';
                 <th>状態</th>
                 <th>都道府県</th>
                 <th>相談選択肢</th>
-                <th>宛先</th>
-                <th>改善マスター名</th>
                 <th>詳細</th>
               </tr>
             </thead>
@@ -244,8 +233,6 @@ include __DIR__ . '/include/head.php';
                   <td><span class="admin-contact-status admin-contact-status--<?php echo e($submission_status); ?>"><?php echo e(admin_contact_status_label($submission_status)); ?></span></td>
                   <td><?php echo e(($submission['prefecture'] ?? '') !== '' ? $submission['prefecture'] : '-'); ?></td>
                   <td class="admin-contact-table__type"><?php echo e($submission['consultation_type'] ?? ''); ?></td>
-                  <td><span class="admin-contact-pill"><?php echo e(admin_contact_recipient_label((string) ($submission['recipient'] ?? ''))); ?></span></td>
-                  <td><?php echo e(($submission['master_name'] ?? '') !== '' ? $submission['master_name'] : '-'); ?></td>
                   <td class="admin-contact-table__action">
                     <a class="admin-action-button admin-action-button--compact" href="admin-contacts.php?<?php echo $current_view === 'spam' ? 'view=spam&amp;' : ''; ?>inquiry=<?php echo e(rawurlencode((string) ($submission['id'] ?? ''))); ?>#contact-submissions">詳細</a>
                   </td>
@@ -293,16 +280,8 @@ include __DIR__ . '/include/head.php';
               <dd><?php echo e($selected_submission['created_at'] ?? ''); ?></dd>
             </div>
             <div>
-              <dt>宛先</dt>
-              <dd><?php echo e(admin_contact_recipient_label((string) ($selected_submission['recipient'] ?? ''))); ?></dd>
-            </div>
-            <div>
               <dt>都道府県</dt>
               <dd><?php echo e(($selected_submission['prefecture'] ?? '') !== '' ? $selected_submission['prefecture'] : '-'); ?></dd>
-            </div>
-            <div>
-              <dt>改善マスター名</dt>
-              <dd><?php echo e(($selected_submission['master_name'] ?? '') !== '' ? $selected_submission['master_name'] : '-'); ?></dd>
             </div>
             <div>
               <dt>相談選択肢</dt>

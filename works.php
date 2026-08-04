@@ -56,37 +56,6 @@ function work_card_excerpt(array $work, string $key): string
   return rtrim($excerpt, " \t\n\r\0\x0B…") . '…';
 }
 
-function work_members(array $work): array
-{
-  $members = [];
-  $source_members = is_array($work['members'] ?? null) ? $work['members'] : [];
-
-  foreach ($source_members as $member) {
-    if (!is_array($member)) {
-      continue;
-    }
-
-    $name = trim((string) ($member['name'] ?? ''));
-    $role = trim((string) ($member['role'] ?? ''));
-    if ($name === '' && $role === '') {
-      continue;
-    }
-
-    $members[] = $role !== '' && $name !== '' ? $name . '（' . $role . '）' : ($name !== '' ? $name : $role);
-  }
-
-  if (empty($members) && trim((string) ($work['master_name'] ?? '')) !== '') {
-    $members[] = trim((string) ($work['master_name'] ?? ''));
-  }
-
-  return $members;
-}
-
-function work_members_label(array $work): string
-{
-  return implode(' / ', work_members($work));
-}
-
 $current_page = 'works';
 $page_title = $works_page['meta']['title'];
 $page_description = $works_page['meta']['description'];
@@ -177,9 +146,6 @@ include __DIR__ . '/include/header.php';
               <span><?php echo e(work_type_label($work, $work_types)); ?></span>
               <?php if (($work['client_name'] ?? '') !== '') : ?>
                 <span><?php echo e($work['client_name']); ?></span>
-              <?php endif; ?>
-              <?php if (work_members_label($work) !== '') : ?>
-                <span>担当：<?php echo e(work_members_label($work)); ?></span>
               <?php endif; ?>
             </div>
             <h3><?php echo e($work['title']); ?></h3>

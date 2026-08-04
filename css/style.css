@@ -4434,6 +4434,43 @@ h3 {
   font-weight: 800;
 }
 
+.home-works-section {
+  background:
+    linear-gradient(90deg, rgba(16, 42, 86, 0.018) 1px, transparent 1px),
+    linear-gradient(180deg, var(--color-bg-soft), var(--color-white));
+  background-size: 112px 100%, auto;
+}
+
+.home-work-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-work-card .text-link {
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.home-section-link {
+  margin-top: 34px;
+}
+
+.home-company-section {
+  background: var(--color-white);
+}
+
+.home-company-section h2 {
+  max-width: 900px;
+}
+
+.home-company-section p:not(.section-label) {
+  max-width: 780px;
+}
+
+.home-company-section .text-link {
+  margin-top: 24px;
+}
+
 .os-intro-section {
   background: linear-gradient(180deg, var(--color-white), var(--color-bg-soft));
 }
