@@ -4603,14 +4603,31 @@ h3 {
   line-height: 2;
 }
 
-.home-consultation-section__lead {
-  max-width: 860px;
-  margin: 40px 0 0;
-  padding: 24px 28px;
+.home-consultation-section__closing {
+  max-width: 1040px;
+  margin: 48px 0 0;
+  padding: 32px 38px;
   border-left: 3px solid var(--color-accent);
   background: var(--color-bg-soft);
   color: var(--color-sub);
+}
+
+.home-consultation-section__closing h3 {
+  margin-bottom: 18px;
+  color: var(--color-brand-deep);
+  font-size: clamp(23px, 2.4vw, 32px);
+  line-height: 1.5;
+}
+
+.home-consultation-section__closing p {
+  max-width: 920px;
+  margin-bottom: 14px;
+  font-size: clamp(16px, 1.4vw, 18px);
   line-height: 2;
+}
+
+.home-consultation-section__closing p:last-child {
+  margin-bottom: 0;
 }
 
 .home-company-section {
@@ -5896,8 +5913,9 @@ h3 {
     padding: 24px 20px 28px;
   }
 
-  .home-consultation-section__lead {
-    padding: 20px;
+  .home-consultation-section__closing {
+    margin-top: 36px;
+    padding: 24px 20px;
   }
 
   .step-list li {

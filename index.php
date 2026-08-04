@@ -73,7 +73,12 @@ include __DIR__ . '/include/header.php';
           </article>
         <?php endforeach; ?>
       </div>
-      <p class="home-consultation-section__lead"><?php echo e($home['consultation']['lead']); ?></p>
+      <aside class="home-consultation-section__closing">
+        <h3><?php echo e($home['consultation']['closing']['title']); ?></h3>
+        <?php foreach ($home['consultation']['closing']['body'] as $paragraph) : ?>
+          <p><?php echo e($paragraph); ?></p>
+        <?php endforeach; ?>
+      </aside>
     </div>
   </section>
 
