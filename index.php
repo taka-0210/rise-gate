@@ -31,7 +31,7 @@ include __DIR__ . '/include/header.php';
     </div>
   </section>
 
-  <section class="service-teaser">
+  <section class="service-teaser" id="services">
     <div class="section-inner">
       <div class="section-heading">
         <p class="section-label"><?php echo e($home['service_teaser']['label']); ?></p>
@@ -39,7 +39,7 @@ include __DIR__ . '/include/header.php';
         <p class="service-teaser__subtitle"><?php echo responsive_text($home['service_teaser'], 'subtitle'); ?></p>
         <p><?php echo e($home['service_teaser']['lead']); ?></p>
       </div>
-      <div class="content-grid content-grid--two">
+      <div class="content-grid content-grid--three">
         <?php foreach ($home['service_teaser']['items'] as $index => $item) : ?>
           <a class="content-card service-teaser__card-link" href="<?php echo e($item['url']); ?>">
             <span class="service-teaser__number"><?php echo e(str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT)); ?></span>

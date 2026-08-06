@@ -4,7 +4,7 @@ $navigation = require __DIR__ . '/data/navigation.php';
 $service = require __DIR__ . '/data/service.php';
 require __DIR__ . '/include/functions.php';
 
-$current_page = 'service';
+$current_page = 'website';
 $page_title = 'ホームページ制作';
 $page_description = '会社やサービスの強みを整理し、自社で更新しながら育てられるホームページを制作します。';
 $service_item = $service['services']['items'][0];
@@ -18,8 +18,15 @@ include __DIR__ . '/include/header.php';
   <section class="page-hero hero-scene hero-scene--service">
     <div class="section-inner section-inner--narrow">
       <p class="section-label">01 / Website Production</p>
-      <h1>会社の魅力を伝え、<br>自社で育てられるホームページ。</h1>
-      <p class="section-lead">情報の整理からデザイン、制作、公開後の更新まで。会社の発信に合ったホームページを設計します。</p>
+      <h1>価値を伝える、<br>仕組みをつくる。</h1>
+      <p class="section-lead">ホームページをつくることだけを目的にせず、会社やサービスの魅力を整理し、必要な相手へ伝わる状態をつくります。</p>
+    </div>
+  </section>
+
+  <section class="business-prototype-intro website-method-intro">
+    <div class="section-inner business-prototype-intro__layout">
+      <div><p class="section-label">RISE GATE Website Method</p><h2>デザインの前に、<br>伝える価値を整理する。</h2></div>
+      <div><p>誰に、何を、どのように伝えるのか。会社の強み、サービスの価値、届けたい相手を一緒に整理するところから始めます。</p><p>公開後は、実際の反応や会社の変化に合わせて情報を更新する。自分たちで育てられる発信の仕組みとして設計します。</p><p class="business-prototype-intro__strong">小さく公開し、伝わり方を確かめ、改善を続けられるホームページへ。</p></div>
     </div>
   </section>
 

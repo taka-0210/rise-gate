@@ -5,7 +5,7 @@ $service = require __DIR__ . '/data/service.php';
 $prototype = require __DIR__ . '/data/prototype-development.php';
 require __DIR__ . '/include/functions.php';
 
-$current_page = 'service';
+$current_page = 'system';
 $page_title = '業務システム開発';
 $page_description = '現在の業務を整理し、現場で使いながら育てられる業務システムを設計・開発します。';
 $service_item = $service['services']['items'][1];
@@ -29,9 +29,19 @@ include __DIR__ . '/include/header.php';
     </div>
   </section>
 
-  <section class="prototype-flow business-prototype-flow">
-    <div class="section-inner"><div class="section-heading"><p class="section-label">Prototype First</p><h2>まずは、動くものを。</h2><p>完成前に操作と方向性を確かめ、現場の声を本開発へ反映します。</p></div><ol class="prototype-flow__list"><?php foreach ($prototype['flow']['steps'] as $step) : ?><li><span><?php echo e($step['number']); ?></span><h3><?php echo e($step['title']); ?></h3><p><?php echo e($step['body']); ?></p><small><?php echo e($step['meta']); ?></small></li><?php endforeach; ?></ol><div class="business-prototype-flow__link"><a class="text-link" href="prototype-development.php">試作品から始める改善型開発を詳しく見る</a></div></div>
+  <section class="prototype-concerns"><div class="section-inner"><div class="section-heading"><p class="section-label"><?php echo e($prototype['concerns']['label']); ?></p><h2><?php echo e($prototype['concerns']['title']); ?></h2><p><?php echo e($prototype['concerns']['lead']); ?></p></div><ol class="prototype-concern-list"><?php foreach ($prototype['concerns']['items'] as $index => $item) : ?><li><span><?php echo str_pad((string)($index + 1), 2, '0', STR_PAD_LEFT); ?></span><?php echo e($item); ?></li><?php endforeach; ?></ol><p class="prototype-concerns__closing"><?php echo e($prototype['concerns']['closing']); ?></p></div></section>
+
+  <section class="prototype-comparison"><div class="section-inner"><div class="section-heading"><p class="section-label"><?php echo e($prototype['comparison']['label']); ?></p><h2><?php echo e($prototype['comparison']['title']); ?></h2><p class="prototype-comparison__message"><?php echo e($prototype['comparison']['message']); ?></p></div><div class="prototype-comparison__grid"><?php foreach ($prototype['comparison']['methods'] as $method) : ?><article class="prototype-method<?php echo !empty($method['recommended']) ? ' prototype-method--risegate' : ''; ?>"><p class="section-label"><?php echo e($method['label']); ?></p><h3><?php echo e($method['title']); ?></h3><ol><?php foreach ($method['steps'] as $step) : ?><li><?php echo e($step); ?></li><?php endforeach; ?></ol><p><?php echo e($method['note']); ?></p></article><?php endforeach; ?></div></div></section>
+
+  <section class="prototype-purpose"><div class="section-inner section-inner--narrow"><p class="section-label"><?php echo e($prototype['purpose']['label']); ?></p><h2><?php echo e($prototype['purpose']['title']); ?></h2><?php foreach ($prototype['purpose']['body'] as $paragraph) : ?><p><?php echo e($paragraph); ?></p><?php endforeach; ?><p class="prototype-key-message"><?php echo e($prototype['purpose']['message']); ?></p></div></section>
+
+  <section class="prototype-confidence"><div class="section-inner"><div class="section-heading"><p class="section-label"><?php echo e($prototype['confidence']['label']); ?></p><h2><?php echo e($prototype['confidence']['title']); ?></h2><p><?php echo e($prototype['confidence']['body']); ?></p></div><div class="prototype-confidence__grid"><?php foreach ($prototype['confidence']['items'] as $item) : ?><article><p class="section-label"><?php echo e($item['label']); ?></p><h3><?php echo e($item['title']); ?></h3></article><?php endforeach; ?></div><p class="prototype-confidence__closing"><?php echo e($prototype['confidence']['closing']); ?></p></div></section>
+
+  <section class="prototype-flow business-prototype-flow" id="prototype-first">
+    <div class="section-inner"><div class="section-heading"><p class="section-label">Prototype First</p><h2>まずは、動くものを。</h2><p>完成前に操作と方向性を確かめ、現場の声を本開発へ反映します。</p></div><ol class="prototype-flow__list"><?php foreach ($prototype['flow']['steps'] as $step) : ?><li><span><?php echo e($step['number']); ?></span><h3><?php echo e($step['title']); ?></h3><p><?php echo e($step['body']); ?></p><small><?php echo e($step['meta']); ?></small></li><?php endforeach; ?></ol></div>
   </section>
+
+  <section class="prototype-trial"><div class="section-inner prototype-trial__box"><p class="section-label"><?php echo e($prototype['trial']['label']); ?></p><h2><?php echo e($prototype['trial']['title']); ?></h2><?php foreach ($prototype['trial']['body'] as $paragraph) : ?><p><?php echo e($paragraph); ?></p><?php endforeach; ?><ul><?php foreach ($prototype['trial']['conditions'] as $condition) : ?><li><?php echo e($condition); ?></li><?php endforeach; ?></ul><p class="prototype-trial__note"><?php echo e($prototype['trial']['note']); ?></p></div></section>
 
   <section class="service-offering-section service-offering-section--business-system"><div class="section-inner service-offering__layout"><div class="service-offering__summary"><p class="section-label"><?php echo e($service_item['label']); ?></p><h2>会社に合った仕組みへ、<br>本開発する。</h2><p class="service-offering__lead"><?php echo e($service_item['body']); ?></p></div><div><p class="section-label">Development Examples</p><ul class="service-offering__examples"><?php foreach ($service_item['examples'] as $example) : ?><li><?php echo e($example); ?></li><?php endforeach; ?></ul></div></div></section>
 

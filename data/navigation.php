@@ -2,9 +2,19 @@
 return [
     'main' => [
         [
-            'key' => 'service',
-            'label' => 'Service',
-            'url' => 'service.php',
+            'key' => 'system',
+            'label' => 'システム開発',
+            'url' => 'business-system-development.php',
+        ],
+        [
+            'key' => 'website',
+            'label' => 'ホームページ制作',
+            'url' => 'website-production.php',
+        ],
+        [
+            'key' => 'ai',
+            'label' => '生成AI活用支援',
+            'url' => 'generative-ai-support.php',
         ],
         [
             'key' => 'works',
@@ -29,9 +39,19 @@ return [
             'url' => 'index.php',
         ],
         [
-            'key' => 'service',
-            'label' => 'Service',
-            'url' => 'service.php',
+            'key' => 'system',
+            'label' => 'システム開発',
+            'url' => 'business-system-development.php',
+        ],
+        [
+            'key' => 'website',
+            'label' => 'ホームページ制作',
+            'url' => 'website-production.php',
+        ],
+        [
+            'key' => 'ai',
+            'label' => '生成AI活用支援',
+            'url' => 'generative-ai-support.php',
         ],
         [
             'key' => 'works',
