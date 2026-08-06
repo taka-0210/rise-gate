@@ -35,15 +35,20 @@ include __DIR__ . '/include/header.php';
             <span class="service-overview-card__number"><?php echo str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT); ?></span>
             <p class="section-label"><?php echo e($item['label']); ?></p>
             <h3><?php echo e($item['title']); ?></h3>
+            <?php if (!empty($item['purpose'])) : ?><p class="service-overview-card__purpose"><?php echo e($item['purpose']); ?></p><?php endif; ?>
             <p><?php echo e($item['body']); ?></p>
             <ul>
               <?php foreach ($item['examples'] as $example) : ?>
                 <li><?php echo e($example); ?></li>
               <?php endforeach; ?>
             </ul>
-            <span class="text-link">詳しく見る</span>
+            <span class="text-link"><?php echo $item['url'] === 'prototype-development.php' ? '開発の進め方を見る' : '詳しく見る'; ?></span>
           </a>
         <?php endforeach; ?>
+      </div>
+      <div class="service-overview__closing">
+        <h3><?php echo nl2br(e($service['services']['closing']['title'])); ?></h3>
+        <p><?php echo e($service['services']['closing']['body']); ?></p>
       </div>
     </div>
   </section>

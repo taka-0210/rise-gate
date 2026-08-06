@@ -26,6 +26,10 @@ $form_fields = [
     'website' => '',
 ];
 $form = $form_fields;
+$requested_type = trim((string) ($_GET['type'] ?? ''));
+if ($requested_type !== '' && in_array($requested_type, $contact['form']['options'], true)) {
+    $form['type'] = $requested_type;
+}
 $errors = [];
 $is_sent = isset($_GET['sent']) && $_GET['sent'] === '1';
 $prefecture_options = [

@@ -39,7 +39,7 @@ include __DIR__ . '/include/header.php';
         <p class="service-teaser__subtitle"><?php echo responsive_text($home['service_teaser'], 'subtitle'); ?></p>
         <p><?php echo e($home['service_teaser']['lead']); ?></p>
       </div>
-      <div class="content-grid content-grid--two">
+      <div class="content-grid content-grid--three">
         <?php foreach ($home['service_teaser']['items'] as $index => $item) : ?>
           <a class="content-card service-teaser__card-link" href="<?php echo e($item['url']); ?>">
             <span class="service-teaser__number"><?php echo e(str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT)); ?></span>
@@ -50,6 +50,23 @@ include __DIR__ . '/include/header.php';
           </a>
         <?php endforeach; ?>
       </div>
+    </div>
+  </section>
+
+  <section class="home-prototype-section">
+    <div class="section-inner home-prototype__layout">
+      <div class="home-prototype__copy">
+        <p class="section-label"><?php echo e($home['prototype']['label']); ?></p>
+        <h2><?php echo e($home['prototype']['title']); ?></h2>
+        <p><?php echo e($home['prototype']['lead']); ?></p>
+        <p class="home-prototype__closing"><?php echo e($home['prototype']['closing']); ?></p>
+        <a class="text-link" href="<?php echo e($home['prototype']['link']['url']); ?>"><?php echo e($home['prototype']['link']['label']); ?></a>
+      </div>
+      <ol class="home-prototype__steps">
+        <?php foreach ($home['prototype']['steps'] as $step) : ?>
+          <li><span><?php echo e($step['number']); ?></span><div><h3><?php echo e($step['title']); ?></h3><p><?php echo e($step['body']); ?></p></div></li>
+        <?php endforeach; ?>
+      </ol>
     </div>
   </section>
 

@@ -82,7 +82,7 @@ include __DIR__ . '/include/header.php';
     </div>
   </section>
 
-  <section class="service-related"><div class="section-inner"><p class="section-label">Other Service</p><a class="service-related__link" href="website-production.php"><span>会社の発信を整えたい方へ</span><strong>ホームページ制作を見る</strong></a></div></section>
+  <section class="service-related"><div class="section-inner"><p class="section-label">Related Service</p><a class="service-related__link" href="prototype-development.php"><span>完成前に操作と方向性を確かめたい方へ</span><strong>プロトタイプ開発を見る</strong></a></div></section>
   <section class="next-cta"><div class="section-inner section-inner--narrow"><p class="section-label">Contact</p><h2>業務やシステムの課題を、<br>お聞かせください。</h2><p>内容がまだ具体的でない段階でも、現在の仕事の流れから一緒に整理します。</p><a class="button button--primary" href="contact.php">お問い合わせ</a></div></section>
 </main>
 
