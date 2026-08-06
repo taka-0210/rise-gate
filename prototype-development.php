@@ -12,7 +12,7 @@ include __DIR__ . '/include/header.php';
 <main class="prototype-page">
   <section class="prototype-hero">
     <div class="section-inner prototype-hero__layout">
-      <div><p class="section-label"><?php echo e($prototype['hero']['label']); ?></p><p class="prototype-hero__name"><?php echo e($prototype['hero']['name']); ?></p><h1><?php echo e($prototype['hero']['title']); ?></h1><p class="prototype-hero__subtitle"><?php echo e($prototype['hero']['subtitle']); ?></p><p class="section-lead"><?php echo e($prototype['hero']['lead']); ?></p><div class="button-group"><a class="button button--primary" href="#process">開発の進め方を見る</a><a class="button button--secondary" href="contact.php?type=<?php echo urlencode('プロトタイプ開発'); ?>#contact-form">相談する</a></div></div>
+      <div><p class="section-label"><?php echo e($prototype['hero']['label']); ?></p><p class="prototype-hero__name"><?php echo e($prototype['hero']['name']); ?> — 業務システム開発の標準メソッド</p><h1><?php echo e($prototype['hero']['title']); ?></h1><p class="prototype-hero__subtitle"><?php echo e($prototype['hero']['subtitle']); ?></p><p class="section-lead"><?php echo e($prototype['hero']['lead']); ?></p><div class="button-group"><a class="button button--primary" href="#process">開発の進め方を見る</a><a class="button button--secondary" href="contact.php?type=<?php echo urlencode('試作品から始める業務システム開発'); ?>#contact-form">相談する</a></div></div>
       <div class="prototype-mock" aria-label="確認と改善を重ねる試作品のイメージ"><div class="prototype-mock__bar"><i></i><i></i><i></i></div><div class="prototype-mock__body"><span></span><span></span><span></span><div></div></div><p>触る　→　気づく　→　改善する</p></div>
     </div>
   </section>
@@ -37,6 +37,6 @@ include __DIR__ . '/include/header.php';
 
   <section class="prototype-brand"><div class="section-inner section-inner--narrow"><p class="section-label"><?php echo e($prototype['brand']['label']); ?></p><h2><?php echo e($prototype['brand']['title']); ?></h2><p><?php echo e($prototype['brand']['body']); ?></p><p class="prototype-brand__statement"><?php echo e($prototype['brand']['statement']); ?></p><p class="prototype-brand__tagline"><?php echo e($prototype['brand']['tagline']); ?></p></div></section>
 
-  <section class="next-cta"><div class="section-inner section-inner--narrow"><p class="section-label">Contact</p><h2>完成形が決まる前から、<br>ご相談いただけます。</h2><p>現在の業務や困っていることを伺い、何を確かめるべきか、一緒に整理します。</p><a class="button button--primary" href="contact.php?type=<?php echo urlencode('プロトタイプ開発'); ?>#contact-form">プロトタイプ開発について相談する</a><p class="prototype-cta__note">初回ヒアリングで、対象業務と試作品の実現性を確認します。</p></div></section>
+  <section class="next-cta"><div class="section-inner section-inner--narrow"><p class="section-label">Contact</p><h2>完成形が決まる前から、<br>ご相談いただけます。</h2><p>現在の業務や困っていることを伺い、何を確かめるべきか、一緒に整理します。</p><a class="button button--primary" href="contact.php?type=<?php echo urlencode('試作品から始める業務システム開発'); ?>#contact-form">業務システム開発について相談する</a><p class="prototype-cta__note">初回ヒアリングで、対象業務と試作品の実現性を確認します。</p></div></section>
 </main>
 <?php include __DIR__ . '/include/footer.php'; ?>
