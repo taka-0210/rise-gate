@@ -37,11 +37,6 @@ jobs:
           find . -type f -name '*.php' -not -path './_backup/*' -print0 \
             | xargs -0 -n1 php -l
 
-      - name: FTPSクライアントを準備
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq lftp
-
       - name: 前回の反映位置を取得
         env:
           FTPS_HOST: ${{ secrets.FTPS_HOST }}
@@ -57,29 +52,27 @@ jobs:
           test -n "$FTPS_SERVER_DIR"
 
           mkdir -p deploy-state
-          set +e
-          marker_output="$(lftp 2>&1 <<LFTP
-          set cmd:fail-exit yes
-          set ftp:ssl-force yes
-          set ftp:ssl-protect-data yes
-          set ssl:verify-certificate yes
-          set net:max-retries 2
-          set net:timeout 20
-          open "ftp://${FTPS_HOST}"
-          user "${FTPS_USERNAME}" "${FTPS_PASSWORD}"
-          cd "${FTPS_SERVER_DIR}"
-          get ".rise-gate-deploy-revision" -o "${GITHUB_WORKSPACE}/deploy-state/previous-revision"
-          bye
-          LFTP
-          )"
-          marker_status=$?
-          set -e
+          python3 <<'PY'
+          import ftplib
+          import os
+          from pathlib import Path
 
-          if [ "$marker_status" -ne 0 ] \
-            && ! grep -Eqi '550.*(no such file|not found)' <<< "$marker_output"; then
-            echo "前回の反映位置を取得できませんでした。FTPS接続を確認してください。" >&2
-            exit "$marker_status"
-          fi
+          ftp = ftplib.FTP_TLS(os.environ["FTPS_HOST"], timeout=20)
+          ftp.login(os.environ["FTPS_USERNAME"], os.environ["FTPS_PASSWORD"])
+          ftp.prot_p()
+          ftp.cwd(os.environ["FTPS_SERVER_DIR"])
+
+          marker = Path("deploy-state/previous-revision")
+          try:
+              with marker.open("wb") as output:
+                  ftp.retrbinary("RETR .rise-gate-deploy-revision", output.write)
+          except ftplib.error_perm as error:
+              marker.unlink(missing_ok=True)
+              if not str(error).startswith("550"):
+                  raise
+          finally:
+              ftp.quit()
+          PY
 
           if [ ! -s deploy-state/previous-revision ]; then
             gh api \
@@ -148,27 +141,6 @@ jobs:
           file_count="$(find deploy -type f | wc -l | tr -d ' ')"
           total_size="$(du -sh deploy | cut -f1)"
 
-          : > deploy-state/upload.lftp
-          while IFS= read -r -d '' path; do
-            relative_path="${path#deploy/}"
-            case "$relative_path" in
-              *"'"*)
-                echo "FTPSコマンドに使用できないファイル名です: $relative_path" >&2
-                exit 1
-                ;;
-            esac
-
-            remote_dir="$(dirname "$relative_path")"
-            if [ "$remote_dir" != "." ]; then
-              printf 'set cmd:fail-exit no\n' >> deploy-state/upload.lftp
-              printf "mkdir -p '%s'\n" "$remote_dir" >> deploy-state/upload.lftp
-              printf 'set cmd:fail-exit yes\n' >> deploy-state/upload.lftp
-            fi
-            printf "put '%s/%s' -o '%s'\n" \
-              "$GITHUB_WORKSPACE/deploy" "$relative_path" "$relative_path" \
-              >> deploy-state/upload.lftp
-          done < <(find deploy -type f -print0 | sort -z)
-
           {
             echo "### デプロイ対象"
             echo "- 方式: ${deploy_mode}"
@@ -185,19 +157,35 @@ jobs:
         run: |
           set -euo pipefail
 
-          lftp <<LFTP
-          set cmd:fail-exit yes
-          set ftp:ssl-force yes
-          set ftp:ssl-protect-data yes
-          set ssl:verify-certificate yes
-          set net:max-retries 2
-          set net:timeout 20
-          open "ftp://${FTPS_HOST}"
-          user "${FTPS_USERNAME}" "${FTPS_PASSWORD}"
-          cd "${FTPS_SERVER_DIR}"
-          source "${GITHUB_WORKSPACE}/deploy-state/upload.lftp"
-          bye
-          LFTP
+          python3 <<'PY'
+          import ftplib
+          import os
+          from pathlib import Path, PurePosixPath
+
+          ftp = ftplib.FTP_TLS(os.environ["FTPS_HOST"], timeout=20)
+          ftp.login(os.environ["FTPS_USERNAME"], os.environ["FTPS_PASSWORD"])
+          ftp.prot_p()
+          ftp.cwd(os.environ["FTPS_SERVER_DIR"])
+          server_root = ftp.pwd()
+          deploy_root = Path("deploy")
+
+          for local_path in sorted(path for path in deploy_root.rglob("*") if path.is_file()):
+              relative_path = local_path.relative_to(deploy_root)
+              remote_path = PurePosixPath(relative_path.as_posix())
+
+              ftp.cwd(server_root)
+              for directory in remote_path.parent.parts:
+                  try:
+                      ftp.cwd(directory)
+                  except ftplib.error_perm:
+                      ftp.mkd(directory)
+                      ftp.cwd(directory)
+
+              with local_path.open("rb") as source:
+                  ftp.storbinary(f"STOR {remote_path.name}", source)
+
+          ftp.quit()
+          PY
 
       - name: 公開URLを確認
         env:
@@ -218,16 +206,18 @@ jobs:
         run: |
           set -euo pipefail
 
-          lftp <<LFTP
-          set cmd:fail-exit yes
-          set ftp:ssl-force yes
-          set ftp:ssl-protect-data yes
-          set ssl:verify-certificate yes
-          set net:max-retries 2
-          set net:timeout 20
-          open "ftp://${FTPS_HOST}"
-          user "${FTPS_USERNAME}" "${FTPS_PASSWORD}"
-          cd "${FTPS_SERVER_DIR}"
-          put "${GITHUB_WORKSPACE}/deploy-state/current-revision" -o ".rise-gate-deploy-revision"
-          bye
-          LFTP
+          python3 <<'PY'
+          import ftplib
+          import os
+          from pathlib import Path
+
+          ftp = ftplib.FTP_TLS(os.environ["FTPS_HOST"], timeout=20)
+          ftp.login(os.environ["FTPS_USERNAME"], os.environ["FTPS_PASSWORD"])
+          ftp.prot_p()
+          ftp.cwd(os.environ["FTPS_SERVER_DIR"])
+
+          with Path("deploy-state/current-revision").open("rb") as source:
+              ftp.storbinary("STOR .rise-gate-deploy-revision", source)
+
+          ftp.quit()
+          PY
