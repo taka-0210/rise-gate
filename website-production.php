@@ -25,7 +25,11 @@ include __DIR__ . '/include/header.php';
 
   <section class="business-prototype-intro website-method-intro">
     <div class="section-inner business-prototype-intro__layout">
-      <div><p class="section-label">RISE GATE Website Method</p><h2>デザインの前に、<br>伝える価値を整理する。</h2></div>
+      <div><p class="section-label">RISE GATE Website Method</p><h2><?php echo responsive_lines([
+        'desktop' => ['デザインの前に、', '伝える価値を整理する。'],
+        'tablet' => ['デザインの前に、', '伝える価値を', '整理する。'],
+        'mobile' => ['デザインの前に、', '伝える価値を', '整理する。'],
+      ]); ?></h2></div>
       <div><p>誰に、何を、どのように伝えるのか。会社の強み、サービスの価値、届けたい相手を一緒に整理するところから始めます。</p><p>公開後は、実際の反応や会社の変化に合わせて情報を更新する。自分たちで育てられる発信の仕組みとして設計します。</p><p class="business-prototype-intro__strong">小さく公開し、伝わり方を確かめ、改善を続けられるホームページへ。</p></div>
     </div>
   </section>
