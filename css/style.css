@@ -1160,8 +1160,8 @@ main>section {
 }
 
 .hero-scene--contact {
-  --scene-photo: url("../image/scene/contact.png");
-  --scene-photo-position: 82% center;
+  --scene-photo: url("../image/scene/contact-forest.jpg");
+  --scene-photo-position: 62% center;
   --scene-image:
     radial-gradient(ellipse at 82% 76%, rgba(16, 42, 86, 0.1) 0 18%, transparent 44%),
     linear-gradient(0deg, transparent 0 64%, rgba(16, 42, 86, 0.06) 65%, transparent 66%),
