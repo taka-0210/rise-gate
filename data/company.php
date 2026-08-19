@@ -5,7 +5,7 @@ return [
         'description' => '株式会社ライズゲートの会社情報です。業務システム開発、ホームページ制作、生成AI活用支援を行っています。',
     ],
     'hero' => [
-        'label' => '03 / Company',
+        'label' => '05 / Company',
         'title' => 'ABOUT RISE GATE',
         'title_lines' => [
             'desktop' => ['ABOUT RISE GATE'],

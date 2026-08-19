@@ -5,7 +5,7 @@ return [
         'description' => 'ライズゲートのホームページ制作と業務システム開発の実績を紹介します。',
     ],
     'hero' => [
-        'label' => '02 / Works',
+        'label' => '04 / Works',
         'title' => '制作・開発実績',
         'title_lines' => [
             'desktop' => ['制作・開発実績'],

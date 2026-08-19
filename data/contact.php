@@ -5,7 +5,7 @@ return [
         'description' => '株式会社ライズゲートへのお問い合わせページです。業務システム開発、ホームページ制作、生成AI活用支援についてご相談いただけます。',
     ],
     'hero' => [
-        'label' => '04 / Contact',
+        'label' => '06 / Contact',
         'title' => 'まずは、ご相談ください。',
         'title_lines' => [
             'desktop' => ['まずは、ご相談ください。'],
