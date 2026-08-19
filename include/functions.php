@@ -38,18 +38,16 @@ function responsive_text(array $source, string $key): string
 
 function risegate_admin_password(): string
 {
-    $environment_password = (string) (getenv('RISEGATE_ADMIN_PASSWORD') ?: '');
-    if ($environment_password !== '') {
-        return $environment_password;
-    }
-
     $local_config_file = __DIR__ . '/../config/local.php';
-    if (!is_file($local_config_file)) {
-        return '';
+    if (is_file($local_config_file)) {
+        $local_config = require $local_config_file;
+        $local_password = is_array($local_config) ? (string) ($local_config['admin_password'] ?? '') : '';
+        if ($local_password !== '') {
+            return $local_password;
+        }
     }
 
-    $local_config = require $local_config_file;
-    return is_array($local_config) ? (string) ($local_config['admin_password'] ?? '') : '';
+    return (string) (getenv('RISEGATE_ADMIN_PASSWORD') ?: '');
 }
 
 function hero_cms_definitions(): array
