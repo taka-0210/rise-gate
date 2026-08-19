@@ -569,6 +569,7 @@ main>section {
 }
 
 .hero-scene--log,
+.hero-scene--works,
 .hero-scene--company,
 .hero-scene--contact {
   height: 420px;
@@ -6244,6 +6245,7 @@ h3 {
   }
 
   .hero-scene--log,
+  .hero-scene--works,
   .hero-scene--company,
   .hero-scene--contact {
     height: 340px;
