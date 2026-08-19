@@ -1068,6 +1068,11 @@ main>section {
     linear-gradient(90deg, transparent 0 68%, rgba(16, 42, 86, 0.08) 69%, transparent 70%);
 }
 
+.hero-scene--system {
+  --scene-photo: url("../image/scene/future.png");
+  --scene-photo-position: 76% 58%;
+}
+
 .hero-scene--rise-os {
   --scene-photo: url("../image/scene/home-system-flow.png");
   --scene-photo-position: 78% center;

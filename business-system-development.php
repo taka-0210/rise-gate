@@ -14,7 +14,7 @@ include __DIR__ . '/include/header.php';
 ?>
 
 <main>
-  <section class="page-hero hero-scene hero-scene--service">
+  <section class="page-hero hero-scene hero-scene--service hero-scene--system">
     <div class="section-inner section-inner--narrow">
       <p class="section-label">01 / Business System Development</p>
       <h1>業務システム開発は、<br>動く試作品から。</h1>
