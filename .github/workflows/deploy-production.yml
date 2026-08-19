@@ -57,8 +57,9 @@ jobs:
           test -n "$FTPS_SERVER_DIR"
 
           mkdir -p deploy-state
-          lftp <<LFTP
-          set cmd:fail-exit no
+          set +e
+          marker_output="$(lftp 2>&1 <<LFTP
+          set cmd:fail-exit yes
           set ftp:ssl-force yes
           set ftp:ssl-protect-data yes
           set ssl:verify-certificate yes
@@ -70,6 +71,15 @@ jobs:
           get ".rise-gate-deploy-revision" -o "${GITHUB_WORKSPACE}/deploy-state/previous-revision"
           bye
           LFTP
+          )"
+          marker_status=$?
+          set -e
+
+          if [ "$marker_status" -ne 0 ] \
+            && ! grep -Eqi '550.*(no such file|not found)' <<< "$marker_output"; then
+            echo "前回の反映位置を取得できませんでした。FTPS接続を確認してください。" >&2
+            exit "$marker_status"
+          fi
 
           if [ ! -s deploy-state/previous-revision ]; then
             gh api \
