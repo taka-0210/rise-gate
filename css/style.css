@@ -6394,7 +6394,11 @@ h3 {
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 72px;
+    min-height: 60px;
+    padding-inline: 2px;
+    font-size: 13px;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
   }
 
   .home-consultation-card__visual {
