@@ -1168,6 +1168,16 @@ main>section {
     linear-gradient(118deg, transparent 0 52%, rgba(138, 111, 77, 0.08) 53%, transparent 54%);
 }
 
+.page-hero.hero-scene--contact::before {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.99) 0%, rgba(255, 255, 255, 0.68) 48%, rgba(255, 255, 255, 0.28) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.7) 100%),
+    var(--scene-photo);
+  background-position: center, center, var(--scene-photo-position);
+  background-repeat: repeat, repeat, no-repeat;
+  background-size: auto, auto, var(--scene-photo-size);
+}
+
 .hero-scene--company {
   --scene-photo: url("../image/scene/company-development.jpg");
   --scene-photo-position: 68% center;
