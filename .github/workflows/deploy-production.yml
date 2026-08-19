@@ -10,6 +10,7 @@ on:
         type: boolean
 
 permissions:
+  actions: read
   contents: read
 
 concurrency:
@@ -47,6 +48,7 @@ jobs:
           FTPS_USERNAME: ${{ secrets.FTPS_USERNAME }}
           FTPS_PASSWORD: ${{ secrets.FTPS_PASSWORD }}
           FTPS_SERVER_DIR: ${{ secrets.FTPS_SERVER_DIR }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           test -n "$FTPS_HOST"
@@ -68,6 +70,13 @@ jobs:
           get ".rise-gate-deploy-revision" -o "${GITHUB_WORKSPACE}/deploy-state/previous-revision"
           bye
           LFTP
+
+          if [ ! -s deploy-state/previous-revision ]; then
+            gh api \
+              "repos/${GITHUB_REPOSITORY}/actions/workflows/deploy-production.yml/runs?status=success&per_page=1" \
+              --jq '.workflow_runs[0].head_sha // empty' \
+              > deploy-state/previous-revision
+          fi
 
       - name: デプロイ対象を準備
         env:
