@@ -5974,6 +5974,14 @@ h3 {
     font-size: 13px;
   }
 
+  .hero-scene--home {
+    --scene-photo-position: 64% 54%;
+  }
+
+  .hero-scene--website {
+    --scene-photo-position: 88% center;
+  }
+
   .content-grid--four,
   .content-grid--two,
   .content-grid--values,
@@ -6213,10 +6221,14 @@ h3 {
   }
 
   .home-hero {
-    --scene-photo-position: 86% 52%;
+    --scene-photo-position: 90% 52%;
     --scene-photo-size: auto 100%;
     min-height: auto;
     padding: 76px 0 68px;
+  }
+
+  .hero-scene--website {
+    --scene-photo-position: 92% center;
   }
 
   .home-hero h1 {
