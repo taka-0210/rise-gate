@@ -6685,6 +6685,10 @@ h3 {
   line-height: 1.4;
 }
 
+.website-method-intro h2 .responsive-lines {
+  white-space: nowrap;
+}
+
 .business-prototype-intro__layout > div:last-child p {
   margin-top: 0;
   margin-bottom: 24px;

@@ -26,7 +26,7 @@ include __DIR__ . '/include/header.php';
   <section class="business-prototype-intro website-method-intro">
     <div class="section-inner business-prototype-intro__layout">
       <div><p class="section-label">RISE GATE Website Method</p><h2><?php echo responsive_lines([
-        'desktop' => ['デザインの前に、', '伝える価値を整理する。'],
+        'desktop' => ['デザインの前に、', '伝える価値を', '整理する。'],
         'tablet' => ['デザインの前に、', '伝える価値を', '整理する。'],
         'mobile' => ['デザインの前に、', '伝える価値を', '整理する。'],
       ]); ?></h2></div>
