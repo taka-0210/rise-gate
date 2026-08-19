@@ -1180,8 +1180,8 @@ main>section {
 
 .hero-scene--company {
   --scene-photo: url("../image/scene/company-development.jpg");
-  --scene-photo-position: 68% center;
-  --scene-photo-size: cover;
+  --scene-photo-position: right center;
+  --scene-photo-size: 94% auto;
   --scene-image:
     radial-gradient(ellipse at 82% 76%, rgba(16, 42, 86, 0.08) 0 18%, transparent 44%),
     linear-gradient(0deg, transparent 0 64%, rgba(16, 42, 86, 0.05) 65%, transparent 66%),
@@ -6080,6 +6080,11 @@ h3 {
   .responsive-lines--mobile {
     display: inline;
     white-space: nowrap;
+  }
+
+  .hero-scene--company {
+    --scene-photo-position: 68% center;
+    --scene-photo-size: auto 100%;
   }
 
   .work-gallery-compact {
