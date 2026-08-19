@@ -80,10 +80,6 @@ return [
             ['number' => '03', 'title' => '確かめながら育てる', 'body' => '見て、触れて、気づきを制作・開発へ反映する。'],
         ],
         'closing' => '想像だけで決めず、かたちにして確かめながらつくる。それが、ライズゲートの改善型制作・開発です。',
-        'links' => [
-            ['label' => 'システム開発の進め方', 'url' => 'business-system-development.php#prototype-first'],
-            ['label' => 'ホームページ制作の進め方', 'url' => 'website-production.php'],
-        ],
     ],
     'consultation' => [
         'label' => 'Consultation',
