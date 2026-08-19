@@ -160,7 +160,9 @@ jobs:
 
             remote_dir="$(dirname "$relative_path")"
             if [ "$remote_dir" != "." ]; then
+              printf 'set cmd:fail-exit no\n' >> deploy-state/upload.lftp
               printf "mkdir -p '%s'\n" "$remote_dir" >> deploy-state/upload.lftp
+              printf 'set cmd:fail-exit yes\n' >> deploy-state/upload.lftp
             fi
             printf "put '%s/%s' -o '%s'\n" \
               "$GITHUB_WORKSPACE/deploy" "$relative_path" "$relative_path" \
