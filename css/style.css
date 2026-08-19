@@ -1324,6 +1324,14 @@ h3 {
   box-shadow: 0 12px 28px rgba(16, 42, 86, 0.12);
 }
 
+.home-hero__service-links .button:hover {
+  transform: none;
+  border-color: #7898ac;
+  background: rgba(225, 236, 242, 0.9);
+  color: var(--color-brand-deep);
+  box-shadow: 0 6px 18px rgba(16, 42, 86, 0.08);
+}
+
 .text-link {
   display: inline-flex;
   align-items: center;
