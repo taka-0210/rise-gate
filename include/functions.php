@@ -81,8 +81,8 @@ function hero_cms_definitions(): array
             'preview_overlay' => 'linear-gradient(90deg, rgba(255,255,255,.99) 0%, rgba(255,255,255,.72) 48%, rgba(255,255,255,.34) 100%), linear-gradient(180deg, rgba(255,255,255,.24) 0%, rgba(255,255,255,.72) 100%)',
         ],
         'company' => [
-            'label' => '会社案内', 'selector' => '.hero-scene--company', 'image' => 'image/scene/company-development.jpg',
-            'preview_size' => '80% auto',
+            'label' => '会社案内', 'selector' => '.hero-scene--company', 'image' => 'image/scene/company-development-wide.png',
+            'preview_size' => 'cover',
             'preview_overlay' => 'linear-gradient(90deg, rgba(255,255,255,.99) 0%, rgba(255,255,255,.8) 50%, rgba(255,255,255,.4) 100%), linear-gradient(180deg, rgba(255,255,255,.28) 0%, rgba(255,255,255,.72) 100%)',
         ],
         'contact' => [
@@ -110,6 +110,18 @@ function hero_cms_number(mixed $value, float $minimum = 0, float $maximum = 100)
     return max($minimum, min($maximum, $number));
 }
 
+function hero_cms_image(array $definition, mixed $setting): string
+{
+    if (is_array($setting)) {
+        $image = str_replace('\\', '/', trim((string) ($setting['image'] ?? '')));
+        if (preg_match('#^(?:image/scene|uploads/hero)/[a-zA-Z0-9/_\-.]+$#', $image)) {
+            return $image;
+        }
+    }
+
+    return (string) $definition['image'];
+}
+
 function hero_cms_css(): string
 {
     $definitions = hero_cms_definitions();
@@ -125,16 +137,20 @@ function hero_cms_css(): string
         $rules = [];
         foreach ($definitions as $key => $definition) {
             $device_setting = $settings[$key][$device] ?? null;
-            if (!is_array($device_setting)) {
+            $page_setting = $settings[$key] ?? null;
+            if (!is_array($device_setting) && !is_array($page_setting)) {
                 continue;
             }
 
+            $device_setting = is_array($device_setting) ? $device_setting : [];
             $x = hero_cms_number($device_setting['x'] ?? 50);
             $y = hero_cms_number($device_setting['y'] ?? 50);
             $overlay = hero_cms_number($device_setting['overlay'] ?? 0) / 100;
+            $image = hero_cms_image($definition, $page_setting);
             $rules[] = sprintf(
-                '%s{--scene-photo-position:%s%% %s%%;--hero-cms-overlay:%s;}',
+                '%s{--scene-photo:url("%s");--scene-photo-position:%s%% %s%%;--hero-cms-overlay:%s;}',
                 $definition['selector'],
+                str_replace(['"', "\n", "\r"], '', $image),
                 rtrim(rtrim(number_format($x, 2, '.', ''), '0'), '.'),
                 rtrim(rtrim(number_format($y, 2, '.', ''), '0'), '.'),
                 rtrim(rtrim(number_format($overlay, 3, '.', ''), '0'), '.') ?: '0'

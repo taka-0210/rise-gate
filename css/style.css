@@ -1197,9 +1197,9 @@ main>section {
 }
 
 .hero-scene--company {
-  --scene-photo: url("../image/scene/company-development.jpg");
+  --scene-photo: url("../image/scene/company-development-wide.png");
   --scene-photo-position: right center;
-  --scene-photo-size: 80% auto;
+  --scene-photo-size: cover;
   --scene-image:
     radial-gradient(ellipse at 82% 76%, rgba(16, 42, 86, 0.08) 0 18%, transparent 44%),
     linear-gradient(0deg, transparent 0 64%, rgba(16, 42, 86, 0.05) 65%, transparent 66%),
@@ -3214,6 +3214,57 @@ h3 {
   background: rgba(16, 42, 86, 0.025);
 }
 
+.admin-hero-upload {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 18px;
+  align-items: center;
+  margin: 24px 24px 0;
+  padding: 18px;
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  background: var(--color-white);
+}
+
+.admin-hero-upload div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.admin-hero-upload strong {
+  color: var(--color-brand);
+  font-size: 14px;
+}
+
+.admin-hero-upload small {
+  overflow: hidden;
+  color: var(--color-text-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-hero-upload label {
+  cursor: pointer;
+}
+
+.admin-hero-upload input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.admin-hero-upload p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
 .admin-hero-device-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -3300,6 +3351,13 @@ h3 {
 .admin-hero-image-name span {
   color: var(--color-brand);
   font-weight: 800;
+}
+
+.admin-hero-image-name em {
+  overflow: hidden;
+  font-style: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .admin-hero-range {
@@ -6643,6 +6701,14 @@ h3 {
 
   .admin-hero-device-grid {
     grid-template-columns: 1fr;
+  }
+
+  .admin-hero-upload {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-hero-upload .button {
+    width: 100%;
   }
 
   .admin-hero-savebar {
