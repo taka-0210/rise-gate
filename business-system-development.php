@@ -16,7 +16,7 @@ include __DIR__ . '/include/header.php';
 <main>
   <section class="page-hero hero-scene hero-scene--service">
     <div class="section-inner section-inner--narrow">
-      <p class="section-label">02 / Business System Development</p>
+      <p class="section-label">01 / Business System Development</p>
       <h1>業務システム開発は、<br>動く試作品から。</h1>
       <p class="section-lead">完成形を想像だけで決めず、実際に触って方向性を確認する。安心して改善できる進め方から、会社に合った仕組みをつくります。</p>
     </div>
@@ -38,7 +38,7 @@ include __DIR__ . '/include/header.php';
   <section class="prototype-confidence"><div class="section-inner"><div class="section-heading"><p class="section-label"><?php echo e($prototype['confidence']['label']); ?></p><h2><?php echo e($prototype['confidence']['title']); ?></h2><p><?php echo e($prototype['confidence']['body']); ?></p></div><div class="prototype-confidence__grid"><?php foreach ($prototype['confidence']['items'] as $item) : ?><article><p class="section-label"><?php echo e($item['label']); ?></p><h3><?php echo e($item['title']); ?></h3></article><?php endforeach; ?></div><p class="prototype-confidence__closing"><?php echo e($prototype['confidence']['closing']); ?></p></div></section>
 
   <section class="prototype-flow business-prototype-flow" id="prototype-first">
-    <div class="section-inner"><div class="section-heading"><p class="section-label">Prototype First</p><h2>まずは、動くものを。</h2><p>完成前に操作と方向性を確かめ、現場の声を本開発へ反映します。</p></div><ol class="prototype-flow__list"><?php foreach ($prototype['flow']['steps'] as $step) : ?><li><span><?php echo e($step['number']); ?></span><h3><?php echo e($step['title']); ?></h3><p><?php echo e($step['body']); ?></p><small><?php echo e($step['meta']); ?></small></li><?php endforeach; ?></ol></div>
+    <div class="section-inner"><div class="section-heading"><p class="section-label">Prototype First</p><h2>まずは、<br>動くものを。</h2><p>完成前に操作と方向性を確かめ、現場の声を本開発へ反映します。</p></div><ol class="prototype-flow__list"><?php foreach ($prototype['flow']['steps'] as $step) : ?><li><span><?php echo e($step['number']); ?></span><h3><?php echo e($step['title']); ?></h3><p><?php echo e($step['body']); ?></p><small><?php echo e($step['meta']); ?></small></li><?php endforeach; ?></ol></div>
   </section>
 
   <section class="prototype-trial"><div class="section-inner prototype-trial__box"><p class="section-label"><?php echo e($prototype['trial']['label']); ?></p><h2><?php echo e($prototype['trial']['title']); ?></h2><?php foreach ($prototype['trial']['body'] as $paragraph) : ?><p><?php echo e($paragraph); ?></p><?php endforeach; ?><ul><?php foreach ($prototype['trial']['conditions'] as $condition) : ?><li><?php echo e($condition); ?></li><?php endforeach; ?></ul><p class="prototype-trial__note"><?php echo e($prototype['trial']['note']); ?></p></div></section>

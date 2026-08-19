@@ -17,7 +17,7 @@ include __DIR__ . '/include/header.php';
 <main>
   <section class="page-hero hero-scene hero-scene--service">
     <div class="section-inner section-inner--narrow">
-      <p class="section-label">01 / Website Production</p>
+      <p class="section-label">02 / Website Production</p>
       <h1>価値を伝える、<br>仕組みをつくる。</h1>
       <p class="section-lead">ホームページをつくることだけを目的にせず、会社やサービスの魅力を整理し、必要な相手へ伝わる状態をつくります。</p>
     </div>

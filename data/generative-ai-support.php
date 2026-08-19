@@ -5,8 +5,13 @@ return [
         'description' => '生成AIを実際の業務へ組み込み、社内で活用し、自分たちで改善を続けられる状態まで伴走します。',
     ],
     'hero' => [
-        'label' => 'Generative AI Enablement',
+        'label' => '03 / Generative AI Enablement',
         'title' => 'AIを使える会社をつくる。',
+        'title_lines' => [
+            'desktop' => ['AIを使える', '会社をつくる。'],
+            'tablet' => ['AIを使える', '会社をつくる。'],
+            'mobile' => ['AIを使える', '会社をつくる。'],
+        ],
         'subtitle' => '導入して終わりではなく、自分たちで改善できるところまで。',
         'lead' => '生成AIの操作方法を伝えるだけではありません。実際の業務で一緒に使い、社内で共有し、自分たちで活用方法を改善できる状態まで伴走します。',
     ],

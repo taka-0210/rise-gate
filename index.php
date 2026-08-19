@@ -57,7 +57,7 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner home-prototype__layout">
       <div class="home-prototype__copy">
         <p class="section-label"><?php echo e($home['prototype']['label']); ?></p>
-        <h2><?php echo e($home['prototype']['title']); ?></h2>
+        <h2><?php echo responsive_text($home['prototype'], 'title'); ?></h2>
         <p><?php echo e($home['prototype']['lead']); ?></p>
         <p class="home-prototype__closing"><?php echo e($home['prototype']['closing']); ?></p>
         <a class="text-link" href="<?php echo e($home['prototype']['link']['url']); ?>"><?php echo e($home['prototype']['link']['label']); ?></a>

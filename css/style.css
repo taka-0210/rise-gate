@@ -6722,8 +6722,8 @@ h3 {
 
 .ai-support-hero h1 {
   margin: 12px 0 20px;
-  font-size: clamp(48px, 7vw, 88px);
-  line-height: 1.25;
+  font-size: clamp(46px, 6.2vw, 78px);
+  line-height: 1.16;
   letter-spacing: -.04em;
 }
 
@@ -6932,7 +6932,7 @@ h3 {
   }
 
   .ai-support-hero h1 {
-    font-size: clamp(44px, 13vw, 62px);
+    font-size: clamp(36px, 10vw, 48px);
   }
 
   .ai-support-hero__visual {
