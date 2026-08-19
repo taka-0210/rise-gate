@@ -2,6 +2,12 @@ name: 本番へデプロイ
 
 on:
   workflow_dispatch:
+    inputs:
+      full_deploy:
+        description: "全ファイルを再転送する"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -21,6 +27,8 @@ jobs:
     steps:
       - name: ソースを取得
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: PHP構文を検査
         run: |
@@ -28,29 +36,12 @@ jobs:
           find . -type f -name '*.php' -not -path './_backup/*' -print0 \
             | xargs -0 -n1 php -l
 
-      - name: デプロイ対象を準備
-        run: |
-          set -euo pipefail
-          mkdir -p deploy
-          rsync -a \
-            --exclude='/.git/' \
-            --exclude='/.github/' \
-            --exclude='/.vscode/' \
-            --exclude='/_backup/' \
-            --exclude='/deploy/' \
-            --exclude='/.gitignore' \
-            --exclude='/.gitattributes' \
-            --exclude='/.htaccess' \
-            --exclude='/AGENTS.md' \
-            --exclude='/data/contact_submissions.php' \
-            --exclude='/data/works.php' \
-            --exclude='/data/improvement_masters.php' \
-            ./ deploy/
-
       - name: FTPSクライアントを準備
-        run: sudo apt-get update && sudo apt-get install -y lftp
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lftp
 
-      - name: 本番サーバーへ差分反映
+      - name: 前回の反映位置を取得
         env:
           FTPS_HOST: ${{ secrets.FTPS_HOST }}
           FTPS_USERNAME: ${{ secrets.FTPS_USERNAME }}
@@ -63,6 +54,116 @@ jobs:
           test -n "$FTPS_PASSWORD"
           test -n "$FTPS_SERVER_DIR"
 
+          mkdir -p deploy-state
+          lftp <<LFTP
+          set cmd:fail-exit no
+          set ftp:ssl-force yes
+          set ftp:ssl-protect-data yes
+          set ssl:verify-certificate yes
+          set net:max-retries 2
+          set net:timeout 20
+          open "ftp://${FTPS_HOST}"
+          user "${FTPS_USERNAME}" "${FTPS_PASSWORD}"
+          cd "${FTPS_SERVER_DIR}"
+          get ".rise-gate-deploy-revision" -o "${GITHUB_WORKSPACE}/deploy-state/previous-revision"
+          bye
+          LFTP
+
+      - name: デプロイ対象を準備
+        env:
+          FORCE_FULL_DEPLOY: ${{ inputs.full_deploy }}
+        run: |
+          set -euo pipefail
+
+          current_revision="$(git rev-parse HEAD)"
+          previous_revision=""
+          if [ -s deploy-state/previous-revision ]; then
+            previous_revision="$(tr -d '\r\n' < deploy-state/previous-revision)"
+          fi
+
+          is_protected_path() {
+            case "$1" in
+              .git/*|.github/*|.vscode/*|_backup/*|deploy/*|deploy-state/*|.gitignore|.gitattributes|.htaccess|AGENTS.md|data/contact_submissions.php|data/works.php|data/improvement_masters.php)
+                return 0
+                ;;
+              *)
+                return 1
+                ;;
+            esac
+          }
+
+          mkdir -p deploy
+          : > deploy-state/files
+
+          if [ "$FORCE_FULL_DEPLOY" != "true" ] \
+            && [ -n "$previous_revision" ] \
+            && git cat-file -e "${previous_revision}^{commit}" 2>/dev/null; then
+            deploy_mode="差分"
+            while IFS= read -r -d '' path; do
+              if ! is_protected_path "$path" && [ -f "$path" ]; then
+                printf '%s\0' "$path" >> deploy-state/files
+              fi
+            done < <(git diff --name-only --diff-filter=ACMRTUXB -z "$previous_revision" "$current_revision")
+
+            rsync -aR --from0 --files-from=deploy-state/files ./ deploy/
+          else
+            deploy_mode="全体"
+            rsync -a \
+              --exclude='/.git/' \
+              --exclude='/.github/' \
+              --exclude='/.vscode/' \
+              --exclude='/_backup/' \
+              --exclude='/deploy/' \
+              --exclude='/deploy-state/' \
+              --exclude='/.gitignore' \
+              --exclude='/.gitattributes' \
+              --exclude='/.htaccess' \
+              --exclude='/AGENTS.md' \
+              --exclude='/data/contact_submissions.php' \
+              --exclude='/data/works.php' \
+              --exclude='/data/improvement_masters.php' \
+              ./ deploy/
+          fi
+
+          printf '%s\n' "$current_revision" > deploy-state/current-revision
+          file_count="$(find deploy -type f | wc -l | tr -d ' ')"
+          total_size="$(du -sh deploy | cut -f1)"
+
+          : > deploy-state/upload.lftp
+          while IFS= read -r -d '' path; do
+            relative_path="${path#deploy/}"
+            case "$relative_path" in
+              *"'"*)
+                echo "FTPSコマンドに使用できないファイル名です: $relative_path" >&2
+                exit 1
+                ;;
+            esac
+
+            remote_dir="$(dirname "$relative_path")"
+            if [ "$remote_dir" != "." ]; then
+              printf "mkdir -p '%s'\n" "$remote_dir" >> deploy-state/upload.lftp
+            fi
+            printf "put '%s/%s' -o '%s'\n" \
+              "$GITHUB_WORKSPACE/deploy" "$relative_path" "$relative_path" \
+              >> deploy-state/upload.lftp
+          done < <(find deploy -type f -print0 | sort -z)
+
+          {
+            echo "### デプロイ対象"
+            echo "- 方式: ${deploy_mode}"
+            echo "- ファイル数: ${file_count}"
+            echo "- 転送量: ${total_size}"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: 本番サーバーへ差分反映
+        env:
+          FTPS_HOST: ${{ secrets.FTPS_HOST }}
+          FTPS_USERNAME: ${{ secrets.FTPS_USERNAME }}
+          FTPS_PASSWORD: ${{ secrets.FTPS_PASSWORD }}
+          FTPS_SERVER_DIR: ${{ secrets.FTPS_SERVER_DIR }}
+        run: |
+          set -euo pipefail
+
           lftp <<LFTP
           set cmd:fail-exit yes
           set ftp:ssl-force yes
@@ -73,8 +174,7 @@ jobs:
           open "ftp://${FTPS_HOST}"
           user "${FTPS_USERNAME}" "${FTPS_PASSWORD}"
           cd "${FTPS_SERVER_DIR}"
-          lcd deploy
-          mirror --reverse --verbose --parallel=4 . .
+          source "${GITHUB_WORKSPACE}/deploy-state/upload.lftp"
           bye
           LFTP
 
@@ -87,3 +187,26 @@ jobs:
           curl --fail --silent --show-error --location \
             --retry 3 --retry-delay 5 \
             "$PRODUCTION_URL" > /dev/null
+
+      - name: 反映位置を記録
+        env:
+          FTPS_HOST: ${{ secrets.FTPS_HOST }}
+          FTPS_USERNAME: ${{ secrets.FTPS_USERNAME }}
+          FTPS_PASSWORD: ${{ secrets.FTPS_PASSWORD }}
+          FTPS_SERVER_DIR: ${{ secrets.FTPS_SERVER_DIR }}
+        run: |
+          set -euo pipefail
+
+          lftp <<LFTP
+          set cmd:fail-exit yes
+          set ftp:ssl-force yes
+          set ftp:ssl-protect-data yes
+          set ssl:verify-certificate yes
+          set net:max-retries 2
+          set net:timeout 20
+          open "ftp://${FTPS_HOST}"
+          user "${FTPS_USERNAME}" "${FTPS_PASSWORD}"
+          cd "${FTPS_SERVER_DIR}"
+          put "${GITHUB_WORKSPACE}/deploy-state/current-revision" -o ".rise-gate-deploy-revision"
+          bye
+          LFTP
