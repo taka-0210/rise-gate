@@ -644,8 +644,8 @@ main>section {
 
 .hero-scene--home::before {
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.5) 42%, rgba(255, 255, 255, 0.1) 100%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.62) 100%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.38) 42%, rgba(255, 255, 255, 0.04) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.48) 100%),
     var(--scene-photo);
   background-position: center, center, var(--scene-photo-position);
   background-repeat: repeat, repeat, no-repeat;
@@ -1073,6 +1073,16 @@ main>section {
   --scene-photo-position: 76% 76%;
 }
 
+.page-hero.hero-scene--website::before {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.46) 48%, rgba(255, 255, 255, 0.1) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.48) 100%),
+    var(--scene-photo);
+  background-position: center, center, var(--scene-photo-position);
+  background-repeat: repeat, repeat, no-repeat;
+  background-size: auto, auto, var(--scene-photo-size);
+}
+
 .hero-scene--ai {
   --scene-photo: url("../image/scene/ai-ripple.jpg");
   --scene-photo-position: 72% center;
@@ -1080,8 +1090,8 @@ main>section {
 
 .page-hero.hero-scene--system::before {
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.68) 42%, rgba(255, 255, 255, 0.08) 100%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.36) 100%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.54) 42%, rgba(255, 255, 255, 0.03) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.24) 100%),
     var(--scene-photo);
   background-position: center, center, var(--scene-photo-position);
   background-repeat: repeat, repeat, no-repeat;
