@@ -122,6 +122,17 @@ function hero_cms_image(array $definition, mixed $setting): string
     return (string) $definition['image'];
 }
 
+function hero_cms_image_url(string $image): string
+{
+    $script_name = str_replace('\\', '/', (string) ($_SERVER['SCRIPT_NAME'] ?? ''));
+    $base_path = $script_name !== '' ? rtrim(str_replace('\\', '/', dirname($script_name)), '/') : '';
+    if ($base_path === '.' || $base_path === '/') {
+        $base_path = '';
+    }
+
+    return $base_path . '/' . ltrim($image, '/');
+}
+
 function hero_cms_css(): string
 {
     $definitions = hero_cms_definitions();
@@ -146,7 +157,7 @@ function hero_cms_css(): string
             $x = hero_cms_number($device_setting['x'] ?? 50);
             $y = hero_cms_number($device_setting['y'] ?? 50);
             $overlay = hero_cms_number($device_setting['overlay'] ?? 0) / 100;
-            $image = hero_cms_image($definition, $page_setting);
+            $image = hero_cms_image_url(hero_cms_image($definition, $page_setting));
             $rules[] = sprintf(
                 '%s{--scene-photo:url("%s");--scene-photo-position:%s%% %s%%;--hero-cms-overlay:%s;}',
                 $definition['selector'],
