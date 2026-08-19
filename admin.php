@@ -4,7 +4,7 @@ require __DIR__ . '/include/functions.php';
 
 $works = file_exists(__DIR__ . '/data/works.php') ? require __DIR__ . '/data/works.php' : [];
 $contact_submissions = file_exists(__DIR__ . '/data/contact_submissions.php') ? require __DIR__ . '/data/contact_submissions.php' : [];
-$admin_password = getenv('RISEGATE_ADMIN_PASSWORD') ?: '';
+$admin_password = risegate_admin_password();
 $errors = [];
 
 if (PHP_SAPI === 'cli') {
@@ -123,6 +123,12 @@ include __DIR__ . '/include/head.php';
         <span class="section-label">Works</span>
         <strong>実績管理</strong>
         <span><?php echo e((string) count($works)); ?>件 / 公開 <?php echo e((string) $published_works_count); ?>件</span>
+      </a>
+
+      <a class="admin-dashboard-card" href="admin-hero.php">
+        <span class="section-label">Hero Settings</span>
+        <strong>ヒーロー表示設定</strong>
+        <span>端末別の写真位置・白オーバーレイ</span>
       </a>
 
     </section>

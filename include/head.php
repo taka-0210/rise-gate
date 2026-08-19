@@ -51,4 +51,8 @@ $stylesheet_version = file_exists($stylesheet_path) ? (string) filemtime($styles
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="css/style.css?v=<?php echo htmlspecialchars($stylesheet_version, ENT_QUOTES, 'UTF-8'); ?>">
+  <?php $hero_cms_style = function_exists('hero_cms_css') ? hero_cms_css() : ''; ?>
+  <?php if ($hero_cms_style !== '') : ?>
+    <style id="hero-cms-style"><?php echo $hero_cms_style; ?></style>
+  <?php endif; ?>
 </head>

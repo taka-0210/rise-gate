@@ -1,2 +1,4 @@
 /_backup/*.zip
 /data/contact_submissions.php
+/data/hero-settings.php
+/config/local.php

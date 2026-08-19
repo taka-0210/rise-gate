@@ -620,6 +620,7 @@ main>section {
   background-position: center, center, var(--scene-photo-position);
   background-repeat: repeat, repeat, no-repeat;
   background-size: auto, auto, var(--scene-photo-size);
+  box-shadow: inset 0 0 0 100vmax rgba(255, 255, 255, var(--hero-cms-overlay, 0));
   content: "";
   pointer-events: none;
 }
@@ -3160,6 +3161,158 @@ h3 {
 }
 
 .admin-form .admin-inline-check input {
+  width: auto;
+}
+
+.admin-hero-form {
+  display: grid;
+  gap: 18px;
+}
+
+.admin-hero-card {
+  padding: 0;
+  overflow: clip;
+}
+
+.admin-hero-card summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 26px;
+  color: var(--color-brand);
+  cursor: pointer;
+  list-style: none;
+}
+
+.admin-hero-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.admin-hero-card summary span:first-child {
+  display: grid;
+  gap: 4px;
+}
+
+.admin-hero-card summary small {
+  color: var(--color-sub);
+  font: 800 11px var(--font-en);
+  letter-spacing: 0.14em;
+}
+
+.admin-hero-card summary strong {
+  font-size: 22px;
+}
+
+.admin-hero-card summary span:last-child {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.admin-hero-card[open] summary {
+  border-bottom: 1px solid var(--color-line);
+  background: rgba(16, 42, 86, 0.025);
+}
+
+.admin-hero-device-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  padding: 24px;
+}
+
+.admin-hero-device {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  background: var(--color-bg-soft);
+}
+
+.admin-hero-device h3 {
+  margin: 0 0 14px;
+  color: var(--color-brand);
+  font-size: 16px;
+}
+
+.admin-hero-preview {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 170px;
+  margin-bottom: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 42, 86, 0.12);
+  border-radius: 8px;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, var(--preview-overlay)), rgba(255, 255, 255, var(--preview-overlay))),
+    var(--preview-image);
+  background-position: center, var(--preview-x) var(--preview-y);
+  background-repeat: no-repeat;
+  background-size: cover;
+  place-items: center;
+}
+
+.admin-hero-preview--tablet {
+  width: 82%;
+  margin-inline: auto;
+}
+
+.admin-hero-preview--mobile {
+  width: 54%;
+  margin-inline: auto;
+}
+
+.admin-hero-preview span {
+  padding: 6px 9px;
+  border-radius: 999px;
+  color: var(--color-brand-deep);
+  font: 800 10px var(--font-en);
+  letter-spacing: 0.12em;
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.admin-hero-range {
+  display: grid;
+  gap: 5px;
+  margin-top: 12px;
+  color: var(--color-brand);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.admin-hero-range span {
+  display: flex;
+  justify-content: space-between;
+}
+
+.admin-hero-range input {
+  width: 100%;
+  accent-color: var(--color-brand);
+}
+
+.admin-hero-savebar {
+  position: sticky;
+  bottom: 18px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 22px;
+  border: 1px solid rgba(16, 42, 86, 0.12);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 16px 38px rgba(16, 42, 86, 0.16);
+  backdrop-filter: blur(14px);
+}
+
+.admin-hero-savebar p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.admin-hero-savebar .button {
   width: auto;
 }
 
@@ -6456,6 +6609,19 @@ h3 {
 
   .admin-form__grid {
     grid-template-columns: 1fr;
+  }
+
+  .admin-hero-device-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-hero-savebar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-hero-savebar .button {
+    width: 100%;
   }
 
   .admin-screenshot-fields,

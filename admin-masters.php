@@ -4,7 +4,7 @@ require __DIR__ . '/include/functions.php';
 
 $data_file = __DIR__ . '/data/improvement_masters.php';
 $masters = file_exists($data_file) ? require $data_file : [];
-$admin_password = getenv('RISEGATE_ADMIN_PASSWORD') ?: '';
+$admin_password = risegate_admin_password();
 $errors = [];
 $message = '';
 

@@ -4,7 +4,7 @@ require __DIR__ . '/include/functions.php';
 
 $contact_submissions_file = __DIR__ . '/data/contact_submissions.php';
 $contact_submissions = file_exists($contact_submissions_file) ? require $contact_submissions_file : [];
-$admin_password = getenv('RISEGATE_ADMIN_PASSWORD') ?: '';
+$admin_password = risegate_admin_password();
 $errors = [];
 
 if (PHP_SAPI === 'cli') {
