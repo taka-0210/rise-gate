@@ -1199,7 +1199,7 @@ main>section {
 .hero-scene--company {
   --scene-photo: url("../image/scene/company-development.jpg");
   --scene-photo-position: right center;
-  --scene-photo-size: 94% auto;
+  --scene-photo-size: auto 138%;
   --scene-image:
     radial-gradient(ellipse at 82% 76%, rgba(16, 42, 86, 0.08) 0 18%, transparent 44%),
     linear-gradient(0deg, transparent 0 64%, rgba(16, 42, 86, 0.05) 65%, transparent 66%),

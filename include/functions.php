@@ -82,7 +82,7 @@ function hero_cms_definitions(): array
         ],
         'company' => [
             'label' => '会社案内', 'selector' => '.hero-scene--company', 'image' => 'image/scene/company-development.jpg',
-            'preview_size' => '94% auto',
+            'preview_size' => 'auto 138%',
             'preview_overlay' => 'linear-gradient(90deg, rgba(255,255,255,.99) 0%, rgba(255,255,255,.8) 50%, rgba(255,255,255,.4) 100%), linear-gradient(180deg, rgba(255,255,255,.28) 0%, rgba(255,255,255,.72) 100%)',
         ],
         'contact' => [
