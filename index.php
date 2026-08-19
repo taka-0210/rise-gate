@@ -19,13 +19,12 @@ include __DIR__ . '/include/header.php';
         <h1><?php echo responsive_text($home['hero'], 'title'); ?></h1>
         <p class="hero-subcopy"><?php echo responsive_text($home['hero'], 'subtitle'); ?></p>
         <p class="section-lead"><?php echo responsive_text($home['hero'], 'lead'); ?></p>
-        <div class="button-group">
-          <a class="button button--primary" href="<?php echo e($home['hero']['primary_cta']['url']); ?>">
-            <?php echo e($home['hero']['primary_cta']['label']); ?>
-          </a>
-          <a class="button button--secondary" href="<?php echo e($home['hero']['secondary_cta']['url']); ?>">
-            <?php echo e($home['hero']['secondary_cta']['label']); ?>
-          </a>
+        <div class="button-group home-hero__service-links">
+          <?php foreach ($home['hero']['service_ctas'] as $index => $cta) : ?>
+            <a class="button <?php echo $index === 0 ? 'button--primary' : 'button--secondary'; ?>" href="<?php echo e($cta['url']); ?>">
+              <?php echo e($cta['label']); ?>
+            </a>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>

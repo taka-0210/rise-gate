@@ -14,13 +14,19 @@ return [
             'mobile' => ['日々の業務と', '会社の発信を、', '分かりやすく、', '使いやすくします。'],
         ],
         'lead' => 'お客様の会社と仕事を理解し、必要な改善を整理するところから始めます。業務システム開発、ホームページ制作、生成AI活用支援を通じて、会社が自分たちで使い、育て、改善を続けられる仕組みをつくります。',
-        'primary_cta' => [
-            'label' => 'サービスを見る',
-            'url' => '#services',
-        ],
-        'secondary_cta' => [
-            'label' => '相談する',
-            'url' => 'contact.php',
+        'service_ctas' => [
+            [
+                'label' => 'システム開発を見る',
+                'url' => 'business-system-development.php',
+            ],
+            [
+                'label' => 'ホームページ制作を見る',
+                'url' => 'website-production.php',
+            ],
+            [
+                'label' => '生成AI活用支援を見る',
+                'url' => 'generative-ai-support.php',
+            ],
         ],
     ],
     'service_teaser' => [
