@@ -31,6 +31,7 @@
 .home-prototype__copy h2 { margin: 8px 0 24px; font-size: clamp(38px, 5vw, 68px); }
 .home-prototype__copy > p:not(.section-label) { line-height: 2; }
 .home-prototype__closing { margin-top: 26px; font-weight: 700; }
+.home-prototype__links { display: flex; flex-wrap: wrap; gap: 12px 26px; margin-top: 28px; }
 .home-prototype__steps { margin: 0; padding: 0; list-style: none; }
 .home-prototype__steps li { position: relative; display: grid; grid-template-columns: 64px 1fr; gap: 22px; padding: 28px 0; border-bottom: 1px solid rgba(41, 93, 125, .18); }
 .home-prototype__steps li:first-child { border-top: 1px solid rgba(41, 93, 125, .18); }

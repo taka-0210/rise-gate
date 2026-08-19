@@ -20,8 +20,8 @@ include __DIR__ . '/include/header.php';
         <p class="hero-subcopy"><?php echo responsive_text($home['hero'], 'subtitle'); ?></p>
         <p class="section-lead"><?php echo responsive_text($home['hero'], 'lead'); ?></p>
         <div class="button-group home-hero__service-links">
-          <?php foreach ($home['hero']['service_ctas'] as $index => $cta) : ?>
-            <a class="button <?php echo $index === 0 ? 'button--primary' : 'button--secondary'; ?>" href="<?php echo e($cta['url']); ?>">
+          <?php foreach ($home['hero']['service_ctas'] as $cta) : ?>
+            <a class="button button--secondary" href="<?php echo e($cta['url']); ?>">
               <?php echo e($cta['label']); ?>
             </a>
           <?php endforeach; ?>
@@ -59,7 +59,11 @@ include __DIR__ . '/include/header.php';
         <h2><?php echo responsive_text($home['prototype'], 'title'); ?></h2>
         <p><?php echo e($home['prototype']['lead']); ?></p>
         <p class="home-prototype__closing"><?php echo e($home['prototype']['closing']); ?></p>
-        <a class="text-link" href="<?php echo e($home['prototype']['link']['url']); ?>"><?php echo e($home['prototype']['link']['label']); ?></a>
+        <div class="home-prototype__links">
+          <?php foreach ($home['prototype']['links'] as $link) : ?>
+            <a class="text-link" href="<?php echo e($link['url']); ?>"><?php echo e($link['label']); ?></a>
+          <?php endforeach; ?>
+        </div>
       </div>
       <ol class="home-prototype__steps">
         <?php foreach ($home['prototype']['steps'] as $step) : ?>
