@@ -3244,13 +3244,27 @@ h3 {
   overflow: hidden;
   border: 1px solid rgba(16, 42, 86, 0.12);
   border-radius: 8px;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, var(--preview-overlay)), rgba(255, 255, 255, var(--preview-overlay))),
-    var(--preview-image);
-  background-position: center, var(--preview-x) var(--preview-y);
+  background-color: var(--color-bg-soft);
+  background-position: var(--preview-x) var(--preview-y);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: var(--preview-size, cover);
   place-items: center;
+}
+
+.admin-hero-preview::before,
+.admin-hero-preview::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.admin-hero-preview::before {
+  background: var(--preview-base-overlay);
+}
+
+.admin-hero-preview::after {
+  background: rgba(255, 255, 255, var(--preview-overlay));
 }
 
 .admin-hero-preview--tablet {
@@ -3264,12 +3278,28 @@ h3 {
 }
 
 .admin-hero-preview span {
+  position: relative;
+  z-index: 1;
   padding: 6px 9px;
   border-radius: 999px;
   color: var(--color-brand-deep);
   font: 800 10px var(--font-en);
   letter-spacing: 0.12em;
   background: rgba(255, 255, 255, 0.76);
+}
+
+.admin-hero-image-name {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 0 0 8px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+.admin-hero-image-name span {
+  color: var(--color-brand);
+  font-weight: 800;
 }
 
 .admin-hero-range {

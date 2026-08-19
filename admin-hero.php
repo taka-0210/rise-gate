@@ -153,10 +153,11 @@ include __DIR__ . '/include/head.php';
             ?>
               <section class="admin-hero-device" data-hero-device>
                 <h3><?php echo e($device_label); ?></h3>
+                <p class="admin-hero-image-name"><span>登録写真</span><?php echo e(basename($definition['image'])); ?></p>
                 <div class="admin-hero-preview admin-hero-preview--<?php echo e($device); ?>"
                      data-hero-preview
-                     style="--preview-image:url('<?php echo e($definition['image']); ?>');--preview-x:<?php echo e((string) $values['x']); ?>%;--preview-y:<?php echo e((string) $values['y']); ?>%;--preview-overlay:<?php echo e((string) ($values['overlay'] / 100)); ?>">
-                  <span>HERO IMAGE</span>
+                     style="--preview-x:<?php echo e((string) $values['x']); ?>%;--preview-y:<?php echo e((string) $values['y']); ?>%;--preview-overlay:<?php echo e((string) ($values['overlay'] / 100)); ?>;--preview-base-overlay:<?php echo e($definition['preview_overlay']); ?>;--preview-size:<?php echo e($definition['preview_size']); ?>;background-image:url('<?php echo e($definition['image']); ?>')">
+                  <span>現在の表示</span>
                 </div>
 
                 <label class="admin-hero-range">
@@ -168,7 +169,7 @@ include __DIR__ . '/include/head.php';
                   <input type="range" min="0" max="100" step="1" name="settings[<?php echo e($key); ?>][<?php echo e($device); ?>][y]" value="<?php echo e((string) $values['y']); ?>" data-hero-control="y">
                 </label>
                 <label class="admin-hero-range">
-                  <span>白オーバーレイ <output data-range-output><?php echo e((string) $values['overlay']); ?></output>%</span>
+                  <span>白オーバーレイを追加 <output data-range-output><?php echo e((string) $values['overlay']); ?></output>%</span>
                   <input type="range" min="0" max="80" step="1" name="settings[<?php echo e($key); ?>][<?php echo e($device); ?>][overlay]" value="<?php echo e((string) $values['overlay']); ?>" data-hero-control="overlay">
                 </label>
               </section>

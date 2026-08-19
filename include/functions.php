@@ -55,13 +55,41 @@ function risegate_admin_password(): string
 function hero_cms_definitions(): array
 {
     return [
-        'home' => ['label' => 'ホーム', 'selector' => '.hero-scene--home', 'image' => 'image/scene/home-fv-mountains.png'],
-        'system' => ['label' => 'システム開発', 'selector' => '.hero-scene--system', 'image' => 'image/scene/future.png'],
-        'website' => ['label' => 'ホームページ制作', 'selector' => '.hero-scene--website', 'image' => 'image/scene/service-river-v6.png'],
-        'ai' => ['label' => '生成AI活用支援', 'selector' => '.hero-scene--ai', 'image' => 'image/scene/ai-ripple.jpg'],
-        'works' => ['label' => '実績', 'selector' => '.hero-scene--works', 'image' => 'image/scene/method-road-high-v3.png'],
-        'company' => ['label' => '会社案内', 'selector' => '.hero-scene--company', 'image' => 'image/scene/company-development.jpg'],
-        'contact' => ['label' => '問い合わせ', 'selector' => '.hero-scene--contact', 'image' => 'image/scene/contact-forest.jpg'],
+        'home' => [
+            'label' => 'ホーム', 'selector' => '.hero-scene--home', 'image' => 'image/scene/home-fv-mountains.png',
+            'preview_size' => 'cover',
+            'preview_overlay' => 'linear-gradient(90deg, rgba(255,255,255,.94) 0%, rgba(255,255,255,.38) 42%, rgba(255,255,255,.04) 100%), linear-gradient(180deg, rgba(255,255,255,.06) 0%, rgba(255,255,255,.48) 100%)',
+        ],
+        'system' => [
+            'label' => 'システム開発', 'selector' => '.hero-scene--system', 'image' => 'image/scene/future.png',
+            'preview_size' => 'cover',
+            'preview_overlay' => 'linear-gradient(90deg, rgba(255,255,255,.94) 0%, rgba(255,255,255,.54) 42%, rgba(255,255,255,.03) 100%), linear-gradient(180deg, rgba(255,255,255,.03) 0%, rgba(255,255,255,.24) 100%)',
+        ],
+        'website' => [
+            'label' => 'ホームページ制作', 'selector' => '.hero-scene--website', 'image' => 'image/scene/service-river-v6.png',
+            'preview_size' => 'cover',
+            'preview_overlay' => 'linear-gradient(90deg, rgba(255,255,255,.94) 0%, rgba(255,255,255,.46) 48%, rgba(255,255,255,.1) 100%), linear-gradient(180deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.48) 100%)',
+        ],
+        'ai' => [
+            'label' => '生成AI活用支援', 'selector' => '.hero-scene--ai', 'image' => 'image/scene/ai-ripple.jpg',
+            'preview_size' => 'cover',
+            'preview_overlay' => 'linear-gradient(90deg, rgba(255,255,255,.98) 0%, rgba(255,255,255,.58) 48%, rgba(255,255,255,.18) 100%), linear-gradient(180deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,.64) 100%)',
+        ],
+        'works' => [
+            'label' => '実績', 'selector' => '.hero-scene--works', 'image' => 'image/scene/method-road-high-v3.png',
+            'preview_size' => '116% auto',
+            'preview_overlay' => 'linear-gradient(90deg, rgba(255,255,255,.99) 0%, rgba(255,255,255,.72) 48%, rgba(255,255,255,.34) 100%), linear-gradient(180deg, rgba(255,255,255,.24) 0%, rgba(255,255,255,.72) 100%)',
+        ],
+        'company' => [
+            'label' => '会社案内', 'selector' => '.hero-scene--company', 'image' => 'image/scene/company-development.jpg',
+            'preview_size' => '94% auto',
+            'preview_overlay' => 'linear-gradient(90deg, rgba(255,255,255,.99) 0%, rgba(255,255,255,.8) 50%, rgba(255,255,255,.4) 100%), linear-gradient(180deg, rgba(255,255,255,.28) 0%, rgba(255,255,255,.72) 100%)',
+        ],
+        'contact' => [
+            'label' => '問い合わせ', 'selector' => '.hero-scene--contact', 'image' => 'image/scene/contact-forest.jpg',
+            'preview_size' => 'cover',
+            'preview_overlay' => 'linear-gradient(90deg, rgba(255,255,255,.99) 0%, rgba(255,255,255,.68) 48%, rgba(255,255,255,.28) 100%), linear-gradient(180deg, rgba(255,255,255,.2) 0%, rgba(255,255,255,.7) 100%)',
+        ],
     ];
 }
 
