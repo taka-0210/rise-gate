@@ -556,6 +556,7 @@ main>section {
 
 .page-hero h1 {
   font-size: clamp(46px, 6.2vw, 78px);
+  line-height: 1.18;
 }
 
 .improvement-detail .page-hero h1 {
@@ -577,6 +578,7 @@ main>section {
 }
 
 .hero-scene--log h1,
+.hero-scene--works h1,
 .hero-scene--company h1,
 .hero-scene--contact h1 {
   font-size: clamp(38px, 5vw, 62px);
@@ -6285,7 +6287,7 @@ h3 {
 
   .page-hero h1 {
     font-size: clamp(36px, 10vw, 48px);
-    line-height: 1.16;
+    line-height: 1.2;
   }
 
   .page-hero.hero-scene--master {
