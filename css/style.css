@@ -3859,6 +3859,23 @@ h3 {
   background-size: 112px 100%, auto;
 }
 
+.contact-examples {
+  padding: 84px 0;
+}
+
+.contact-examples .content-card {
+  min-height: 156px;
+  padding: 26px 30px;
+}
+
+.contact-pricing {
+  padding: 72px 0;
+}
+
+.contact-form-section {
+  padding: 80px 0 88px;
+}
+
 .contact-stance p:not(.section-label) {
   white-space: pre-line;
 }
@@ -6450,6 +6467,17 @@ h3 {
 
   .contact-form__grid {
     grid-template-columns: 1fr;
+  }
+
+  .contact-examples,
+  .contact-pricing,
+  .contact-form-section {
+    padding: 56px 0;
+  }
+
+  .contact-examples .content-card {
+    min-height: auto;
+    padding: 24px;
   }
 
   .contact-sent-banner .section-inner {
