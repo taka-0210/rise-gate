@@ -38,7 +38,7 @@ include __DIR__ . '/include/header.php';
     <div class="section-inner service-offering__layout">
       <div class="service-offering__summary">
         <p class="section-label"><?php echo e($service_item['label']); ?></p>
-        <h2><?php echo e($service_item['title']); ?></h2>
+        <h2 class="service-offering__title--compact"><?php echo e($service_item['title']); ?></h2>
         <p class="service-offering__lead"><?php echo e($service_item['body']); ?></p>
         <ul class="service-offering__examples">
           <?php foreach ($service_item['examples'] as $example) : ?><li><?php echo e($example); ?></li><?php endforeach; ?>

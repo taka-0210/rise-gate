@@ -4614,6 +4614,12 @@ h3 {
   max-width: 620px;
 }
 
+.service-offering__title--compact {
+  font-size: clamp(30px, 4vw, 52px);
+  text-wrap: nowrap;
+  white-space: nowrap;
+}
+
 .service-offering__lead {
   max-width: 620px;
   margin: 0;
