@@ -60,6 +60,7 @@ include __DIR__ . '/include/header.php';
 <main>
   <article class="work-detail">
     <section class="page-hero hero-scene hero-scene--works">
+      <?php render_hero_data_video(); ?>
       <div class="section-inner section-inner--narrow">
         <p class="section-label"><?php echo e($work_type_label); ?></p>
         <h1><?php echo e($work['title']); ?></h1>

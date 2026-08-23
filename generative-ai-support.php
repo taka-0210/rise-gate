@@ -11,6 +11,7 @@ include __DIR__ . '/include/header.php';
 ?>
 <main class="ai-support-page">
   <section class="page-hero hero-scene hero-scene--service hero-scene--ai">
+    <?php render_hero_data_video(); ?>
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($ai['hero']['label']); ?></p>
       <h1><?php echo responsive_text($ai['hero'], 'title'); ?></h1>

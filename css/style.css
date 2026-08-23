@@ -655,7 +655,7 @@ main>section {
   background-size: auto, auto, var(--scene-photo-size);
 }
 
-.home-hero__data-video {
+.hero-scene__data-video {
   position: absolute;
   z-index: 0;
   inset: 0;
@@ -6219,7 +6219,7 @@ h3 {
     animation: none !important;
   }
 
-  .home-hero__data-video {
+  .hero-scene__data-video {
     display: none;
   }
 }
@@ -6521,7 +6521,7 @@ h3 {
     padding: 76px 0 68px;
   }
 
-  .home-hero__data-video {
+  .hero-scene__data-video {
     object-position: 68% center;
     opacity: 0.18;
   }

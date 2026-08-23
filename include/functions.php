@@ -36,6 +36,13 @@ function responsive_text(array $source, string $key): string
     return e((string) ($source[$key] ?? ''));
 }
 
+function render_hero_data_video(): void
+{
+    echo '<video class="hero-scene__data-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1">'
+        . '<source src="image/scene/home-bigdata.mp4" type="video/mp4">'
+        . '</video>';
+}
+
 function risegate_admin_password(): string
 {
     $local_config_file = __DIR__ . '/../config/local.php';
