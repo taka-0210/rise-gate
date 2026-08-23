@@ -610,10 +610,6 @@ main>section {
   background-size: 112px 100%, auto, cover, auto;
 }
 
-.hero-scene .section-lead {
-  font-size: 14px;
-}
-
 .hero-scene::before {
   position: absolute;
   inset: 0;
@@ -1278,6 +1274,11 @@ main>section {
 .section-inner--narrow>p:not(.section-label) {
   max-width: 760px;
   font-size: 18px;
+}
+
+.hero-scene .section-lead,
+.page-hero .section-inner>.section-lead {
+  font-size: 16px;
 }
 
 h1 {
