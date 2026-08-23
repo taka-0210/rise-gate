@@ -14,6 +14,9 @@ include __DIR__ . '/include/header.php';
 
 <main>
   <section class="home-hero hero-scene hero-scene--home">
+    <video class="home-hero__data-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1">
+      <source src="image/scene/home-bigdata.mp4" type="video/mp4">
+    </video>
     <div class="section-inner hero-layout">
       <div class="hero-copy">
         <h1><?php echo responsive_text($home['hero'], 'title'); ?></h1>
