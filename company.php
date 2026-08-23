@@ -16,7 +16,6 @@ include __DIR__ . '/include/header.php';
 
 <main>
   <section class="page-hero hero-scene hero-scene--company">
-    <?php render_hero_data_video(); ?>
     <div class="section-inner section-inner--narrow">
       <p class="section-label"><?php echo e($company['hero']['label']); ?></p>
       <h1><?php echo responsive_text($company['hero'], 'title'); ?></h1>
