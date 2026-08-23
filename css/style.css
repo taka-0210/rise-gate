@@ -610,6 +610,10 @@ main>section {
   background-size: 112px 100%, auto, cover, auto;
 }
 
+.hero-scene .section-lead {
+  font-size: 16px;
+}
+
 .hero-scene::before {
   position: absolute;
   inset: 0;
