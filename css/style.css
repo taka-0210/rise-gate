@@ -2896,6 +2896,10 @@ h3 {
   margin-top: 48px;
 }
 
+.work-detail__links .text-link {
+  margin-top: 0;
+}
+
 .admin-body {
   background:
     radial-gradient(circle at 14% 12%, rgba(61, 117, 111, 0.09), transparent 30%),
