@@ -6686,6 +6686,10 @@ h3 {
     font-size: 16px;
   }
 
+  .hero-scene .section-lead {
+    font-size: 14px;
+  }
+
   .content-grid--four,
   .content-grid--two,
   .content-grid--three,
