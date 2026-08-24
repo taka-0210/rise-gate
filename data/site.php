@@ -4,7 +4,7 @@ return [
     'short_name' => 'Rise Gate',
     'brand_statement' => '改善が続く仕組みをデザインする。',
     'description' => '株式会社ライズゲートは、業務システム開発、ホームページ制作、生成AI活用支援を通じて、改善が続く仕組みをデザインする会社です。',
-    'base_url' => '',
+    'base_url' => 'https://rise-gate.com',
     'contact_email' => 'info@example.com',
     'copyright_name' => 'Rise Gate Inc.',
     'default_og_image' => 'image/common/ogp-default.jpg',

@@ -13,6 +13,7 @@ foreach ($works as $item) {
     }
 }
 
+$work_is_published = $work !== null;
 if ($work === null) {
     http_response_code(404);
     $work = [
@@ -52,6 +53,10 @@ $result_heading = $work_type === 'website' ? '公開後の変化' : '導入後�
 $current_page = 'works';
 $page_title = $work['title'];
 $page_description = $work['summary'];
+$page_allow_canonical = $work_is_published;
+$page_url = ($site['base_url'] ?? '') !== '' && $work_is_published && $slug !== ''
+    ? rtrim((string) $site['base_url'], '/') . '/work-detail.php?slug=' . rawurlencode((string) $slug)
+    : '';
 
 include __DIR__ . '/include/head.php';
 include __DIR__ . '/include/header.php';
