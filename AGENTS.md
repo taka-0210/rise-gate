@@ -18,6 +18,8 @@
 ## Public inquiry forms
 
 - Treat every unauthenticated inquiry form as a potential outbound-mail relay.
+- Apply defense in depth: assume CAPTCHA, WAF, CSRF, honeypots, validation, and rate limits can each be bypassed, and ensure bypassing one layer still cannot cause material abuse.
+- CAPTCHA is a bot-risk signal, not proof of a human user and never authorization to relax recipient controls, validation, rate limits, logging, or emergency shutdown.
 - Send mail only to fixed, server-controlled recipients. Do not send automatic replies to visitor-supplied addresses by default.
 - Require server-side validation, CSRF protection, a bot signal, per-IP rate limiting, a global send-rate ceiling, security logging, and an emergency mail-disable switch.
 - CSRF tokens and honeypots are supplemental controls and must not be treated as sufficient bot protection.
