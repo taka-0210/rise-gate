@@ -60,12 +60,30 @@ jobs:
           python3 <<'PY'
           import ftplib
           import os
+          import time
           from pathlib import Path
 
-          ftp = ftplib.FTP_TLS(os.environ["FTPS_HOST"], timeout=20)
-          ftp.login(os.environ["FTPS_USERNAME"], os.environ["FTPS_PASSWORD"])
-          ftp.prot_p()
-          ftp.cwd(os.environ["FTPS_SERVER_DIR"])
+          def connect_ftps():
+              for attempt in range(1, 5):
+                  ftp = None
+                  try:
+                      ftp = ftplib.FTP_TLS(os.environ["FTPS_HOST"], timeout=45)
+                      ftp.login(os.environ["FTPS_USERNAME"], os.environ["FTPS_PASSWORD"])
+                      ftp.prot_p()
+                      ftp.cwd(os.environ["FTPS_SERVER_DIR"])
+                      return ftp
+                  except (OSError, EOFError, ftplib.error_temp):
+                      if ftp is not None:
+                          try:
+                              ftp.close()
+                          except OSError:
+                              pass
+                      if attempt == 4:
+                          raise
+                      print(f"FTPS connection attempt {attempt}/4 failed; retrying in 10 seconds", flush=True)
+                      time.sleep(10)
+
+          ftp = connect_ftps()
 
           marker = Path("deploy-state/previous-revision")
           try:
@@ -170,12 +188,30 @@ jobs:
           python3 <<'PY'
           import ftplib
           import os
+          import time
           from pathlib import Path, PurePosixPath
 
-          ftp = ftplib.FTP_TLS(os.environ["FTPS_HOST"], timeout=20)
-          ftp.login(os.environ["FTPS_USERNAME"], os.environ["FTPS_PASSWORD"])
-          ftp.prot_p()
-          ftp.cwd(os.environ["FTPS_SERVER_DIR"])
+          def connect_ftps():
+              for attempt in range(1, 5):
+                  ftp = None
+                  try:
+                      ftp = ftplib.FTP_TLS(os.environ["FTPS_HOST"], timeout=45)
+                      ftp.login(os.environ["FTPS_USERNAME"], os.environ["FTPS_PASSWORD"])
+                      ftp.prot_p()
+                      ftp.cwd(os.environ["FTPS_SERVER_DIR"])
+                      return ftp
+                  except (OSError, EOFError, ftplib.error_temp):
+                      if ftp is not None:
+                          try:
+                              ftp.close()
+                          except OSError:
+                              pass
+                      if attempt == 4:
+                          raise
+                      print(f"FTPS connection attempt {attempt}/4 failed; retrying in 10 seconds", flush=True)
+                      time.sleep(10)
+
+          ftp = connect_ftps()
           server_root = ftp.pwd()
           deploy_root = Path("deploy")
 
@@ -238,12 +274,30 @@ jobs:
           python3 <<'PY'
           import ftplib
           import os
+          import time
           from pathlib import Path
 
-          ftp = ftplib.FTP_TLS(os.environ["FTPS_HOST"], timeout=20)
-          ftp.login(os.environ["FTPS_USERNAME"], os.environ["FTPS_PASSWORD"])
-          ftp.prot_p()
-          ftp.cwd(os.environ["FTPS_SERVER_DIR"])
+          def connect_ftps():
+              for attempt in range(1, 5):
+                  ftp = None
+                  try:
+                      ftp = ftplib.FTP_TLS(os.environ["FTPS_HOST"], timeout=45)
+                      ftp.login(os.environ["FTPS_USERNAME"], os.environ["FTPS_PASSWORD"])
+                      ftp.prot_p()
+                      ftp.cwd(os.environ["FTPS_SERVER_DIR"])
+                      return ftp
+                  except (OSError, EOFError, ftplib.error_temp):
+                      if ftp is not None:
+                          try:
+                              ftp.close()
+                          except OSError:
+                              pass
+                      if attempt == 4:
+                          raise
+                      print(f"FTPS connection attempt {attempt}/4 failed; retrying in 10 seconds", flush=True)
+                      time.sleep(10)
+
+          ftp = connect_ftps()
 
           with Path("deploy-state/current-revision").open("rb") as source:
               ftp.storbinary("STOR .rise-gate-deploy-revision", source)
