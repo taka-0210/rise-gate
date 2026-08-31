@@ -8,6 +8,11 @@ on:
         required: false
         default: false
         type: boolean
+      allow_http_403:
+        description: "国外アクセス制限中の403を許可する"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   actions: read
@@ -195,12 +200,31 @@ jobs:
       - name: 公開URLを確認
         env:
           PRODUCTION_URL: ${{ vars.PRODUCTION_URL }}
+          ALLOW_HTTP_403: ${{ inputs.allow_http_403 }}
         run: |
           set -euo pipefail
           test -n "$PRODUCTION_URL"
-          curl --fail --silent --show-error --location \
+          http_status="$(curl --silent --show-error --location \
             --retry 3 --retry-delay 5 \
-            "$PRODUCTION_URL" > /dev/null
+            --output /dev/null --write-out '%{http_code}' \
+            "$PRODUCTION_URL")"
+
+          if [ "$http_status" -ge 200 ] && [ "$http_status" -lt 400 ]; then
+            exit 0
+          fi
+
+          if [ "$http_status" = "403" ] && [ "$ALLOW_HTTP_403" = "true" ]; then
+            echo "::warning::国外アクセス制限によるHTTP 403を許可しました。国内からの表示確認が別途必要です。"
+            {
+              echo "### 公開URL確認"
+              echo "- HTTP 403（国外アクセス制限中として許可）"
+              echo "- 国内環境からの表示確認が必要です"
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          echo "公開URLの確認に失敗しました: HTTP ${http_status}" >&2
+          exit 1
 
       - name: 反映位置を記録
         env:
