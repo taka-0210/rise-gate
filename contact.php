@@ -83,10 +83,14 @@ $prefecture_options = [
     '沖縄県',
 ];
 
-if (empty($_SESSION['contact_token'])) {
+$request_method = (string) ($_SERVER['REQUEST_METHOD'] ?? 'GET');
+$form_session_age = time() - (int) ($_SESSION['contact_form_started_at'] ?? 0);
+if (
+    empty($_SESSION['contact_token'])
+    || empty($_SESSION['contact_form_started_at'])
+    || ($request_method === 'GET' && $form_session_age > 7200)
+) {
     $_SESSION['contact_token'] = bin2hex(random_bytes(32));
-}
-if (empty($_SESSION['contact_form_started_at'])) {
     $_SESSION['contact_form_started_at'] = time();
 }
 
@@ -152,7 +156,7 @@ function contact_save_submission(string $data_file, array $submission): bool
     return file_put_contents($data_file, $content, LOCK_EX) !== false;
 }
 
-if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
+if ($request_method === 'POST') {
     $client_ip = contact_client_ip();
     foreach (array_keys($form_fields) as $key) {
         $form[$key] = trim((string) ($_POST[$key] ?? ''));
@@ -175,8 +179,13 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     }
 
     $form_started_at = (int) ($_SESSION['contact_form_started_at'] ?? 0);
-    if ($form_started_at <= 0 || time() - $form_started_at < 3 || time() - $form_started_at > 7200) {
+    $form_elapsed = time() - $form_started_at;
+    if ($form_started_at <= 0 || $form_elapsed < 3) {
         $errors['form'] = '送信内容を確認できませんでした。ページを再読み込みして、もう一度お試しください。';
+    } elseif ($form_elapsed > 7200) {
+        $errors['form'] = 'フォームの有効期限が切れました。ロボット確認をやり直して、もう一度送信してください。';
+        $_SESSION['contact_token'] = bin2hex(random_bytes(32));
+        $_SESSION['contact_form_started_at'] = time();
     }
 
     if ($errors === []) {
