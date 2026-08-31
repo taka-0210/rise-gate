@@ -15,6 +15,15 @@
 - Preserve server-owned uploads, inquiries, sessions, environment files, and admin-managed data.
 - Store credentials in GitHub Actions secrets. Never commit or display secrets.
 
+## Public inquiry forms
+
+- Treat every unauthenticated inquiry form as a potential outbound-mail relay.
+- Send mail only to fixed, server-controlled recipients. Do not send automatic replies to visitor-supplied addresses by default.
+- Require server-side validation, CSRF protection, a bot signal, per-IP rate limiting, a global send-rate ceiling, security logging, and an emergency mail-disable switch.
+- CSRF tokens and honeypots are supplemental controls and must not be treated as sufficient bot protection.
+- If mail to a visitor-supplied address is an explicit requirement, require server-verified CAPTCHA, tighter rate limits, monitoring, and a documented risk decision before release.
+- Validate abuse cases before handoff, including direct POST, repeated submission, header injection, malformed or oversized input, missing CAPTCHA configuration, and emergency shutdown.
+
 ## Project-specific configuration
 
 - Validation commands: PHP lint for every tracked PHP file; render-check the public pages when applicable.
