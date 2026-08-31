@@ -95,7 +95,7 @@ jobs:
 
           is_protected_path() {
             case "$1" in
-              .git/*|.github/*|.vscode/*|_backup/*|deploy/*|deploy-state/*|uploads/hero/*/*|.gitignore|.gitattributes|.htaccess|AGENTS.md|config/local.php|data/contact_submissions.php|data/works.php|data/improvement_masters.php|data/hero-settings.php)
+              .git/*|.github/*|.vscode/*|_backup/*|deploy/*|deploy-state/*|docs/*|tests/*|uploads/hero/*/*|.gitignore|.gitattributes|.htaccess|AGENTS.md|config/local.php|data/contact_submissions.php|data/works.php|data/improvement_masters.php|data/hero-settings.php)
                 return 0
                 ;;
               *)
@@ -127,6 +127,8 @@ jobs:
               --exclude='/_backup/' \
               --exclude='/deploy/' \
               --exclude='/deploy-state/' \
+              --exclude='/docs/' \
+              --exclude='/tests/' \
               --exclude='/.gitignore' \
               --exclude='/.gitattributes' \
               --exclude='/.htaccess' \
