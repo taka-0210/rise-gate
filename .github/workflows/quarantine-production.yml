@@ -1,0 +1,149 @@
+name: 旧ファイルを隔離
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rise-gate-production
+  cancel-in-progress: false
+
+jobs:
+  quarantine:
+    name: 監査済み旧ファイルをバックアップへ移動
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+
+    steps:
+      - name: 旧ファイル21件を隔離
+        env:
+          FTPS_HOST: ${{ secrets.FTPS_HOST }}
+          FTPS_USERNAME: ${{ secrets.FTPS_USERNAME }}
+          FTPS_PASSWORD: ${{ secrets.FTPS_PASSWORD }}
+          FTPS_SERVER_DIR: ${{ secrets.FTPS_SERVER_DIR }}
+        run: |
+          set -euo pipefail
+          test -n "$FTPS_HOST"
+          test -n "$FTPS_USERNAME"
+          test -n "$FTPS_PASSWORD"
+          test -n "$FTPS_SERVER_DIR"
+
+          python3 <<'PY'
+          import ftplib
+          import os
+          import time
+          from pathlib import PurePosixPath
+
+          BACKUP_ROOT = PurePosixPath("_backup/security-audit-20260901")
+          TARGETS = (
+              "data/future.php",
+              "data/improvement-log.php",
+              "data/master.php",
+              "data/method.php",
+              "data/philosophy.php",
+              "data/rise-gate-os.php",
+              "data/story.php",
+              "future.php",
+              "image/consultation/cms-update.svg",
+              "image/consultation/communicate-value.svg",
+              "image/consultation/organize-work.svg",
+              "image/consultation/system-renewal.svg",
+              "improvement-detail.php",
+              "improvement-log.php",
+              "include/service-features.php",
+              "index22.html",
+              "master.php",
+              "method.php",
+              "philosophy.php",
+              "rise-gate-os.php",
+              "story.php",
+          )
+
+          def connect_ftps():
+              for attempt in range(1, 5):
+                  ftp = None
+                  try:
+                      ftp = ftplib.FTP_TLS(os.environ["FTPS_HOST"], timeout=45)
+                      ftp.login(os.environ["FTPS_USERNAME"], os.environ["FTPS_PASSWORD"])
+                      ftp.prot_p()
+                      ftp.cwd(os.environ["FTPS_SERVER_DIR"])
+                      return ftp
+                  except (OSError, EOFError, ftplib.error_temp):
+                      if ftp is not None:
+                          try:
+                              ftp.close()
+                          except OSError:
+                              pass
+                      if attempt == 4:
+                          raise
+                      print(f"FTPS connection attempt {attempt}/4 failed; retrying in 10 seconds", flush=True)
+                      time.sleep(10)
+
+          def exists(ftp, path):
+              try:
+                  ftp.sendcmd(f"MLST {path}")
+                  return True
+              except ftplib.error_perm as error:
+                  if str(error).startswith("550"):
+                      return False
+                  raise
+
+          def ensure_directory(ftp, server_root, path):
+              ftp.cwd(server_root)
+              for part in path.parts:
+                  try:
+                      ftp.cwd(part)
+                  except ftplib.error_perm as error:
+                      if not str(error).startswith("550"):
+                          raise
+                      ftp.mkd(part)
+                      ftp.cwd(part)
+
+          ftp = connect_ftps()
+          server_root = ftp.pwd()
+          moved = []
+          already_moved = []
+
+          try:
+              for source_text in TARGETS:
+                  source = PurePosixPath(source_text)
+                  destination = BACKUP_ROOT / source
+                  ftp.cwd(server_root)
+                  source_exists = exists(ftp, source.as_posix())
+                  destination_exists = exists(ftp, destination.as_posix())
+
+                  if not source_exists and destination_exists:
+                      already_moved.append(source.as_posix())
+                      continue
+                  if not source_exists:
+                      raise RuntimeError(f"Expected source is missing: {source}")
+                  if destination_exists:
+                      raise RuntimeError(f"Backup destination already exists; refusing to overwrite: {destination}")
+
+                  ensure_directory(ftp, server_root, destination.parent)
+                  ftp.cwd(server_root)
+                  ftp.rename(source.as_posix(), destination.as_posix())
+
+                  if exists(ftp, source.as_posix()) or not exists(ftp, destination.as_posix()):
+                      raise RuntimeError(f"Move verification failed: {source}")
+                  moved.append(source.as_posix())
+          finally:
+              try:
+                  ftp.quit()
+              except (OSError, EOFError):
+                  ftp.close()
+
+          summary_lines = [
+              "### 旧ファイル隔離結果",
+              f"- 退避先: `{BACKUP_ROOT}/`",
+              f"- 今回移動: {len(moved)}件",
+              f"- 移動済み: {len(already_moved)}件",
+              "- 削除: 0件",
+              "- 対象外: サブドメイン、問い合わせ、管理データ、アップロード、環境設定、.htaccess",
+          ]
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as summary:
+              summary.write("\n".join(summary_lines) + "\n")
+          PY
