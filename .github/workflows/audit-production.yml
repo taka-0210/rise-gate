@@ -39,6 +39,7 @@ jobs:
           python3 <<'PY'
           import ftplib
           import hashlib
+          import io
           import os
           import subprocess
           import time
@@ -107,10 +108,23 @@ jobs:
                       files.append(normalized)
               return files
 
-          def remote_sha256(ftp, path):
-              digest = hashlib.sha256()
-              ftp.retrbinary(f"RETR {path}", digest.update)
-              return digest.hexdigest()
+          def remote_content(ftp, path):
+              output = io.BytesIO()
+              ftp.retrbinary(f"RETR {path}", output.write)
+              return output.getvalue()
+
+          def normalized_hash(content):
+              return hashlib.sha256(content.replace(b"\r\n", b"\n")).hexdigest()
+
+          def suspicious_patterns(path, content):
+              if PurePosixPath(path).suffix.lower() not in {".php", ".phtml", ".phar", ".inc"}:
+                  return []
+              lowered = content.lower()
+              patterns = (
+                  b"eval(", b"base64_decode(", b"gzinflate(", b"shell_exec(",
+                  b"passthru(", b"system(", b"exec(", b"assert(", b"proc_open(",
+              )
+              return [pattern.decode("ascii") for pattern in patterns if pattern in lowered]
 
           def last_historical_content(path):
               commits = subprocess.check_output(
@@ -146,19 +160,28 @@ jobs:
               historical_matched = []
               historical_changed = []
               unknown = []
+              suspicious = {}
 
               for path in sorted(tracked & remote):
                   local_hash = hashlib.sha256(Path(path).read_bytes()).hexdigest()
-                  if remote_sha256(ftp, path) == local_hash:
+                  content = remote_content(ftp, path)
+                  if hashlib.sha256(content).hexdigest() == local_hash:
                       matched.append(path)
                   else:
                       changed.append(path)
+                  indicators = suspicious_patterns(path, content)
+                  if indicators:
+                      suspicious[path] = indicators
 
               for path in untracked_remote:
                   historical_content = last_historical_content(path)
+                  content = remote_content(ftp, path)
+                  indicators = suspicious_patterns(path, content)
+                  if indicators:
+                      suspicious[path] = indicators
                   if historical_content is None:
                       unknown.append(path)
-                  elif remote_sha256(ftp, path) == hashlib.sha256(historical_content).hexdigest():
+                  elif normalized_hash(content) == normalized_hash(historical_content):
                       historical_matched.append(path)
                   else:
                       historical_changed.append(path)
@@ -176,6 +199,7 @@ jobs:
               f"- Git履歴と一致する旧ファイル: {len(historical_matched)}件",
               f"- Git履歴から内容が変わった旧ファイル: {len(historical_changed)}件",
               f"- Git履歴にない実行・表示関連ファイル: {len(unknown)}件",
+              f"- 危険なコードパターンを含むファイル: {len(suspicious)}件",
               f"- 本番にないGit管理ファイル: {len(missing)}件",
               "- 保護対象: 問い合わせ、管理データ、アップロード、環境設定、.htaccess（内容未取得）",
               "",
@@ -194,7 +218,15 @@ jobs:
                   lines.append("- なし")
               lines.append("")
 
-          status = "要確認" if changed or historical_changed or unknown else "異常なし"
+          lines.append("## 危険なコードパターン")
+          if suspicious:
+              for path, indicators in sorted(suspicious.items()):
+                  lines.append(f"- `{path}`: {', '.join(indicators)}")
+          else:
+              lines.append("- なし")
+          lines.append("")
+
+          status = "要確認" if changed or historical_changed or unknown or suspicious else "異常なし"
           lines.insert(2, f"- 判定: **{status}**")
           report = "\n".join(lines)
           Path("production-audit.md").write_text(report, encoding="utf-8")
