@@ -1,0 +1,174 @@
+name: 本番サーバーを監査
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rise-gate-production-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    name: FTPSで本番ファイルを照合
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+
+    steps:
+      - name: ソースを取得
+        uses: actions/checkout@v6
+
+      - name: 本番ファイルを読み取り専用で照合
+        env:
+          FTPS_HOST: ${{ secrets.FTPS_HOST }}
+          FTPS_USERNAME: ${{ secrets.FTPS_USERNAME }}
+          FTPS_PASSWORD: ${{ secrets.FTPS_PASSWORD }}
+          FTPS_SERVER_DIR: ${{ secrets.FTPS_SERVER_DIR }}
+        run: |
+          set -euo pipefail
+          test -n "$FTPS_HOST"
+          test -n "$FTPS_USERNAME"
+          test -n "$FTPS_PASSWORD"
+          test -n "$FTPS_SERVER_DIR"
+
+          python3 <<'PY'
+          import ftplib
+          import hashlib
+          import os
+          import subprocess
+          import time
+          from pathlib import Path, PurePosixPath
+
+          AUDIT_EXTENSIONS = {
+              ".php", ".phtml", ".phar", ".cgi", ".pl", ".py", ".sh",
+              ".html", ".htm", ".js", ".css", ".svg",
+          }
+          PROTECTED_FILES = {
+              ".htaccess",
+              ".rise-gate-deploy-revision",
+              "config/local.php",
+              "data/contact_submissions.php",
+              "data/works.php",
+              "data/improvement_masters.php",
+              "data/hero-settings.php",
+          }
+          EXCLUDED_PREFIXES = (
+              ".git/", ".github/", ".vscode/", "_backup/", "deploy/",
+              "deploy-state/", "docs/", "tests/", "uploads/hero/",
+          )
+
+          def is_protected(path):
+              return path in PROTECTED_FILES or path.startswith(EXCLUDED_PREFIXES)
+
+          def is_audited(path):
+              return not is_protected(path) and PurePosixPath(path).suffix.lower() in AUDIT_EXTENSIONS
+
+          def connect_ftps():
+              for attempt in range(1, 5):
+                  ftp = None
+                  try:
+                      ftp = ftplib.FTP_TLS(os.environ["FTPS_HOST"], timeout=45)
+                      ftp.login(os.environ["FTPS_USERNAME"], os.environ["FTPS_PASSWORD"])
+                      ftp.prot_p()
+                      ftp.cwd(os.environ["FTPS_SERVER_DIR"])
+                      return ftp
+                  except (OSError, EOFError, ftplib.error_temp):
+                      if ftp is not None:
+                          try:
+                              ftp.close()
+                          except OSError:
+                              pass
+                      if attempt == 4:
+                          raise
+                      print(f"FTPS connection attempt {attempt}/4 failed; retrying in 10 seconds", flush=True)
+                      time.sleep(10)
+
+          def list_remote_files(ftp, directory=""):
+              files = []
+              current = directory or "."
+              for name, facts in ftp.mlsd(current, facts=["type"]):
+                  if name in (".", ".."):
+                      continue
+                  path = f"{directory}/{name}" if directory else name
+                  normalized = PurePosixPath(path).as_posix()
+                  entry_type = facts.get("type", "")
+                  if entry_type == "dir":
+                      if not normalized.startswith(EXCLUDED_PREFIXES):
+                          files.extend(list_remote_files(ftp, normalized))
+                  elif entry_type == "file":
+                      files.append(normalized)
+              return files
+
+          def remote_sha256(ftp, path):
+              digest = hashlib.sha256()
+              ftp.retrbinary(f"RETR {path}", digest.update)
+              return digest.hexdigest()
+
+          tracked_raw = subprocess.check_output(["git", "ls-files", "-z"])
+          tracked = {
+              path.decode("utf-8")
+              for path in tracked_raw.split(b"\0")
+              if path and is_audited(path.decode("utf-8"))
+          }
+
+          ftp = connect_ftps()
+          try:
+              remote = {path for path in list_remote_files(ftp) if is_audited(path)}
+              unknown = sorted(remote - tracked)
+              missing = sorted(tracked - remote)
+              changed = []
+              matched = []
+
+              for path in sorted(tracked & remote):
+                  local_hash = hashlib.sha256(Path(path).read_bytes()).hexdigest()
+                  if remote_sha256(ftp, path) == local_hash:
+                      matched.append(path)
+                  else:
+                      changed.append(path)
+          finally:
+              try:
+                  ftp.quit()
+              except (OSError, EOFError):
+                  ftp.close()
+
+          lines = [
+              "# 本番サーバー監査結果",
+              "",
+              f"- 一致: {len(matched)}件",
+              f"- Gitと相違: {len(changed)}件",
+              f"- Gitにない実行・表示関連ファイル: {len(unknown)}件",
+              f"- 本番にないGit管理ファイル: {len(missing)}件",
+              "- 保護対象: 問い合わせ、管理データ、アップロード、環境設定、.htaccess（内容未取得）",
+              "",
+          ]
+
+          for heading, entries in (
+              ("Gitと相違", changed),
+              ("Gitにない実行・表示関連ファイル", unknown),
+              ("本番にないGit管理ファイル", missing),
+          ):
+              lines.append(f"## {heading}")
+              lines.extend(f"- `{path}`" for path in entries)
+              if not entries:
+                  lines.append("- なし")
+              lines.append("")
+
+          status = "要確認" if changed or unknown else "異常なし"
+          lines.insert(2, f"- 判定: **{status}**")
+          report = "\n".join(lines)
+          Path("production-audit.md").write_text(report, encoding="utf-8")
+
+          with Path(os.environ["GITHUB_STEP_SUMMARY"]).open("a", encoding="utf-8") as summary:
+              summary.write(report)
+          PY
+
+      - name: 監査結果を保存
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-audit
+          path: production-audit.md
+          if-no-files-found: error
+          retention-days: 30
